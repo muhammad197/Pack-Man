@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-06T12:23:39.128Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" etag="qBcPTEk2zDBj_xq6JII8" version="15.7.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-06T12:24:17.040Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" etag="R8OmtTIktr2N1gHx_Jfm" version="15.7.0" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="946" dy="645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -130,7 +130,7 @@
           <mxGeometry y="168" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="VODUsRYp1Ze5HDBZDZkg-22" value="Game" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="360" y="490" width="140" height="210" as="geometry" />
+          <mxGeometry x="360" y="490" width="140" height="240" as="geometry" />
         </mxCell>
         <mxCell id="VODUsRYp1Ze5HDBZDZkg-23" value="ID" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="VODUsRYp1Ze5HDBZDZkg-22">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
@@ -147,8 +147,11 @@
         <mxCell id="VODUsRYp1Ze5HDBZDZkg-27" value="Live:" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="VODUsRYp1Ze5HDBZDZkg-22">
           <mxGeometry y="150" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="VODUsRYp1Ze5HDBZDZkg-28" value="Speed" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="VODUsRYp1Ze5HDBZDZkg-22">
+        <mxCell id="VODUsRYp1Ze5HDBZDZkg-29" value="&lt;div class=&quot;page&quot; title=&quot;Page 11&quot;&gt;&lt;div class=&quot;section&quot; style=&quot;background-color: rgb(255 , 255 , 255)&quot;&gt;&lt;div class=&quot;layoutArea&quot;&gt;&lt;div class=&quot;column&quot;&gt;&lt;p&gt;&lt;span style=&quot;font-size: 12pt ; font-family: &amp;#34;arialmt&amp;#34;&quot;&gt;Ghosts:&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="VODUsRYp1Ze5HDBZDZkg-22">
           <mxGeometry y="180" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VODUsRYp1Ze5HDBZDZkg-28" value="Speed" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" vertex="1" parent="VODUsRYp1Ze5HDBZDZkg-22">
+          <mxGeometry y="210" width="140" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
