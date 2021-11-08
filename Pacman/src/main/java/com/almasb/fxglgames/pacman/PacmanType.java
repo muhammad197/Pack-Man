@@ -32,3 +32,4 @@ package com.almasb.fxglgames.pacman;
 public enum PacmanType {
     PLAYER, ENEMY, BLOCK, COIN
 }
+ 

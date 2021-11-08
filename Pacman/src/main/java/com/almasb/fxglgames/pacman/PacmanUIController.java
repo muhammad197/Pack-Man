@@ -38,7 +38,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 /**
  * @author Almas Baimagambetov (almaslvl@gmail.com)
  */
-public class PacmanUIController implements UIController {
+public class PacmanUIController implements UIController { 
 
     @FXML
     private Pane root;

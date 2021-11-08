@@ -121,7 +121,7 @@ public class PacmanApp extends GameApplication {
 //                }
 //            }
 //        }, KeyCode.F);
-    }
+    } 
 
     @Override
     protected void initGameVars(Map<String, Object> vars) {
