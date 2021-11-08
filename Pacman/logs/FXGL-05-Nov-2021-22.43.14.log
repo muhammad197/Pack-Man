@@ -1,0 +1,803 @@
+22:38:07.485 [main                     ] DEBUG Logger               - Configured Logger
+22:38:07.507 [main                     ] DEBUG GameApplication      - Logging settings
+Title: FXGL Pac-man
+Version: 1.0
+Width: 920
+Height: 840
+Fullscreen: false
+Intro: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class com.almasb.fxgl.app.scene.SceneFactory
+
+22:38:07.849 [JavaFX Application Thread] DEBUG FXGLApplication      - Initializing FXGL
+22:38:07.851 [JavaFX Application Thread] INFO  Engine               - FXGL-11.16 (25.05.2021 08.16) on MAC (J:15.0.2 FX:16)
+22:38:07.852 [JavaFX Application Thread] DEBUG Engine               - JRE Vendor Name: Oracle Corporation
+22:38:07.852 [JavaFX Application Thread] DEBUG Engine               - Running on OS: Mac OS X version 10.16
+22:38:07.852 [JavaFX Application Thread] DEBUG Engine               - Architecture: x86_64
+22:38:07.852 [JavaFX Application Thread] INFO  Engine               - Source code and latest versions at: https://github.com/AlmasB/FXGL
+22:38:07.852 [JavaFX Application Thread] INFO  Engine               -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+22:38:07.919 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Creating a JavaFX scene
+22:38:07.919 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target size > screen size
+22:38:07.961 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target settings size: 920.0 x 840.0
+22:38:07.963 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled scene size:    865.0 x 812.0
+22:38:07.963 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (0.9402173913043478, 0.9666666666666667)
+22:38:07.964 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Set initial scene to FXGLStartupScene
+22:38:07.973 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Opening main window
+22:38:08.034 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Window border size: (0.0, 1.0)
+22:38:08.034 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled size: 865.0 x 812.0
+22:38:08.035 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (0.9402173913043478, 0.9402173913043478)
+22:38:08.035 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scene size: 865.0 x 812.0
+22:38:08.035 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Stage size: 865.0 x 813.0
+22:38:08.039 [FXGL Background Thread 1 ] DEBUG Engine               - Initializing environment variables
+22:38:08.091 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - User app class for loading assets: class com.almasb.fxglgames.pacman.PacmanApp
+22:38:08.092 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Applying CSS: fxgl_dark.css
+22:38:08.094 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/ui/css/fxgl_dark.css
+22:38:08.196 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Initializing application scenes
+22:38:08.382 [FXGL Background Thread 1 ] DEBUG GameWorld            - Game world initialized
+22:38:08.425 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Physics world initialized: appHeight=840, physics.ppm=50.0
+22:38:08.428 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Using strategy: BRUTE_FORCE
+22:38:08.436 [FXGL Background Thread 1 ] DEBUG GameScene            - Game scene initialized: 920x840
+22:38:08.445 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createMenuBodyGameMenu()
+22:38:08.458 [FXGL Background Thread 1 ] DEBUG FXGL.DefaultMenu     - createOptionsMenu()
+22:38:08.467 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/textures/particles/smoke.png
+22:38:08.585 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/textures/particles/trace_horizontal.png
+22:38:08.616 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Application scenes initialized
+22:38:08.625 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Loading FXGL system data
+22:38:08.634 [FXGL Background Thread 1 ] DEBUG FileSystemAccess     - Reading from: /Users/rima/git/FXGLGames/Pacman/system/fxgl.bundle
+22:38:08.643 [FXGL Background Thread 1 ] DEBUG SystemBundleService  - Bundle FXGL: {}
+22:38:08.645 [FXGL Background Thread 1 ] DEBUG UpdaterService       - Checking for updates
+22:38:08.657 [FXGL Background Thread 1 ] DEBUG FXGLApplication      - Loading default localization
+22:38:08.656 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Loading fonts
+22:38:08.661 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/ui/fonts/VarelaRound-Regular.ttf
+22:38:08.661 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/languages/english.lang
+22:38:08.697 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/ui/fonts/Abel-Regular.ttf
+22:38:08.699 [FXGL Background Thread 1 ] INFO  FXGLApplication      - FXGL initialization took: 0.657 sec
+22:38:08.707 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/ui/fonts/lucida_console.ttf
+22:38:08.715 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Up - W
+22:38:08.719 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Down - S
+22:38:08.721 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Left - A
+22:38:08.725 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/ui/fonts/Courier-Prime.ttf
+22:38:08.727 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Right - D
+22:38:08.735 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/textures/fxgl_icon.png
+22:38:08.779 [JavaFX Application Thread] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///Users/rima/.m2/repository/com/github/almasb/fxgl/11.16/fxgl-11.16.jar!/fxglassets/textures/fxgl_default_cursor.png
+22:38:08.788 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Screenshot - CTRL+8
+22:38:08.793 [JavaFX Application Thread] DEBUG Input                - Registered new binding: System info dump - CTRL+9
+22:38:08.799 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Restart - CTRL+R
+22:38:08.804 [JavaFX Application Thread] DEBUG Input                - Registered new binding: Toggle Debug Camera - CTRL+C
+22:38:08.812 [JavaFX Application Thread] DEBUG LoopRunner           - Starting loop
+22:38:08.816 [JavaFX Application Thread] DEBUG LoopRunner           - Initializing JavaFX AnimationTimerLoop
+22:38:08.821 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:08.827 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:08.879 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLStartupScene and adding to FXGLLoadingScene
+22:38:08.884 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLStartupScene -> FXGLLoadingScene
+22:38:08.886 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:08.890 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:08.894 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:08.897 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:08.902 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:08.938 [JavaFX Application Thread] DEBUG FXGLApplication      - Registering font factories with UI factory
+22:38:09.010 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/textures/coin.png
+22:38:09.428 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/textures/spritesheet.png
+22:38:09.751 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/textures/player.png
+22:38:09.803 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:09.807 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@4d234b78
+22:38:09.838 [FXGL Background Thread 2 ] INFO  UpdaterService       - Your current version:  11.16
+22:38:09.846 [FXGL Background Thread 2 ] INFO  UpdaterService       - Latest stable version: 11.17
+22:38:09.912 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:10.027 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 1.123 sec
+22:38:10.031 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:10.121 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:10.123 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:38:11.660 [FXGL Background Thread 3 ] DEBUG Engine               - Logging environment variables
+22:38:11.665 [FXGL Background Thread 3 ] DEBUG Engine               - achievements: []
+22:38:11.667 [FXGL Background Thread 3 ] DEBUG Engine               - actualHeight: 812.0
+22:38:11.668 [FXGL Background Thread 3 ] DEBUG Engine               - actualHeightProperty: ReadOnlyDoubleProperty [value: 812.0]
+22:38:11.669 [FXGL Background Thread 3 ] DEBUG Engine               - actualWidth: 865.0
+22:38:11.670 [FXGL Background Thread 3 ] DEBUG Engine               - actualWidthProperty: ReadOnlyDoubleProperty [value: 865.0]
+22:38:11.671 [FXGL Background Thread 3 ] DEBUG Engine               - appIcon: fxgl_icon.png
+22:38:11.674 [FXGL Background Thread 3 ] DEBUG Engine               - applicationMode: DEVELOPER
+22:38:11.677 [FXGL Background Thread 3 ] DEBUG Engine               - cSSList: [fxgl_dark.css]
+22:38:11.678 [FXGL Background Thread 3 ] DEBUG Engine               - collisionDetectionStrategy: BRUTE_FORCE
+22:38:11.681 [FXGL Background Thread 3 ] DEBUG Engine               - configClass: Optional.empty
+22:38:11.682 [FXGL Background Thread 3 ] DEBUG Engine               - credits: []
+22:38:11.684 [FXGL Background Thread 3 ] DEBUG Engine               - defaultCursor: CursorInfo(imageName=fxgl_default_cursor.png, hotspotX=7.0, hotspotY=6.0)
+22:38:11.686 [FXGL Background Thread 3 ] DEBUG Engine               - devBBoxColorProperty: ObjectProperty [value: 0xff0000ff]
+22:38:11.687 [FXGL Background Thread 3 ] DEBUG Engine               - devEnableDebugCameraProperty: BooleanProperty [value: false]
+22:38:11.690 [FXGL Background Thread 3 ] DEBUG Engine               - devSensorColorProperty: ObjectProperty [value: 0xffff00ff]
+22:38:11.694 [FXGL Background Thread 3 ] DEBUG Engine               - devShowBBoxProperty: BooleanProperty [value: false]
+22:38:11.695 [FXGL Background Thread 3 ] DEBUG Engine               - devShowPositionProperty: BooleanProperty [value: false]
+22:38:11.697 [FXGL Background Thread 3 ] DEBUG Engine               - enabledMenuItems: []
+22:38:11.699 [FXGL Background Thread 3 ] DEBUG Engine               - engineServices: [class com.almasb.fxgl.app.services.FXGLAssetLoaderService, class com.almasb.fxgl.app.FXGLApplication$GameApplicationService, class com.almasb.fxgl.app.services.FXGLDialogService, class com.almasb.fxgl.app.services.IOTaskExecutorService, class com.almasb.fxgl.io.FileSystemService, class com.almasb.fxgl.localization.LocalizationService, class com.almasb.fxgl.app.services.SystemBundleService, class com.almasb.fxgl.profile.SaveLoadService, class com.almasb.fxgl.ui.FXGLUIFactoryServiceProvider, class com.almasb.fxgl.ui.FXGLDialogFactoryServiceProvider, class com.almasb.fxgl.audio.AudioPlayer, class com.almasb.fxgl.notification.impl.NotificationServiceProvider, class com.almasb.fxgl.achievement.AchievementService, class com.almasb.fxgl.cutscene.CutsceneService, class com.almasb.fxgl.minigames.MiniGameService, class com.almasb.fxgl.net.NetService, class com.almasb.fxgl.app.services.UpdaterService, class com.almasb.fxgl.dev.DevService]
+22:38:11.700 [FXGL Background Thread 3 ] DEBUG Engine               - fontGame: Abel-Regular.ttf
+22:38:11.701 [FXGL Background Thread 3 ] DEBUG Engine               - fontMono: lucida_console.ttf
+22:38:11.702 [FXGL Background Thread 3 ] DEBUG Engine               - fontText: Courier-Prime.ttf
+22:38:11.705 [FXGL Background Thread 3 ] DEBUG Engine               - fontUI: VarelaRound-Regular.ttf
+22:38:11.708 [FXGL Background Thread 3 ] DEBUG Engine               - fullScreen: BooleanProperty [value: false]
+22:38:11.713 [FXGL Background Thread 3 ] DEBUG Engine               - gameDifficulty: MEDIUM
+22:38:11.715 [FXGL Background Thread 3 ] DEBUG Engine               - gameDifficultyProperty: ObjectProperty [value: MEDIUM]
+22:38:11.716 [FXGL Background Thread 3 ] DEBUG Engine               - globalMusicVolume: 0.5
+22:38:11.717 [FXGL Background Thread 3 ] DEBUG Engine               - globalMusicVolumeProperty: DoubleProperty [value: 0.5]
+22:38:11.719 [FXGL Background Thread 3 ] DEBUG Engine               - globalSoundVolume: 0.5
+22:38:11.720 [FXGL Background Thread 3 ] DEBUG Engine               - globalSoundVolumeProperty: DoubleProperty [value: 0.5]
+22:38:11.721 [FXGL Background Thread 3 ] DEBUG Engine               - height: 840
+22:38:11.723 [FXGL Background Thread 3 ] DEBUG Engine               - is3D: false
+22:38:11.725 [FXGL Background Thread 3 ] DEBUG Engine               - isAndroid: false
+22:38:11.728 [FXGL Background Thread 3 ] DEBUG Engine               - isBrowser: false
+22:38:11.729 [FXGL Background Thread 3 ] DEBUG Engine               - isClickFeedbackEnabled: false
+22:38:11.730 [FXGL Background Thread 3 ] DEBUG Engine               - isCloseConfirmation: false
+22:38:11.731 [FXGL Background Thread 3 ] DEBUG Engine               - isDesktop: true
+22:38:11.733 [FXGL Background Thread 3 ] DEBUG Engine               - isDeveloperMenuEnabled: false
+22:38:11.736 [FXGL Background Thread 3 ] DEBUG Engine               - isEntityPreloadEnabled: true
+22:38:11.737 [FXGL Background Thread 3 ] DEBUG Engine               - isExperimentalTiledLargeMap: false
+22:38:11.738 [FXGL Background Thread 3 ] DEBUG Engine               - isFileSystemWriteAllowed: true
+22:38:11.739 [FXGL Background Thread 3 ] DEBUG Engine               - isFullScreenAllowed: false
+22:38:11.741 [FXGL Background Thread 3 ] DEBUG Engine               - isFullScreenFromStart: false
+22:38:11.743 [FXGL Background Thread 3 ] DEBUG Engine               - isGameMenuEnabled: true
+22:38:11.744 [FXGL Background Thread 3 ] DEBUG Engine               - isIOS: false
+22:38:11.745 [FXGL Background Thread 3 ] DEBUG Engine               - isIntroEnabled: false
+22:38:11.746 [FXGL Background Thread 3 ] DEBUG Engine               - isLinux: false
+22:38:11.747 [FXGL Background Thread 3 ] DEBUG Engine               - isMac: true
+22:38:11.747 [FXGL Background Thread 3 ] DEBUG Engine               - isMainMenuEnabled: false
+22:38:11.749 [FXGL Background Thread 3 ] DEBUG Engine               - isManualResizeEnabled: true
+22:38:11.750 [FXGL Background Thread 3 ] DEBUG Engine               - isMobile: false
+22:38:11.751 [FXGL Background Thread 3 ] DEBUG Engine               - isNative: false
+22:38:11.751 [FXGL Background Thread 3 ] DEBUG Engine               - isPreserveResizeRatio: true
+22:38:11.752 [FXGL Background Thread 3 ] DEBUG Engine               - isProfilingEnabled: false
+22:38:11.754 [FXGL Background Thread 3 ] DEBUG Engine               - isScaleAffectedOnResize: true
+22:38:11.755 [FXGL Background Thread 3 ] DEBUG Engine               - isSingleStep: false
+22:38:11.758 [FXGL Background Thread 3 ] DEBUG Engine               - isUserProfileEnabled: false
+22:38:11.759 [FXGL Background Thread 3 ] DEBUG Engine               - isWindows: false
+22:38:11.760 [FXGL Background Thread 3 ] DEBUG Engine               - language: ObjectProperty [value: ENGLISH]
+22:38:11.761 [FXGL Background Thread 3 ] DEBUG Engine               - menuKey: ESCAPE
+22:38:11.761 [FXGL Background Thread 3 ] DEBUG Engine               - mouseSensitivity: 0.2
+22:38:11.762 [FXGL Background Thread 3 ] DEBUG Engine               - notificationViewClass: class com.almasb.fxgl.notification.view.XboxNotificationView
+22:38:11.763 [FXGL Background Thread 3 ] DEBUG Engine               - pixelsPerMeter: 50.0
+22:38:11.764 [FXGL Background Thread 3 ] DEBUG Engine               - platform: MAC
+22:38:11.765 [FXGL Background Thread 3 ] DEBUG Engine               - prefHeightProperty: ReadOnlyDoubleProperty [value: 840.0]
+22:38:11.766 [FXGL Background Thread 3 ] DEBUG Engine               - prefWidthProperty: ReadOnlyDoubleProperty [value: 920.0]
+22:38:11.767 [FXGL Background Thread 3 ] DEBUG Engine               - profileDir: profiles/
+22:38:11.768 [FXGL Background Thread 3 ] DEBUG Engine               - profileName: StringProperty [value: DEFAULT]
+22:38:11.768 [FXGL Background Thread 3 ] DEBUG Engine               - randomSeed: -1
+22:38:11.769 [FXGL Background Thread 3 ] DEBUG Engine               - runtimeInfo: RuntimeInfo(platform=MAC, version=11.16, build=25.05.2021 08.16)
+22:38:11.771 [FXGL Background Thread 3 ] DEBUG Engine               - saveFileExt: sav
+22:38:11.775 [FXGL Background Thread 3 ] DEBUG Engine               - scaledHeightProp$fxgl: DoubleProperty [bound, value: 812.0]
+22:38:11.778 [FXGL Background Thread 3 ] DEBUG Engine               - scaledWidthProp$fxgl: DoubleProperty [bound, value: 865.0]
+22:38:11.780 [FXGL Background Thread 3 ] DEBUG Engine               - sceneFactory: com.almasb.fxgl.app.scene.SceneFactory@3a31f050
+22:38:11.781 [FXGL Background Thread 3 ] DEBUG Engine               - secondsIn24h: 60
+22:38:11.782 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuBack: menu/back.wav
+22:38:11.784 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuPress: menu/press.wav
+22:38:11.785 [FXGL Background Thread 3 ] DEBUG Engine               - soundMenuSelect: menu/select.wav
+22:38:11.787 [FXGL Background Thread 3 ] DEBUG Engine               - soundNotification: core/notification.wav
+22:38:11.788 [FXGL Background Thread 3 ] DEBUG Engine               - stageStyle: DECORATED
+22:38:11.789 [FXGL Background Thread 3 ] DEBUG Engine               - supportedLanguages: [ENGLISH, FRENCH, GERMAN, HUNGARIAN, RUSSIAN]
+22:38:11.791 [FXGL Background Thread 3 ] DEBUG Engine               - ticksPerSecond: -1
+22:38:11.793 [FXGL Background Thread 3 ] DEBUG Engine               - title: FXGL Pac-man
+22:38:11.794 [FXGL Background Thread 3 ] DEBUG Engine               - urlGithub: https://github.com/AlmasB/FXGL
+22:38:11.795 [FXGL Background Thread 3 ] DEBUG Engine               - urlLeaderboard: http://fxgl-top.herokuapp.com/
+22:38:11.797 [FXGL Background Thread 3 ] DEBUG Engine               - urlPOM: https://raw.githubusercontent.com/AlmasB/FXGL/release/README.md
+22:38:11.798 [FXGL Background Thread 3 ] DEBUG Engine               - userAppClass: class com.almasb.fxglgames.pacman.PacmanApp
+22:38:11.799 [FXGL Background Thread 3 ] DEBUG Engine               - version: 1.0
+22:38:11.800 [FXGL Background Thread 3 ] DEBUG Engine               - versionCheckDays: 7
+22:38:11.801 [FXGL Background Thread 3 ] DEBUG Engine               - width: 920
+22:38:11.803 [FXGL Background Thread 3 ] DEBUG Engine               - Logging services
+22:38:11.806 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.FXGLAssetLoaderService
+22:38:11.809 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.FXGLApplication$GameApplicationService
+22:38:11.811 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.FXGLDialogService
+22:38:11.813 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.IOTaskExecutorService
+22:38:11.815 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.io.FileSystemService
+22:38:11.816 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.localization.LocalizationService
+22:38:11.817 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.SystemBundleService
+22:38:11.817 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.profile.SaveLoadService
+22:38:11.818 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.ui.FXGLUIFactoryServiceProvider
+22:38:11.820 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.ui.FXGLDialogFactoryServiceProvider
+22:38:11.821 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.audio.AudioPlayer
+22:38:11.822 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.notification.impl.NotificationServiceProvider
+22:38:11.824 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.achievement.AchievementService
+22:38:11.826 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.cutscene.CutsceneService
+22:38:11.827 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.minigames.MiniGameService
+22:38:11.828 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.net.NetService
+22:38:11.830 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.app.services.UpdaterService
+22:38:11.831 [FXGL Background Thread 3 ] DEBUG Engine               - class com.almasb.fxgl.dev.DevService
+22:38:17.425 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:17.430 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:17.496 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:38:17.501 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:38:17.502 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:17.503 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:17.503 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:17.552 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:17.556 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:17.815 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:17.817 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@5ef965ca
+22:38:17.841 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:17.858 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.301 sec
+22:38:17.860 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:17.891 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:17.894 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:38:25.574 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:25.583 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:25.636 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:38:25.639 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:38:25.640 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:25.641 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:25.642 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:25.657 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:25.661 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:25.750 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:25.752 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@3b712831
+22:38:25.767 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:25.787 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.126 sec
+22:38:25.789 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:25.812 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:25.814 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:38:33.642 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:33.763 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:33.793 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:38:33.797 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:38:33.798 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:33.799 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:33.800 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:33.814 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:33.819 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:33.929 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:33.930 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@6ce8f8bf
+22:38:33.940 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:33.959 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.140 sec
+22:38:33.961 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:33.973 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:33.975 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:38:41.606 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:41.612 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:41.650 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:38:41.654 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:38:41.655 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:41.656 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:41.657 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:41.662 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:41.668 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:41.730 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:41.732 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@810fb2a
+22:38:41.741 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:41.760 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.091 sec
+22:38:41.761 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:41.770 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:41.773 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:38:49.641 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:49.650 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:49.705 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:38:49.707 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:38:49.708 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:49.711 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:49.712 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:49.720 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:49.723 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:49.805 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:49.808 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@1c4289ed
+22:38:49.817 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:49.836 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.112 sec
+22:38:49.837 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:49.847 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:49.848 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:38:57.691 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:38:57.700 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:57.749 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:38:57.752 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:38:57.753 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:38:57.754 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:38:57.755 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:38:57.760 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:38:57.763 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:38:57.845 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:38:57.847 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@3c5e0720
+22:38:57.855 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:38:57.867 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.104 sec
+22:38:57.868 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:38:57.875 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:38:57.878 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:05.757 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:05.767 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:05.816 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:05.818 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:05.819 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:05.820 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:05.821 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:05.826 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:05.829 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:05.903 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:05.905 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@6fbba77d
+22:39:05.916 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:05.940 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.110 sec
+22:39:05.944 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:05.957 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:05.958 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:13.889 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:13.890 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:13.901 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:13.902 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:13.904 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:13.905 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:13.906 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:13.910 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:13.911 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:13.955 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:13.957 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@2524f3f8
+22:39:13.965 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:13.977 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.066 sec
+22:39:13.979 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:13.988 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:13.990 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:21.972 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:21.981 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:22.027 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:22.029 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:22.031 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:22.032 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:22.033 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:22.037 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:22.042 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:22.109 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:22.111 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@40d5032c
+22:39:22.120 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:22.134 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.093 sec
+22:39:22.136 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:22.143 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:22.144 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:30.057 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:30.061 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:30.079 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:30.082 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:30.083 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:30.085 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:30.087 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:30.092 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:30.094 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:30.143 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:30.145 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@42331074
+22:39:30.152 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:30.160 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.066 sec
+22:39:30.161 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:30.169 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:30.171 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:38.073 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:38.093 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:38.134 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:38.136 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:38.138 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:38.139 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:38.140 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:38.146 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:38.151 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:38.227 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:38.228 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@235362f3
+22:39:38.237 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:38.253 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.101 sec
+22:39:38.255 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:38.263 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:38.264 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:46.192 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:46.193 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:46.200 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:46.201 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:46.202 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:46.203 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:46.204 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:46.208 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:46.211 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:46.241 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:46.243 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@69b85d13
+22:39:46.251 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:46.257 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.046 sec
+22:39:46.260 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:46.266 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:46.267 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:39:54.175 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:39:54.185 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:54.232 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:39:54.235 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:39:54.236 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:39:54.238 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:39:54.239 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:39:54.243 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:39:54.246 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:39:54.312 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:39:54.314 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@486dd66e
+22:39:54.322 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:39:54.340 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.093 sec
+22:39:54.342 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:39:54.347 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:39:54.349 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:02.290 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:02.293 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:02.313 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:02.315 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:02.316 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:02.318 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:02.319 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:02.324 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:02.327 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:02.367 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:02.368 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@3ab0a3d8
+22:40:02.375 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:02.385 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.058 sec
+22:40:02.387 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:02.394 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:02.395 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:10.342 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:10.346 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:10.360 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:10.362 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:10.364 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:10.366 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:10.367 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:10.372 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:10.375 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:10.435 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:10.436 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@dbd8e5e
+22:40:10.442 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:10.456 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.080 sec
+22:40:10.458 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:10.468 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:10.470 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:18.356 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:18.364 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:18.397 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:18.399 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:18.400 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:18.401 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:18.402 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:18.408 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:18.413 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:18.471 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:18.479 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@6478bd63
+22:40:18.492 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:18.510 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.097 sec
+22:40:18.511 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:18.515 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:18.519 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:26.390 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:26.400 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:26.426 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:26.428 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:26.429 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:26.430 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:26.431 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:26.437 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:26.442 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:26.531 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:26.534 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@49739f91
+22:40:26.542 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:26.563 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.121 sec
+22:40:26.565 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:26.568 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:26.572 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:34.292 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:34.302 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:34.348 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:34.351 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:34.352 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:34.353 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:34.354 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:34.360 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:34.364 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:34.419 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:34.425 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@760d3526
+22:40:34.433 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:34.448 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.084 sec
+22:40:34.450 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:34.453 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:34.454 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:42.256 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:42.259 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:42.282 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:42.284 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:42.285 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:42.286 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:42.286 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:42.289 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:42.291 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:42.349 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:42.349 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@305be15d
+22:40:42.356 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:42.371 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.079 sec
+22:40:42.371 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:42.376 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:42.376 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:50.274 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:50.281 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:50.321 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:50.321 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:50.321 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:50.321 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:50.321 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:50.325 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:50.328 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:50.395 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:50.395 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@5fef8d9e
+22:40:50.401 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:50.414 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.086 sec
+22:40:50.414 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:50.419 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:50.419 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:40:58.327 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:40:58.336 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:58.394 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:40:58.401 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:40:58.403 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:40:58.403 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:40:58.403 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:40:58.408 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:40:58.413 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:40:58.511 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:40:58.512 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@34198ec7
+22:40:58.521 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:40:58.547 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.134 sec
+22:40:58.549 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:40:58.562 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:40:58.563 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:06.405 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:06.406 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:06.418 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:06.418 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:06.418 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:06.418 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:06.418 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:06.421 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:06.422 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:06.455 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:06.456 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@5f465120
+22:41:06.471 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:06.481 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.059 sec
+22:41:06.481 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:06.485 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:06.485 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:14.389 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:14.392 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:14.419 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:14.420 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:14.420 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:14.420 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:14.420 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:14.422 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:14.425 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:14.480 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:14.480 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@210e9f4c
+22:41:14.486 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:14.499 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.074 sec
+22:41:14.500 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:14.504 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:14.505 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:22.374 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:22.382 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:22.423 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:22.424 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:22.424 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:22.424 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:22.424 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:22.427 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:22.430 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:22.496 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:22.496 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@4eb67997
+22:41:22.503 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:22.521 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.091 sec
+22:41:22.521 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:22.534 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:22.534 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:30.489 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:30.490 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:30.508 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:30.508 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:30.508 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:30.508 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:30.508 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:30.511 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:30.512 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:30.553 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:30.553 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@43f6fbe5
+22:41:30.566 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:30.569 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.057 sec
+22:41:30.569 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:30.573 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:30.573 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:38.456 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:38.461 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:38.493 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:38.493 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:38.493 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:38.493 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:38.493 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:38.496 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:38.499 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:38.556 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:38.556 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@4646d2b3
+22:41:38.563 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:38.580 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.081 sec
+22:41:38.580 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:38.583 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:38.583 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:46.539 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:46.545 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:46.577 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:46.577 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:46.577 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:46.577 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:46.577 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:46.580 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:46.583 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:46.644 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:46.644 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@2f86305
+22:41:46.653 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:46.666 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.083 sec
+22:41:46.667 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:46.671 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:46.671 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:41:54.541 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:41:54.550 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:54.588 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:41:54.589 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:41:54.589 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:41:54.589 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:41:54.589 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:41:54.593 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:41:54.596 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:41:54.652 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:41:54.652 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@5856a930
+22:41:54.658 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:41:54.675 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.079 sec
+22:41:54.676 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:41:54.681 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:41:54.681 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:02.604 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:02.605 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:02.613 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:02.614 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:02.615 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:02.616 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:02.616 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:02.619 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:02.620 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:02.645 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:02.645 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@893460d
+22:42:02.654 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:02.658 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.038 sec
+22:42:02.658 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:02.662 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:02.662 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:10.571 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:10.574 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:10.597 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:10.598 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:10.598 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:10.598 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:10.598 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:10.601 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:10.603 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:10.657 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:10.657 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@1ffa2f52
+22:42:10.664 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:10.679 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.076 sec
+22:42:10.679 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:10.682 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:10.682 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:18.640 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:18.641 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:18.651 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:18.651 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:18.651 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:18.651 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:18.652 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:18.655 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:18.657 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:18.697 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:18.697 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@2c8adb1f
+22:42:18.704 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:18.708 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.051 sec
+22:42:18.708 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:18.711 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:18.712 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:26.641 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:26.650 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:26.695 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:26.696 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:26.697 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:26.697 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:26.697 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:26.700 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:26.702 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:26.760 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:26.763 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@45def088
+22:42:26.771 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:26.787 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.084 sec
+22:42:26.787 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:26.790 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:26.790 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:34.704 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:34.704 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:34.711 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:34.711 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:34.711 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:34.711 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:34.711 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:34.714 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:34.714 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:34.746 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:34.746 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@499ce7af
+22:42:34.751 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:34.755 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.040 sec
+22:42:34.755 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:34.759 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:34.759 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:42.757 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:42.763 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:42.808 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:42.809 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:42.809 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:42.809 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:42.809 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:42.812 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:42.815 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:42.875 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:42.875 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@45915795
+22:42:42.880 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:42.898 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.083 sec
+22:42:42.898 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:42.906 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:42.906 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:50.806 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:50.806 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:50.820 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:50.820 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:50.820 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:50.820 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:50.820 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:50.824 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:50.825 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:50.850 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:50.850 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@6e0495e8
+22:42:50.856 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:50.865 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.040 sec
+22:42:50.866 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:50.870 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:50.870 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:42:58.840 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:42:58.849 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:58.899 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:42:58.900 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:42:58.900 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:42:58.900 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:42:58.900 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:42:58.903 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:42:58.905 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:42:58.945 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:42:58.946 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@5fc7ffe3
+22:42:58.952 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:42:58.971 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.065 sec
+22:42:58.971 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:42:58.975 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:42:58.975 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:43:06.838 [JavaFX Application Thread] DEBUG GameApplicationServi - Starting new game
+22:43:06.842 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:43:06.865 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from GameScene and adding to FXGLLoadingScene
+22:43:06.865 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - GameScene -> FXGLLoadingScene
+22:43:06.865 [JavaFX Application Thread] DEBUG GameApplicationServi - Clearing previous game
+22:43:06.865 [JavaFX Application Thread] DEBUG GameScene            - Clearing game scene
+22:43:06.865 [JavaFX Application Thread] DEBUG GameWorld            - Clearing game world
+22:43:06.868 [JavaFX Application Thread] DEBUG PhysicsWorld         - Clearing physics world
+22:43:06.870 [FXGL Background Thread 4 ] DEBUG FXGLApplication      - Initializing game
+22:43:06.925 [FXGL Background Thread 4 ] DEBUG GameWorld            - Clearing removable entities
+22:43:06.926 [FXGL Background Thread 4 ] DEBUG GameWorld            - Setting level: com.almasb.fxgl.entity.level.Level@30073953
+22:43:06.931 [FXGL Background Thread 4 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/Users/rima/git/FXGLGames/Pacman/target/classes/assets/ui/pacman_ui.fxml
+22:43:06.950 [FXGL Background Thread 4 ] INFO  FXGLApplication      - Game initialization took: 0.080 sec
+22:43:06.951 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:43:06.953 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLLoadingScene and adding to GameScene
+22:43:06.953 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLLoadingScene -> GameScene
+22:43:14.185 [JavaFX Application Thread] DEBUG FXGLApplication      - Exiting FXGL
+22:43:14.185 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+22:43:14.185 [JavaFX Application Thread] DEBUG SystemBundleService  - Saving FXGL system data
+22:43:14.192 [JavaFX Application Thread] DEBUG FileSystemAccess     - Writing to: /Users/rima/git/FXGLGames/Pacman/system/fxgl.bundle
+22:43:14.200 [JavaFX Application Thread] DEBUG Async                - Shutting down background threads
+22:43:14.201 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Closing main window
+22:43:14.227 [JavaFX Application Thread] DEBUG Logger               - Closing Logger
