@@ -2,10 +2,13 @@ package Model;
 
 import java.util.Objects;
 
+import Utils.GameState;
+
 public class Game {
 	public int id;
 	public int live;
 	public int speed;
+	public GameState gameState;
 	public int getId() {
 		return id;
 	}

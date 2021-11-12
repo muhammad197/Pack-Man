@@ -8,6 +8,13 @@ public class Player{
 	public ArrayList<Game> games;
 	public int GameHighScore;
 	public String password;
+	
+	
+	public Player(String nickname, int gameHighScore) {
+		super();
+		this.nickname = nickname;
+		GameHighScore = gameHighScore;
+	}
 	public String getNickname() {
 		return nickname;
 	}
