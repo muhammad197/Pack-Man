@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	public static void main(String[] args) {
-		SysData.getInstance().loadQuestions();
+	/*	SysData.getInstance().loadQuestions();
         Answer a= new Answer(1, "Convert the interface of a class into another interface clients expect. ", true);
         Answer b= new Answer(2, "Convert the interface of a class into another interface clients expect. ", false);
         Answer c= new Answer(3, "Convert the interface of a class into another interface clients expect. ", false);
@@ -45,6 +45,7 @@ public class Main extends Application {
 
         System.out.println(SysData.getInstance().getQuestions());
         System.out.println(SysData.getInstance().randomQuestion());
+        */
 		launch(args);
 
 	}
