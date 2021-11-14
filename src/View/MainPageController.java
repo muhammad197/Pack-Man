@@ -11,7 +11,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import View.ViewLogic;
 
 public class MainPageController implements Initializable {
 
@@ -20,6 +22,9 @@ public class MainPageController implements Initializable {
 
     @FXML
     private Button qusbtn;
+    
+    @FXML
+	private AnchorPane pane;
 
     @FXML
     private Button startbtn;
@@ -28,23 +33,42 @@ public class MainPageController implements Initializable {
     private Button insbtn;
 
     @FXML
-    void HelloThere(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("NewWindow.fxml"));
-        
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        Stage stage = new Stage();
-        stage.setTitle("New Window");
-        stage.setScene(scene);
-        stage.show();
+	private void QMClicked(ActionEvent event) {
+		closeWindow();
+		ViewLogic.questionsManagmentWindow();
+		//TODO
+	}
 
+	@FXML
+	private void InstructionClicked(ActionEvent event) {
+		closeWindow();
+		ViewLogic.howToPlayWindow();
+	}
 
-    }
+	@FXML
+	private void leaderBoardClicked(ActionEvent event) {
+		closeWindow();
+		ViewLogic.leaderBoardWindow();
+	}
+
+	@FXML
+	private void playClicked(ActionEvent event) {
+		//closeWindow();
+		ViewLogic.StartgameWindow();
+	}
+
+	
+
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 
 	}
+	protected void closeWindow() {
+		((Stage) pane.getScene().getWindow()).close();
+	}
+
 
 
 }

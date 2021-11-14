@@ -6,18 +6,22 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="411.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Howtoplaycontroller">
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Howtoplaycontroller">
    <children>
-      <ImageView fitHeight="437.0" fitWidth="594.0" layoutX="-8.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="649.0" fitWidth="1039.0" layoutX="-8.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Downloads/Untitled-1.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="bkbtn" layoutX="21.0" layoutY="374.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="77.0" text="Back" />
-      <Text fill="#a80d0d" layoutX="46.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutX="21.0" layoutY="374.0" stroke="#a80d0d" strokeType="INSIDE" width="77.0" />
-      <Label layoutX="260.0" layoutY="14.0" text="How to play" textFill="#464dd7" />
+      <Button fx:id="bkbtn" layoutX="60.0" layoutY="568.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="26.0" prefWidth="77.0" text="Back" />
+      <Text fill="#a80d0d" layoutX="85.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutX="60.0" layoutY="568.0" stroke="#a80d0d" strokeType="INSIDE" width="77.0" />
+      <Label layoutX="342.0" layoutY="27.0" text="How to play" textFill="#464dd7">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
    </children>
 </AnchorPane>

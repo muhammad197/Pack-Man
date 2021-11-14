@@ -14,14 +14,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="319.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.leaderboardcontroller">
+<AnchorPane fx:id="pane" prefHeight="566.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.leaderboardcontroller">
    <children>
-      <ImageView fitHeight="441.0" fitWidth="558.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="576.0" fitWidth="899.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Downloads/WhatsApp%20Image%202021-11-10%20at%2021.12.35.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="241.0" layoutY="14.0" text="Leader Board" textAlignment="CENTER">
+      <Label layoutX="305.0" layoutY="29.0" text="Leader Board" textAlignment="CENTER">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -47,7 +47,7 @@
             <Font name="Arial" size="24.0" />
          </font>
       </Label>
-      <TableView layoutX="20.0" layoutY="66.0" opacity="0.75" prefHeight="323.0" prefWidth="442.0">
+      <TableView layoutX="20.0" layoutY="81.0" opacity="0.75" prefHeight="401.0" prefWidth="857.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Username" />
           <TableColumn prefWidth="75.0" text="Score" />
@@ -57,8 +57,8 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="backbtn" layoutX="20.0" layoutY="396.0" mnemonicParsing="false" opacity="0.0" text="Back " />
-      <Text fill="#2200ff" layoutX="29.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutX="20.0" layoutY="396.0" stroke="#2200ff" strokeType="INSIDE" width="47.0" />
+      <Button fx:id="backbtn" layoutX="36.0" layoutY="494.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" text="Back " />
+      <Text fill="#2200ff" layoutX="45.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutX="36.0" layoutY="494.0" stroke="#2200ff" strokeType="INSIDE" width="47.0" />
    </children>
 </AnchorPane>

@@ -8,32 +8,50 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="306.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
    <children>
-      <ImageView fitHeight="319.0" fitWidth="485.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="602.0" fitWidth="904.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Downloads/Ghost-stories-2.jpg" />
          </image>
       </ImageView>
-      <Button id="startbtn" fx:id="startbtn" layoutX="55.0" layoutY="40.0" mnemonicParsing="false" mouseTransparent="true" opacity="0.0" prefHeight="37.0" prefWidth="116.0" text="start game" textAlignment="CENTER" textFill="RED" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="37.0" layoutX="55.0" layoutY="40.0" stroke="#eb8836" strokeType="INSIDE" width="116.0" />
-      <Text blendMode="DIFFERENCE" fill="#eb8836" layoutX="84.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="start game" textAlignment="CENTER" />
-      <Button fx:id="ldrbtn" layoutX="55.0" layoutY="100.0" mnemonicParsing="false" opacity="0.0" prefHeight="37.0" prefWidth="116.0" text="leaderboard" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="37.0" layoutX="55.0" layoutY="100.0" stroke="#d32323" strokeType="INSIDE" width="116.0" />
-      <Text fill="#d32323" layoutX="80.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="leaderboard" textAlignment="CENTER" />
-      <Button fx:id="qusbtn" layoutX="55.0" layoutY="160.0" mnemonicParsing="false" opacity="0.0" prefHeight="37.0" prefWidth="116.0" text="question managment" textFill="#00e5ff">
+      <Button id="startbtn" fx:id="startbtn" layoutX="154.0" layoutY="104.0" mnemonicParsing="false" mouseTransparent="true" onAction="#playClicked" opacity="0.0" prefHeight="64.0" prefWidth="204.0" text="start game" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font size="11.0" />
+            <Font size="24.0" />
+         </font></Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="64.0" layoutX="154.0" layoutY="104.0" stroke="#eb8836" strokeType="INSIDE" width="204.0" />
+      <Text blendMode="DIFFERENCE" fill="#eb8836" layoutX="203.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="start game" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <Button fx:id="ldrbtn" layoutX="154.0" layoutY="204.0" mnemonicParsing="false" onAction="#leaderBoardClicked" opacity="0.0" prefHeight="64.0" prefWidth="204.0" text="leaderboard">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="64.0" layoutX="156.0" layoutY="205.0" stroke="#d32323" strokeType="INSIDE" width="204.0" />
+      <Text fill="#d32323" layoutX="196.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="leaderboard" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <Button fx:id="qusbtn" layoutX="154.0" layoutY="304.0" mnemonicParsing="false" onAction="#QMClicked" opacity="0.0" prefHeight="64.0" prefWidth="204.0" text="question managment" textFill="#00e5ff">
+         <font>
+            <Font size="20.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="37.0" layoutX="55.0" layoutY="160.0" stroke="#1787c3" strokeType="INSIDE" width="116.0" />
-      <Text fill="#1787c3" layoutX="64.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="question managment" textAlignment="CENTER">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="64.0" layoutX="155.0" layoutY="305.0" stroke="#1787c3" strokeType="INSIDE" width="204.0" />
+      <Text fill="#1787c3" layoutX="168.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="question managment" textAlignment="CENTER">
          <font>
-            <Font size="11.0" />
+            <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="insbtn" layoutX="55.0" layoutY="220.0" mnemonicParsing="false" opacity="0.0" prefHeight="37.0" prefWidth="116.0" text="instructions" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="37.0" layoutX="55.0" layoutY="220.0" stroke="#e0196f" strokeType="INSIDE" width="116.0" />
-      <Text fill="#e0196f" layoutX="81.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="instructions" textAlignment="CENTER" />
+      <Button fx:id="insbtn" layoutX="154.0" layoutY="404.0" mnemonicParsing="false" onAction="#InstructionClicked" opacity="0.0" prefHeight="64.0" prefWidth="204.0" text="instructions">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="64.0" layoutX="154.0" layoutY="404.0" stroke="#e0196f" strokeType="INSIDE" width="204.0" />
+      <Text fill="#e0196f" layoutX="198.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="instructions" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
    </children>
 </AnchorPane>
