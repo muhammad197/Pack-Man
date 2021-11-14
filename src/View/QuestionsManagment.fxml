@@ -13,12 +13,12 @@
 
 <fx:root prefHeight="566.0" prefWidth="656.0" type="AnchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ManageQuestionsController">
    <children>
-      <ImageView fitHeight="567.0" fitWidth="675.0" layoutY="-1.0">
+      <ImageView fx:id="background" fitHeight="567.0" fitWidth="675.0" layoutY="-1.0">
          <image>
             <Image url="@../resources/MQ-BackGround.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="83.0" fitWidth="386.0" layoutX="132.0" layoutY="10.0">
+      <ImageView fx:id="ManageQuestionsTitle" fitHeight="83.0" fitWidth="386.0" layoutX="132.0" layoutY="10.0">
          <image>
             <Image url="@../resources/MQTitle.png" />
          </image>
@@ -26,7 +26,7 @@
       <TableView layoutX="47.0" layoutY="107.0" prefHeight="200.0" prefWidth="530.0" stylesheets="@style.css">
         <columns>
           <TableColumn prefWidth="39.33334732055664" text="ID" />
-          <TableColumn prefWidth="393.9999771118164" text="Question" />
+          <TableColumn fx:id="questionsTable" prefWidth="393.9999771118164" text="Question" />
             <TableColumn minWidth="5.3333740234375" prefWidth="94.66659545898438" text="Difficulty" />
         </columns>
          <columnResizePolicy>
@@ -60,10 +60,10 @@
         <columns>
             <TableColumn prefWidth="93.99996948242188" text="Correct/not" />
           <TableColumn prefWidth="163.9999656677246" text="Difficulty" />
-          <TableColumn editable="false" prefWidth="270.66673278808594" text="Answer" />
+          <TableColumn fx:id="AnswersTable" editable="false" prefWidth="270.66673278808594" text="Answer" />
         </columns>
       </TableView>
-      <ImageView fitHeight="62.0" fitWidth="50.0" layoutX="616.0" layoutY="239.0">
+      <ImageView fx:id="deleteIcon" fitHeight="62.0" fitWidth="50.0" layoutX="616.0" layoutY="239.0">
          <image>
             <Image url="@../resources/delete_icon.png" />
          </image>
@@ -76,7 +76,7 @@
             
          </image>
       </ImageView>
-      <ImageView fitHeight="62.0" fitWidth="50.0" layoutX="613.0" layoutY="133.0">
+      <ImageView fx:id="addIcon" fitHeight="62.0" fitWidth="50.0" layoutX="613.0" layoutY="133.0">
          <image>
             <Image url="@../resources/add_icon.png" />
          </image>
@@ -84,7 +84,7 @@
             <ColorAdjust hue="0.5" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="62.0" fitWidth="50.0" layoutX="588.0" layoutY="186.0">
+      <ImageView fx:id="editIcon" fitHeight="62.0" fitWidth="50.0" layoutX="588.0" layoutY="186.0">
          <image>
             <Image url="@../resources/edit_icon.png" />
          </image>
@@ -92,7 +92,7 @@
             <ColorAdjust hue="0.3" />
          </effect>
       </ImageView>
-      <Label layoutX="57.0" layoutY="333.0" prefHeight="27.0" prefWidth="509.0" text="Question " textFill="#fffbfb">
+      <Label fx:id="questionLabel" layoutX="57.0" layoutY="333.0" prefHeight="27.0" prefWidth="509.0" text="Question " textFill="#fffbfb">
          <font>
             <Font size="19.0" />
          </font>
