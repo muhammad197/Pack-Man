@@ -15,14 +15,17 @@ import javafx.stage.Stage;
 
 public class MainPageController implements Initializable {
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+    private Button ldrbtn;
 
     @FXML
-    private URL location;
+    private Button qusbtn;
 
     @FXML
-    private Button firstBtn;
+    private Button startbtn;
+    
+    @FXML
+    private Button insbtn;
 
     @FXML
     void HelloThere(ActionEvent event) throws IOException {
