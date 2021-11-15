@@ -3,28 +3,57 @@ package Model;
 import java.util.Objects;
 
 public class PeckPoints {
-public int id;
+	
+public static int ID=0;
 public String image;
-public PeckPoints(int id, String image) {
+
+/**
+ * Class Constructor:
+ * @ID- peckPoint ID
+ * @image- image for peckPoint
+ */
+public PeckPoints(String image) {
 	super();
-	this.id = id;
+	ID=ID+1;
 	this.image = image;
 }
-public int getId() {
-	return id;
+
+
+/**
+ * @return the iD
+ */
+public static int getID() {
+	return ID;
 }
-public void setId(int id) {
-	this.id = id;
+
+
+/**
+ * @param iD the iD to set
+ */
+public static void setID(int iD) {
+	ID = iD;
 }
+
+
+/**
+ * @return the image
+ */
 public String getImage() {
 	return image;
 }
+
+
+/**
+ * @param image the image to set
+ */
 public void setImage(String image) {
 	this.image = image;
 }
+
+
 @Override
 public int hashCode() {
-	return Objects.hash(id, image);
+	return Objects.hash(image);
 }
 @Override
 public boolean equals(Object obj) {
@@ -35,6 +64,9 @@ public boolean equals(Object obj) {
 	if (getClass() != obj.getClass())
 		return false;
 	PeckPoints other = (PeckPoints) obj;
-	return id == other.id && Objects.equals(image, other.image);
+	return Objects.equals(image, other.image);
 }
+
+
+
 }
