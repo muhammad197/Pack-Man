@@ -17,6 +17,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class EditQuestionController implements Initializable {
     @FXML
@@ -48,6 +50,9 @@ public class EditQuestionController implements Initializable {
 
     @FXML
     private CheckBox checkans1;
+    
+    @FXML
+    private AnchorPane pane;
 
     @FXML
     private TextArea questionInput;
@@ -60,6 +65,9 @@ public class EditQuestionController implements Initializable {
 
     @FXML
     private Button saveBtn;
+    
+    @FXML
+    private Button backbutton;
     
     public Question QuestionToEdit;
     
@@ -78,9 +86,17 @@ public class EditQuestionController implements Initializable {
 		Level level = levelCombo.getSelectionModel().getSelectedItem();
 
     }
+    protected void closeWindow() {
+		((Stage) pane.getScene().getWindow()).close();
+	}
     
    
-    
+    @FXML
+	private void BackClicked(ActionEvent event) {
+		closeWindow();
+		ViewLogic.questionsManagmentWindow();
+		//TODO
+	}
     
 	public EditQuestionController(Question questionToEdit) {
 		super();

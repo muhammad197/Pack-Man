@@ -124,12 +124,13 @@ public class ViewLogic {
 	//TODO
 	protected static void StartgameWindow() {
 		Stage stage = new Stage();
-
-		newWindow(ViewLogic.class.getResource("startgamepage.fxml"),
+		
+		newWindow(ViewLogic.class.getResource("startgamepage .fxml"),
 				stage,
 				"enter your name",
 				false,
 				false);
+		
 	}
 	
 	

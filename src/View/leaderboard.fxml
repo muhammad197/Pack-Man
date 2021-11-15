@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="576.0" fitWidth="899.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Downloads/WhatsApp%20Image%202021-11-10%20at%2021.12.35.jpeg" />
+            <Image url="@../resources/WhatsApp%20Image%202021-11-10%20at%2021.12.35.jpeg" />
          </image>
       </ImageView>
       <Label layoutX="305.0" layoutY="29.0" text="Leader Board" textAlignment="CENTER">

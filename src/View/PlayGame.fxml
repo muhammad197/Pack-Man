@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="604.0" fitWidth="900.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Downloads/WhatsApp%20Image%202021-11-10%20at%2021.12.35.jpeg" />
+            <Image url="@../resources/WhatsApp%20Image%202021-11-10%20at%2021.12.35.jpeg" />
          </image>
       </ImageView>
       <Pane layoutX="13.0" layoutY="93.0" prefHeight="447.0" prefWidth="873.0" />

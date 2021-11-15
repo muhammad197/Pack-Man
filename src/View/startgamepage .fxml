@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="782.0" fitWidth="993.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Downloads/crop.php.jpeg" />
+            <Image url="@../resources/crop.php.jpeg" />
          </image>
       </ImageView>
       <Label layoutX="167.0" layoutY="196.0" text="Hello there,">
@@ -109,7 +109,7 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
-      <Button fx:id="gobtn" layoutX="397.0" layoutY="312.0" mnemonicParsing="false" opacity="0.0" text="GO!" textFill="#b22c2c">
+      <Button fx:id="gobtn" layoutX="397.0" layoutY="312.0" mnemonicParsing="false" onAction="#GoClicked" opacity="0.0" text="GO!" textFill="#b22c2c">
          <font>
             <Font size="24.0" />
          </font></Button>

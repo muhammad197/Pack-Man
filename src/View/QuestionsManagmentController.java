@@ -97,6 +97,11 @@ public class QuestionsManagmentController implements Initializable {
 
     @FXML
     private AnchorPane pane;
+    
+    @FXML
+    private Button bckbtn;
+    
+    
 
     @FXML
     private TableColumn<Question, String> questionscontent;
@@ -106,6 +111,17 @@ public class QuestionsManagmentController implements Initializable {
 	private ArrayList<Question> questions;
 
 	private Question question;
+	
+	protected void closeWindow() {
+		((Stage) pane.getScene().getWindow()).close();
+	}
+	
+	@FXML
+	private void BackClicked(ActionEvent event) {
+		closeWindow();
+		ViewLogic.mainPageWindow();
+		//TODO
+	}
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -243,6 +259,8 @@ public class QuestionsManagmentController implements Initializable {
 		questionsTable.setItems(qs);
 		questionsTable.refresh();
 	}
+	
+	
 	
 
 

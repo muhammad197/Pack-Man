@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="602.0" fitWidth="904.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Downloads/Ghost-stories-2.jpg" />
+            <Image url="@../resources/Ghost-stories-2.jpg" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="64.0" layoutX="154.0" layoutY="104.0" stroke="#eb8836" strokeType="INSIDE" width="204.0" />

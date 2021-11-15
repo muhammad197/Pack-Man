@@ -53,8 +53,9 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	private void playClicked(ActionEvent event) {
-		//closeWindow();
+		closeWindow();
 		ViewLogic.StartgameWindow();
+		
 	}
 
 	
