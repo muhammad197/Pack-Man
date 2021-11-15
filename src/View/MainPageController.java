@@ -61,7 +61,7 @@ public class MainPageController implements Initializable {
 
     
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 
 	}

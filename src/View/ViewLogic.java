@@ -33,7 +33,7 @@ public class ViewLogic {
 	 * this method starts the windows in the system
 	 */
 	public static void initUI() {
-		howToPlayWindow();
+		mainPageWindow();
 		//mainMenuWindow();
 	}
 
@@ -129,7 +129,7 @@ public class ViewLogic {
 				stage,
 				"enter your name",
 				false,
-				true);
+				false);
 	}
 	
 	

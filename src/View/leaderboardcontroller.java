@@ -47,7 +47,7 @@ public class leaderboardcontroller implements Initializable {
 
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL location, ResourceBundle resources) {
 		usernameForBoard.setCellValueFactory(new PropertyValueFactory<>("nickname"));
 		DateForBoard.setCellValueFactory(new PropertyValueFactory<>("GameHighScoreDate"));
 		ScoreForBoard.setCellValueFactory(new PropertyValueFactory<>("GameHighScore")); 

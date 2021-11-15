@@ -65,10 +65,6 @@
          <font>
             <Font size="24.0" />
          </font></TextField>
-      <Button fx:id="gobtn" layoutX="397.0" layoutY="312.0" mnemonicParsing="false" opacity="0.0" text="GO!" textFill="#b22c2c">
-         <font>
-            <Font size="24.0" />
-         </font></Button>
       <Label layoutX="413.0" layoutY="321.0" text="GO!">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -113,6 +109,10 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
+      <Button fx:id="gobtn" layoutX="397.0" layoutY="312.0" mnemonicParsing="false" opacity="0.0" text="GO!" textFill="#b22c2c">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
       <Label layoutX="400.0" layoutY="42.0" text="Are you ready">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -134,7 +134,6 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="backbtn" layoutX="118.0" layoutY="525.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="34.0" prefWidth="142.0" text="NOT ready go back" />
       <Label layoutX="135.0" layoutY="534.0" text="NOT ready go back ">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -171,5 +170,6 @@
             </LinearGradient>
          </stroke>
       </Rectangle>
+      <Button fx:id="backbtn" layoutX="118.0" layoutY="525.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="34.0" prefWidth="142.0" text="NOT ready go back" />
    </children>
 </AnchorPane>

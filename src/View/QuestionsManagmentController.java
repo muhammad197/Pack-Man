@@ -108,7 +108,8 @@ public class QuestionsManagmentController implements Initializable {
 	private Question question;
     
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL location, ResourceBundle resources) {
+	
 	    // when delete icon is pressed, call the delete question method
 	    deleteIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 

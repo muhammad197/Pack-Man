@@ -94,10 +94,10 @@ public class EditQuestionController implements Initializable {
 	}
 
 
-
+	
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL location, ResourceBundle resources) {
 		levelCombo.getItems().setAll(Level.values());
 			if(QuestionToEdit == null)
 			{

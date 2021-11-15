@@ -47,6 +47,8 @@ public class Main extends Application {
         System.out.println(SysData.getInstance().getQuestions());
         System.out.println(SysData.getInstance().randomQuestion());
         */
+		SysData.getInstance().readQuestionFromJson();
+		SysData.getInstance().readHistoryJSON();
 		launch(args);
 
 	}

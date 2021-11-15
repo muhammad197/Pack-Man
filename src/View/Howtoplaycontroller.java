@@ -17,10 +17,10 @@ public class Howtoplaycontroller implements Initializable {
 	    @FXML
 		private AnchorPane pane;
 
-		@Override
-		public void initialize(URL arg0, ResourceBundle arg1) {
+	    @Override
+		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
-			
+
 		}
 		
 		protected void closeWindow() {
@@ -29,7 +29,8 @@ public class Howtoplaycontroller implements Initializable {
 
 	    @FXML
 	    void BackClicked(ActionEvent event) {
-	    	System.out.println("dcdv");
+	    	closeWindow();
+			ViewLogic.mainPageWindow();
 	    }
 	
 		

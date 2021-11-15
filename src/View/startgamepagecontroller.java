@@ -25,10 +25,10 @@ public class startgamepagecontroller implements Initializable{
 			    @FXML
 				private AnchorPane pane;
 
-				@Override
-				public void initialize(URL arg0, ResourceBundle arg1) {
+			    @Override
+				public void initialize(URL location, ResourceBundle resources) {
 					// TODO Auto-generated method stub
-					
+
 				}
 				
 				protected void closeWindow() {
