@@ -9,30 +9,87 @@ public class Game {
 	public int live;
 	public int speed;
 	public GameState gameState;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getLive() {
-		return live;
-	}
-	public void setLive(int live) {
-		this.live = live;
-	}
-	public int getSpeed() {
-		return speed;
-	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-	public Game(int id, int live, int speed) {
+	
+	
+	/**
+	 * @param id
+	 * @param live
+	 * @param speed
+	 * @param gameState
+	 */
+	public Game(int id, int live, int speed, GameState gameState) {
 		super();
 		this.id = id;
 		this.live = live;
 		this.speed = speed;
+		this.gameState = gameState;
 	}
+	
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	/**
+	 * @return the live
+	 */
+	public int getLive() {
+		return live;
+	}
+
+
+	/**
+	 * @param live the live to set
+	 */
+	public void setLive(int live) {
+		this.live = live;
+	}
+
+
+	/**
+	 * @return the speed
+	 */
+	public int getSpeed() {
+		return speed;
+	}
+
+
+	/**
+	 * @param speed the speed to set
+	 */
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+
+	/**
+	 * @return the gameState
+	 */
+	public GameState getGameState() {
+		return gameState;
+	}
+
+
+	/**
+	 * @param gameState the gameState to set
+	 */
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, live, speed);

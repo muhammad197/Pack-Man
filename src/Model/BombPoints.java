@@ -8,7 +8,10 @@ public class BombPoints extends PeckPoints {
 		super(image);
 		// TODO Auto-generated constructor stub
 	}
-
+/**
+ * The functions returned the photos of the bomb points
+ * @return bombs
+ */
 	public ArrayList<PeckPoints> getBombPoints()
 	{
 		ArrayList<PeckPoints> bombs = new ArrayList<PeckPoints>();
