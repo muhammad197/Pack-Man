@@ -119,7 +119,17 @@ public class Question {
 				&& Objects.equals(question, other.question);
 	}
 
-
+	public ArrayList<PeckPoints> getPointsQuestions()
+	{
+		ArrayList<PeckPoints> pointsQuestions = new ArrayList<PeckPoints>();
+		pointsQuestions.add(new PeckPoints("/src/Photos/almond.jpg"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/casho.jpg"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/cookie1.jpg"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/cookie2.jpg"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/grape.jpg"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/lemon.jpg"));
+		return pointsQuestions;
+	} 
 
 	@Override
 	public String toString() {
