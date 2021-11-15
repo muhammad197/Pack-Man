@@ -7,6 +7,7 @@ import Model.Color;
 import Model.Player;
 import Model.Question;
 import Utils.Level;
+import View.ViewLogic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,16 +54,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		
-
-		   Parent root = FXMLLoader.load(getClass().getResource("../View/MainPage.fxml"));
-		    
-	        Scene scene = new Scene(root, 300, 275);
-	    
-	        Stage stage = new Stage();
-			stage.setTitle("FXML Welcome");
-	        stage.setScene(scene);
-	        stage.show();
-	       
+		ViewLogic.initUI(); 
 	        
 	        
 		

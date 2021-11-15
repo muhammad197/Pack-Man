@@ -26,13 +26,12 @@ public class Howtoplaycontroller implements Initializable {
 		protected void closeWindow() {
 			((Stage) pane.getScene().getWindow()).close();
 		}
-		
-		@FXML
-		private void BackClicked(ActionEvent event) {
-			closeWindow();
-			ViewLogic.mainPageWindow();
-			//TODO
-		}
+
+	    @FXML
+	    void BackClicked(ActionEvent event) {
+	    	System.out.println("dcdv");
+	    }
+	
 		
 
 }

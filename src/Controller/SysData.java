@@ -4,13 +4,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,7 +29,7 @@ import Utils.Level;
 public class SysData {
 	
 	private static SysData instance;
-	public ArrayList<Player> players;
+	public ArrayList<Player> playersGames;
 	public ArrayList<Question> questions;
 	
 	public static SysData getInstance() {
@@ -34,12 +38,12 @@ public class SysData {
 		return instance;
 	}
 	
-	public ArrayList<Player> getPlayers() {
-		return players;
+	public ArrayList<Player> getPlayersGames() {
+		return playersGames;
 	}
 
-	public void setPlayers(ArrayList<Player> players) {
-		this.players = players;
+	public void setPlayersGames(ArrayList<Player> players) {
+		this.playersGames = players;
 	}
 	public ArrayList<Question> getQuestions() {
 		return questions;
@@ -50,14 +54,14 @@ public class SysData {
 	
 	    //adds a new player
 		public boolean addPlayer(Player player) {
-			 for (Player P : players) {
+			 for (Player P : playersGames) {
 				if (P.equals(player)) {
 					System.out.println("This Player Already Exists");
 					return false;
 				}
 			 }
 
-			players.add(player);
+			playersGames.add(player);
 			return true;
 			
 		}
@@ -94,7 +98,7 @@ public class SysData {
 		 
 		 
 		 //read questions from json
-		 private void readQuestionFromJson() {
+		 public void readQuestionFromJson() {
 			 	questions = new ArrayList<Question>();
 				try {
 					if (questions.isEmpty())
@@ -151,7 +155,6 @@ public class SysData {
 						System.out.println("This Question Already Exists");
 						return false;
 					}
-
 					questions.add(q);
 					try {
 
@@ -174,19 +177,19 @@ public class SysData {
 
 					for (Question q : questions) {
 						
-						Map m = new LinkedHashMap(5);
-						m.put("question", q.getQuestion());
+						Map map = new LinkedHashMap(5);
+						map.put("question", q.getQuestion());
 						ArrayList<String> answerscontent= new ArrayList<>();
 						ArrayList<Answer> questionAnswers= q.getAnswers();
 						for (Answer a : questionAnswers){
 							answerscontent.add(a.getContent());
 						}
 						JSONArray jsonArrayAnswers = new JSONArray(answerscontent);
-						m.put("answers", jsonArrayAnswers);
-						m.put("correct_ans", "" + q.getTrueAnswer());
-						m.put("level", "" + q.getLevel().getNum());
-						m.put("team", q.getTeam());
-						jsonArray.add(m);
+						map.put("answers", jsonArrayAnswers);
+						map.put("correct_ans", "" + q.getTrueAnswer());
+						map.put("level", "" + q.getLevel().getNum());
+						map.put("team", q.getTeam());
+						jsonArray.add(map);
 					}
 					jsonObject.put("questions", jsonArray);
 					PrintWriter pw = new PrintWriter("Questions.json");
@@ -202,30 +205,32 @@ public class SysData {
 				}
 			
 		}
-		
+		  	
 	 	//read history from JSON File
 		public void readHistoryJSON() {
-			players = new ArrayList<Player>();
+			playersGames = new ArrayList<Player>();
 			try {
-				if (players.isEmpty())
-					for (int i = 0; i < players.size(); i++) {
-						players.remove(i);
+				if (playersGames.isEmpty())
+					for (int i = 0; i < playersGames.size(); i++) {
+						playersGames.remove(i);
 					}
 
 				Object historyObj = new JSONParser().parse(new FileReader("history.json"));
 				JSONObject JsonObject = (JSONObject) historyObj;
 				JSONArray JsonGamesArray = (JSONArray) JsonObject.get("games");
-				
+				 
 				for (Object Obj : JsonGamesArray) {
 					JSONObject jsonObj = (JSONObject) Obj;
 					String playername = (String) jsonObj.get("player");
 					int highscore = Integer.parseInt((String) jsonObj.get("highscore"));
-					Player p = new Player(playername, highscore);
-					players.add(p);
+					SimpleDateFormat formatter =new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+					Date date = formatter.parse((String) jsonObj.get("date"));
+					Player p = new Player(playername, highscore,date);
+					playersGames.add(p);
 				}
 				
 				// sort the games due to high scores
-				Collections.sort(players, new Comparator<Player>() {
+				Collections.sort(playersGames, new Comparator<Player>() {
 					@Override
 					public int compare(Player p1, Player p2) {
 						if(p1.getGameHighScore() < p2.getGameHighScore())
@@ -252,11 +257,13 @@ public class SysData {
 				JSONObject JsonObject = new JSONObject();
 				JSONArray JsonArray = new JSONArray();
 
-				for (Player p : players) {
-					Map m = new LinkedHashMap(2);
-					m.put("player", p.getNickname());
-					m.put("highscore", "" + p.getGameHighScore());
-					JsonArray.add(m);
+				for (Player p : playersGames) {
+					Map map = new LinkedHashMap(3);
+					map.put("player", p.getNickname());
+					map.put("highscore", "" + p.getGameHighScore());
+					Date date = p.getGameHighScoreDate();
+					map.put("date", date.toString());
+					JsonArray.add(map);
 				}
 				JsonObject.put("games", JsonArray);
 				PrintWriter pw = new PrintWriter("history.json");
@@ -271,8 +278,35 @@ public class SysData {
 
 			}
 		}
-	
 		
+		//get games history
+		public ArrayList<Player> getGamesHistory() {
+			readHistoryJSON();
+			return playersGames;
+		}
+		// add game to history
+		public boolean addGameHistory(Player player) {
+			if (player != null) {
+				playersGames.add(player);
+				writeHistoryJSON();
+				readHistoryJSON();
+			}
+			return false;
+		}
+		//delete game from history
+		public void deleteGameHistory() {
+			for (int i = playersGames.size(); i > 0; i--)
+				playersGames.remove(i - 1);
+			writeHistoryJSON();
+		}
+	
+		 //get the first three winners. the array "players" is sorted due highscores.
+		 public ArrayList<Player> First3Winners(){
+			 ArrayList<Player> PlayersToReturn= new ArrayList<>();
+			 for(int i=0;i <3;i++)
+				 PlayersToReturn.add(playersGames.get(i));
+			 return PlayersToReturn;
+		 }
 
 		
 		 //pick a random question to show it on board

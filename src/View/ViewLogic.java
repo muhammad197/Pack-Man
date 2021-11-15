@@ -33,7 +33,7 @@ public class ViewLogic {
 	 * this method starts the windows in the system
 	 */
 	public static void initUI() {
-		gameWindow();
+		howToPlayWindow();
 		//mainMenuWindow();
 	}
 
@@ -179,6 +179,7 @@ public class ViewLogic {
 				"How To Play?",
 				false,
 				false);
+
 	}
 	
 	

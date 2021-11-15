@@ -1,20 +1,33 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Player{
 	public String nickname;
 	public ArrayList<Game> games;
 	public int GameHighScore;
+	public Date GameHighScoreDate;
 	public String password;
 	
 	
-	public Player(String nickname, int gameHighScore) {
+	public Player(String nickname, int gameHighScore, Date date) {
 		super();
 		this.nickname = nickname;
 		GameHighScore = gameHighScore;
+		GameHighScoreDate= date;
+		
 	}
+	
+	public Date getGameHighScoreDate() {
+		return GameHighScoreDate;
+	}
+
+	public void setGameHighScoreDate(Date gameHighScoreDate) {
+		GameHighScoreDate = gameHighScoreDate;
+	}
+
 	public String getNickname() {
 		return nickname;
 	}
@@ -69,4 +82,3 @@ public class Player{
 	}
 
 }
-
