@@ -12,7 +12,7 @@ public class BombPoints extends PeckPoints {
  * The functions returned the photos of the bomb points
  * @return bombs
  */
-	public ArrayList<PeckPoints> getBombPoints()
+	public static ArrayList<PeckPoints> getBombPoints()
 	{
 		ArrayList<PeckPoints> bombs = new ArrayList<PeckPoints>();
 		bombs.add(new PeckPoints("/src/Photos/apple.jpg"));

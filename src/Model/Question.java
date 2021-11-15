@@ -119,7 +119,7 @@ public class Question {
 				&& Objects.equals(question, other.question);
 	}
 
-	public ArrayList<PeckPoints> getPointsQuestions()
+	public static ArrayList<PeckPoints> getPointsQuestions()
 	{
 		ArrayList<PeckPoints> pointsQuestions = new ArrayList<PeckPoints>();
 		pointsQuestions.add(new PeckPoints("/src/Photos/almond.jpg"));
