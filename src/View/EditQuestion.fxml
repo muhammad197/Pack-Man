@@ -40,5 +40,6 @@
       <CheckBox fx:id="checkans3" layoutX="451.0" layoutY="302.0" mnemonicParsing="false" />
       <CheckBox fx:id="checkans2" layoutX="451.0" layoutY="264.0" mnemonicParsing="false" />
       <Button fx:id="saveBtn" layoutX="414.0" layoutY="435.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="backbutton" layoutX="28.0" layoutY="428.0" mnemonicParsing="false" text="Back" />
    </children>
 </AnchorPane>
