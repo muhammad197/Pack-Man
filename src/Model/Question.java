@@ -122,12 +122,12 @@ public class Question {
 	public static ArrayList<PeckPoints> getPointsQuestions()
 	{
 		ArrayList<PeckPoints> pointsQuestions = new ArrayList<PeckPoints>();
-		pointsQuestions.add(new PeckPoints("/src/Photos/almond.jpg"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/casho.jpg"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/cookie1.jpg"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/cookie2.jpg"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/grape.jpg"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/lemon.jpg"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/almond.png"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/casho.png"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/cookie1.png"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/cookie2.png"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/grape.png"));
+		pointsQuestions.add(new PeckPoints("/src/Photos/lemon.png"));
 		return pointsQuestions;
 	} 
 

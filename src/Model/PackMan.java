@@ -5,32 +5,32 @@ public class PackMan {
 	/**
 	 * Definition of: pack-man face 
 	 */
-	public static final String packManFace = "/src/Photos/packMan.jpg";
+	public static final String packManFace = "/src/Photos/packMan.png";
 	
 	/**
 	 * Definition of: pack-man back
 	 */
-	public static final String packManBack = "/src/Photos/packManBack.jpg";
+	public static final String packManBack = "/src/Photos/packManBack.png";
 	
 	/**
 	 * Definition of: pack-man eat left
 	 */
-	public static final String packManEatLeft = "/src/Photos/packManEatLeft.jpg";
+	public static final String packManEatLeft = "/src/Photos/packManEatLeft.png";
 	
 	/**
 	 * Definition of: pack-man eat right 
 	 */
-	public static final String packManEatRight = "/src/Photos/packManEatRight.jpg";
+	public static final String packManEatRight = "/src/Photos/packManEatRight.png";
 	
 	/**
 	 * Definition of: pack-man left 
 	 */
-	public static final String packManLeft = "/src/Photos/packManLeft.jpg";
+	public static final String packManLeft = "/src/Photos/packManLeft.png";
 	
 	/**
 	 * Definition of: pack-man right 
 	 */
-	public static final String packManRight = "/src/Photos/packManRight.jpg";
+	public static final String packManRight = "/src/Photos/packManRight.png";
 
 	/**
 	 * Get pack-man face

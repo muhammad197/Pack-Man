@@ -15,13 +15,13 @@ public class BombPoints extends PeckPoints {
 	public static ArrayList<PeckPoints> getBombPoints()
 	{
 		ArrayList<PeckPoints> bombs = new ArrayList<PeckPoints>();
-		bombs.add(new PeckPoints("/src/Photos/apple.jpg"));
-		bombs.add(new PeckPoints("/src/Photos/banana.jpg"));
-		bombs.add(new PeckPoints("/src/Photos/burger.jpg"));
-		bombs.add(new PeckPoints("/src/Photos/cherry.jpg"));
-		bombs.add(new PeckPoints("/src/Photos/iceCream.jpg"));
-		bombs.add(new PeckPoints("/src/Photos/orange.jpg"));
-		bombs.add(new PeckPoints("/src/Photos/strawberry.jpg"));
+		bombs.add(new PeckPoints("/src/Photos/apple.png"));
+		bombs.add(new PeckPoints("/src/Photos/banana.png"));
+		bombs.add(new PeckPoints("/src/Photos/burger.png"));
+		bombs.add(new PeckPoints("/src/Photos/cherry.png"));
+		bombs.add(new PeckPoints("/src/Photos/iceCream.png"));
+		bombs.add(new PeckPoints("/src/Photos/orange.png"));
+		bombs.add(new PeckPoints("/src/Photos/strawberry.png"));
 		return bombs;
 	}
 
