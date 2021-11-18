@@ -75,7 +75,8 @@ public class Player{
 		GameHighScore = gameHighScore;
 		this.password = password;
 	}
-	
+
+
 	//adds a new game to a specific player
 	public void addPlayer(Player player,Game game) {
 		

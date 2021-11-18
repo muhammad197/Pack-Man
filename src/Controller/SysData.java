@@ -98,7 +98,7 @@ public class SysData {
 		 
 		 
 		 //read questions from json
-		 public void readQuestionFromJson() {
+		 void readQuestionFromJson() {
 			 	questions = new ArrayList<Question>();
 				try {
 					if (questions.isEmpty())

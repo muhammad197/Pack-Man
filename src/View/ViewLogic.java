@@ -33,8 +33,7 @@ public class ViewLogic {
 	 * this method starts the windows in the system
 	 */
 	public static void initUI() {
-		mainPageWindow();
-		//mainMenuWindow();
+		BoardWindow();
 	}
 
 	
@@ -48,8 +47,6 @@ public class ViewLogic {
 					FXMLLoader loader = new FXMLLoader(fxmlLocation);
 					Parent root = loader.load();
 					Scene scene = new Scene(root);
-
-
 					stage.setScene(scene);
 					
 					stage.setResizable(resizable);
@@ -97,6 +94,21 @@ public class ViewLogic {
 				false,
 				false);
 	}
+	// ================================== Game-Board page ==================================
+		/**
+		 * Open Main page Window
+		 */
+
+		//TODO
+		protected static void BoardWindow() {
+			Stage stage = new Stage();
+
+			newWindow(ViewLogic.class.getResource("Board.fxml"),
+					stage,
+					"Packman",
+					false,
+					false);
+		}
 	
 	// ============================= Leader Board =============================
 	/**
@@ -125,7 +137,7 @@ public class ViewLogic {
 	protected static void StartgameWindow() {
 		Stage stage = new Stage();
 		
-		newWindow(ViewLogic.class.getResource("startgamepage .fxml"),
+		newWindow(ViewLogic.class.getResource("startgamepage.fxml"),
 				stage,
 				"enter your name",
 				false,

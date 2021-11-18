@@ -30,7 +30,7 @@ public class Board {
 	 * 4- the packMn
 	 * 5- are the ghosts
 	 */
-	private static int[][] matrixBoard_level1= 
+	public static int[][] matrixBoard_level1= 
 		                                 {{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 										 {1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1},
 			                             {1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1},
