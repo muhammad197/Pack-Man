@@ -7,9 +7,11 @@ import Model.Board;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -51,10 +53,30 @@ public class BoardControl implements Initializable {
 					Rectangle wall = new Rectangle(thisRow, thisColoum, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
 					wall.setFill(Color.web("#191970")) ;
 					wall.setStroke(Color.CORNFLOWERBLUE) ;
-
 					wall.setStrokeWidth(2.0) ;
 					pane.getChildren().add(wall) ;
 				}
+				if(matrix[i][j] == 0)
+				{
+					ImageView imageView = new ImageView("Photos/peckPoints.jpg");
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
+				if(matrix[i][j] == 0)
+				{
+					ImageView imageView = new ImageView("Photos/peckPoints.jpg");
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
+				
 				
 				
 				thisRow+=30;
