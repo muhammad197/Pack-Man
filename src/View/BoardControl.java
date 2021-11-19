@@ -58,12 +58,18 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 0)
 				{
-					ImageView imageView = new ImageView("Photos/image.png");
-					imageView.setFitHeight(30);
-					imageView.setFitWidth(30);
-					imageView.setX(thisRow);
-					imageView.setY(thisColoum);
-					pane.getChildren().add(imageView) ;
+					//ImageView imageView = new ImageView("Photos/image.png");
+					//imageView.setFitHeight(30);
+					//imageView.setFitWidth(30);
+					//imageView.setX(thisRow);
+					//imageView.setY(thisColoum);
+					//pane.getChildren().add(imageView) ;
+					Circle peckPoint = new Circle() ; // pass in x, y, width and height
+					peckPoint.setCenterX(thisRow+15);  
+					peckPoint.setCenterY(thisColoum+15);  
+					peckPoint.setRadius(4); 
+					peckPoint.setFill(Color.web("#E4CB18"));
+					pane.getChildren().add(peckPoint) ;
 
 				}
 				if(matrix[i][j] == 4)
