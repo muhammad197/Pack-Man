@@ -58,7 +58,7 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 0)
 				{
-					ImageView imageView = new ImageView("Photos/peckPoints.jpg");
+					ImageView imageView = new ImageView("Photos/image.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
 					imageView.setX(thisRow);
@@ -66,9 +66,9 @@ public class BoardControl implements Initializable {
 					pane.getChildren().add(imageView) ;
 
 				}
-				if(matrix[i][j] == 0)
+				if(matrix[i][j] == 4)
 				{
-					ImageView imageView = new ImageView("Photos/peckPoints.jpg");
+					ImageView imageView = new ImageView("Photos/packMan.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
 					imageView.setX(thisRow);
@@ -76,8 +76,46 @@ public class BoardControl implements Initializable {
 					pane.getChildren().add(imageView) ;
 
 				}
-				
-				
+				if(matrix[i][j] == 5)
+				{
+					ImageView imageView = new ImageView("Photos/ghost_blue.png");
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
+				if(matrix[i][j] == 6)
+				{
+					ImageView imageView = new ImageView("Photos/ghost_red.png");
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
+				if(matrix[i][j] == 7)
+				{
+					ImageView imageView = new ImageView("Photos/ghost_pink.png");
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
+				if(matrix[i][j] == 8)
+				{
+					ImageView imageView = new ImageView("Photos/ghost_orange.png");
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
 				
 				thisRow+=30;
 			}
