@@ -1,9 +1,13 @@
 package View;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import Model.Board;
+import Model.BombPoints;
+import Model.PeckPoints;
+import Model.Question;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -58,18 +62,42 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 0)
 				{
-					//ImageView imageView = new ImageView("Photos/image.png");
-					//imageView.setFitHeight(30);
-					//imageView.setFitWidth(30);
-					//imageView.setX(thisRow);
-					//imageView.setY(thisColoum);
-					//pane.getChildren().add(imageView) ;
 					Circle peckPoint = new Circle() ; // pass in x, y, width and height
 					peckPoint.setCenterX(thisRow+15);  
 					peckPoint.setCenterY(thisColoum+15);  
 					peckPoint.setRadius(4); 
 					peckPoint.setFill(Color.web("#E4CB18"));
 					pane.getChildren().add(peckPoint) ;
+
+				}
+				if(matrix[i][j] == 2)
+				{
+					/**
+					 * Getting random photo 
+					 */
+					BombPoints bomb=new BombPoints("");
+					int index = (int)(Math.random() * bomb.getBombPoints().size());
+					ImageView imageView = new ImageView(bomb.getBombPoints().get(index).getImage());
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
+
+				}
+				if(matrix[i][j] == 3)
+				{
+					/**
+					 * Getting random photo 
+					 */
+					Question questin=new Question();
+					int index = (int)(Math.random() * questin.getPointsQuestions().size());
+					ImageView imageView = new ImageView(questin.getPointsQuestions().get(index).getImage());
+					imageView.setFitHeight(30);
+					imageView.setFitWidth(30);
+					imageView.setX(thisRow);
+					imageView.setY(thisColoum);
+					pane.getChildren().add(imageView) ;
 
 				}
 				if(matrix[i][j] == 4)

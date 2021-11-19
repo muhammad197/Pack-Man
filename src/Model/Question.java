@@ -13,7 +13,9 @@ public class Question {
 	public Level level;
 	public String team;
 
-	 public Question(String question, int id, ArrayList<Answer> answers, int trueAnswer, Level level) {
+	
+	
+	public Question(String question, int id, ArrayList<Answer> answers, int trueAnswer, Level level) {
 		super();
 		this.question = question;
 		this.id = id;
@@ -23,7 +25,9 @@ public class Question {
 		this.team = "Panther";
 	}
 
-
+	public Question() {
+			super();
+		}
 
 	public String getQuestion() {
 		return question;
@@ -122,12 +126,12 @@ public class Question {
 	public static ArrayList<PeckPoints> getPointsQuestions()
 	{
 		ArrayList<PeckPoints> pointsQuestions = new ArrayList<PeckPoints>();
-		pointsQuestions.add(new PeckPoints("/src/Photos/almond.png"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/casho.png"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/cookie1.png"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/cookie2.png"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/grape.png"));
-		pointsQuestions.add(new PeckPoints("/src/Photos/lemon.png"));
+		pointsQuestions.add(new PeckPoints("Photos/almond.png"));
+		pointsQuestions.add(new PeckPoints("Photos/casho.png"));
+		pointsQuestions.add(new PeckPoints("Photos/cookie1.png"));
+		pointsQuestions.add(new PeckPoints("Photos/cookie2.png"));
+		pointsQuestions.add(new PeckPoints("Photos/grape.png"));
+		pointsQuestions.add(new PeckPoints("Photos/lemon.png"));
 		return pointsQuestions;
 	} 
 
