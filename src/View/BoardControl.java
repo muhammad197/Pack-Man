@@ -34,7 +34,8 @@ public class BoardControl implements Initializable {
 
     @FXML
     private Pane pane;
-    int[][] matrix = Board.getInstance().matrixBoard_level1;
+    int[][] matrix1 = Board.getInstance().matrixBoard_level1;
+    int [][] matrix= Board.getInstance().putRandomQuestion(matrix1);
     int ObjectSize=30;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -48,7 +49,7 @@ public class BoardControl implements Initializable {
 	private void fillBoard() {
 	    int thisRow=0;
 	    int thisColoum=0;
-
+	    
 		for(int i=0; i<21; i++)
 		{
 			for(int j=0;j<21;j++) {

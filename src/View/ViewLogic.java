@@ -33,7 +33,7 @@ public class ViewLogic {
 	 * this method starts the windows in the system
 	 */
 	public static void initUI() {
-		mainPageWindow();
+		gameWindow();
 	}
 
 	
@@ -71,7 +71,7 @@ public class ViewLogic {
 		protected static void gameWindow() {
 			Stage stage = new Stage();
 
-			newWindow(ViewLogic.class.getResource("PlayGame.fxml"),
+			newWindow(ViewLogic.class.getResource("Board.fxml"),
 					stage,
 					"Packman!",
 					false,
