@@ -1,43 +1,38 @@
 package View;
 
+import java.beans.EventHandler;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import Model.Board;
 import Model.BombPoints;
-import Utils.Direction;
-import Utils.GameState;
+import Model.Ghost;
+import Model.Location;
 import Model.PeckPoints;
 import Model.Question;
+import Utils.GameState;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.skin.TextInputControlSkin.Direction;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyEvent;
-import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 public class BoardControl implements Initializable {
-	private Stage window ;
-	private Scene scene ;
 	
-	protected static GameState status;
-	
-	private boolean down, up, left, right, keyActive, pause, resume, start;
-	private int index_row_packMan, index_column_packMan;
-	
-	/**
-	 * Variable to control PackMan speed
-	 */
-	private int RegularSpeed;
-	
-	private AnimationTimer time;
 
     @FXML
     private ResourceBundle resources;
@@ -46,32 +41,192 @@ public class BoardControl implements Initializable {
     private URL location;
 
     @FXML
-    private HBox hbox;
-
-    @FXML
     private Pane pane;
-    int[][] matrix1 = Board.getInstance().matrixBoard_level1;
-    int [][] matrix= Board.getInstance().putRandomQuestion(matrix1);
+    
+    private Location PacmanLocation = new Location(300, 570);
+    
+	//get board from board model( a matrix that describes the board- see Model\Board)
+	int[][] matrix = Board.getInstance().matrixBoard_level1;
+	
+	//object size on the board is set to 30 
     int ObjectSize=30;
     
+    private GameState gameState;
     
+    private Scene scene ;
+	private Direction newDir= Direction.RIGHT;
+	private Direction directionChanged = Direction.RIGHT;
+
+	KeyFrame pacman_keyFrame;
+
+	public int score;
+
+	
+	private boolean down, up, left, right, keyActive, pause, resume, start;
+	private int index_row_packMan, index_column_packMan;
+
+	/**
+	 * Variable to control PackMan speed
+	 */
+	private int RegularSpeed;
+
+	private AnimationTimer time;
+	
+
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		pane.setStyle("-fx-background-color : black") ;
+		pane.setStyle("-fx-background-color : black") ;//set background to black
 		fillBoard();
 		up = down = right = left = pause = resume = start = false;
 		keyActive = true;
 		RegularSpeed = 10;
-		status = GameState.Running;
+		gameState = GameState.Paused;
 		resume();
 		pressedKeys(pane);
+		
+
 
 	}
+
 	
-	/**
-	 * Method to fill the board 
-	 */
-	private void fillBoard() {
+
+
+	private void movement() {
+		if(isWall(newDir) == false) {
+			if(newDir == Direction.RIGHT)
+			{
+				if(isWall(newDir) == false) {
+					movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
+					PacmanLocation.setRow((PacmanLocation.getRow())+30);
+					}
+			
+			}
+			if(newDir == Direction.LEFT)
+			{
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
+				PacmanLocation.setRow((PacmanLocation.getRow())-30);
+			}
+			
+			if(newDir == Direction.UP)
+			{
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
+				PacmanLocation.setColumn(PacmanLocation.getColumn()-30);
+			}
+			if(newDir == Direction.DOWN)
+			{
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
+				PacmanLocation.setColumn(PacmanLocation.getColumn()+30);
+			}
+		}
+	}
+	
+		
+	
+	private void pressedKeys(Pane pane2) {
+		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		//get scene 
+			@Override public void handle(Event arg0) {
+				setScene(pane.getScene());
+				gameState= GameState.Started;
+				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
+					@Override
+					public void handle(KeyEvent event) {
+						directionChanged= newDir;
+						switch(event.getCode()) 
+						{
+							case UP : newDir = Direction.UP ;
+									  break ;
+
+							case DOWN : newDir = Direction.DOWN ;
+										break ;
+
+							case LEFT : newDir = Direction.LEFT ;
+										break ;
+
+							case RIGHT : newDir = Direction.RIGHT ;
+										 break ;
+						}
+						
+						movement();
+						
+
+				System.out.println(scene);			
+				System.out.println(newDir);
+				
+			}
+			});		
+	}
+		});
+	}
+
+
+	private boolean isWall(Direction Dir) {
+		int nextRowIndex;
+		int nextColumnIndex;
+		if(Dir == Direction.RIGHT)
+		{
+			nextRowIndex= ((PacmanLocation.getColumn())/30);
+			nextColumnIndex= ((PacmanLocation.getRow())/30) + 1;
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+		}
+		if(Dir == Direction.LEFT)
+		{
+			nextRowIndex= ((PacmanLocation.getColumn())/30);
+			nextColumnIndex= ((PacmanLocation.getRow())/30) - 1;
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+			
+			else {
+				return false;
+			}
+		}if(Dir == Direction.UP)
+		{
+			nextRowIndex= ((PacmanLocation.getColumn())/30) - 1;
+			nextColumnIndex= ((PacmanLocation.getRow())/30);
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+			
+			else {
+				return false;
+			}
+		}if(Dir == Direction.DOWN)
+		{
+			nextRowIndex= ((PacmanLocation.getColumn())/30) + 1;
+			nextColumnIndex= ((PacmanLocation.getRow())/30) ;
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+			
+			else {
+				return false;
+			}
+		}
+		return false;
+		
+		
+		
+	}
+
+	
+	public void movePackman(int fromX, int fromY, int toX, int toY)
+	{
+		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+		wall.setFill(Color.BLACK) ;
+		pane.getChildren().add(wall) ;
+		
+		ImageView imageView = new ImageView("Photos/packMan.png");
+		imageView.setFitHeight(30);
+		imageView.setFitWidth(30);
+		imageView.setX(toX);
+		imageView.setY(toY);
+		pane.getChildren().add(imageView) ;
+		
+		
+	}
+	
+
+	//fill board acccording to the matrix. every object on the board has it's defining number(see on Model\Board) for example - 0:wall
+		private void fillBoard() {
 	    int thisRow=0;
 	    int thisColoum=0;
 	    
@@ -196,67 +351,33 @@ public class BoardControl implements Initializable {
 			thisRow=0;
 		}
 	}
-	
-	private void pressedKeys(Pane pane)
-	{
-		( pane.getScene()).setOnKeyPressed(new EventHandler<KeyEvent>() {
+		
+		private void resume()
+		{
+			time= new AnimationTimer() {
 
-			@Override
-			public void handle(KeyEvent key) {
-				// TODO Auto-generated method stub
-				switch (key.getCode()) {
-			      case UP:
-			      {
-			    	  if(status== GameState.Running)
-			    	  {
-			    		  System.out.println("click on escape");
-			    	  }
-			      }
-			      case DOWN:
-			      {
-			    	  if(status== GameState.Running)
-			    	  {
-			    		  System.out.println("click on escape");
-			    	  }
-			      }
-			      case LEFT:
-			      {
-			    	  if(status== GameState.Running)
-			    	  {
-			    		  System.out.println("click on escape");
-			    	  }
-			      }
-			      case RIGHT:
-			      {
-			    	  if(status== GameState.Running)
-			    	  {
-			    		  System.out.println("click on escape");
-			    	  }  
-			      }
-			      default:
-						break;
-			}
+				@Override
+				public void handle(long arg0) {
+					// TODO Auto-generated method stub
+
+
+
+				}
+
+
+
+			};
 		}
-	}
-		);
-		
-	}
-	private void resume()
-	{
-		time= new AnimationTimer() {
 
-			@Override
-			public void handle(long arg0) {
-				// TODO Auto-generated method stub
-				
-			
-				
-			}
-			
-			
-			
-		};
-		
+
+	public Pane getPane() {
+		return pane;
 	}
+
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+	
 
 }
