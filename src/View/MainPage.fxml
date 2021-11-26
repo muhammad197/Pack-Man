@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
    <children>
       <ImageView fitHeight="508.0" fitWidth="899.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,7 +24,7 @@
          </image>
       </ImageView>
       <Button id="startbtn" fx:id="startbtn" layoutX="312.0" layoutY="188.0" mnemonicParsing="false" onAction="#playClicked" opacity="0.0" prefHeight="34.0" prefWidth="145.0" text="start game" textAlignment="CENTER" textFill="RED" />
-      <ImageView fx:id="startgamebutton" fitHeight="43.0" fitWidth="151.0" layoutX="312.0" layoutY="188.0">
+      <ImageView fx:id="startgamebutton" fitHeight="43.0" fitWidth="151.0" layoutX="312.0" layoutY="188.0" onAction="#playClicked">
          <image>
             <Image url="@../resources/startgame.png" />
          </image>
@@ -30,17 +35,17 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <ImageView fx:id="scoreboardbtn" fitHeight="34.0" fitWidth="158.0" layoutX="488.0" layoutY="222.0">
+      <ImageView fx:id="scoreboardbtn" fitHeight="34.0" fitWidth="158.0" layoutX="488.0" layoutY="222.0" onAction="#leaderBoardClicked">
          <image>
             <Image url="@../resources/LBoard.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="QMbtn" fitHeight="51.0" fitWidth="241.0" layoutX="596.0" layoutY="258.0">
+      <ImageView fx:id="QMbtn" fitHeight="51.0" fitWidth="241.0" layoutX="596.0" layoutY="258.0" onAction="#QMClicked">
          <image>
             <Image url="@../resources/QM.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="rulesicon" fitHeight="73.0" fitWidth="81.0" layoutX="793.0" layoutY="406.0">
+      <ImageView fx:id="rulesicon" fitHeight="73.0" fitWidth="81.0" layoutX="793.0" layoutY="406.0" onAction="#InstructionClicked">
          <image>
             <Image url="@../resources/Rules.png" />
          </image>
