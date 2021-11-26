@@ -43,16 +43,6 @@
             <ColorAdjust hue="-0.06" />
          </effect>
       </Separator>
-      <Button fx:id="editbtn" layoutX="722.0" layoutY="185.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" text="edit" textFill="TRANSPARENT" textOverrun="CLIP">
-         <effect>
-            <ColorAdjust hue="-0.02" />
-         </effect>
-      </Button>
-      <Button fx:id="addbtn" graphicTextGap="0.0" layoutX="759.0" layoutY="133.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" text="add" textFill="TRANSPARENT" textOverrun="CLIP">
-         <effect>
-            <ColorAdjust hue="-0.02" />
-         </effect>
-      </Button>
       <TableView fx:id="answersTable" layoutX="47.0" layoutY="361.0" prefHeight="200.0" prefWidth="664.0" stylesheets="@style.css">
         <columns>
           <TableColumn fx:id="answerID" prefWidth="163.9999656677246" text="ID" />
@@ -99,6 +89,16 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <Button fx:id="editbtn" layoutX="722.0" layoutY="185.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" text="edit" textFill="TRANSPARENT" textOverrun="CLIP">
+         <effect>
+            <ColorAdjust hue="-0.02" />
+         </effect>
+      </Button>
+      <Button fx:id="addbtn" graphicTextGap="0.0" layoutX="759.0" layoutY="133.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" text="add" textFill="TRANSPARENT" textOverrun="CLIP">
+         <effect>
+            <ColorAdjust hue="-0.02" />
+         </effect>
+      </Button>
       <Button fx:id="bckbtn" layoutX="728.0" layoutY="556.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="36.0" prefWidth="75.0" text="Back">
          <font>
             <Font size="14.0" />

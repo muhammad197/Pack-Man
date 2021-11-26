@@ -27,7 +27,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="backbtn" layoutX="699.0" layoutY="391.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="25.0" prefWidth="57.0" text="Back " />
       <ImageView fitHeight="60.0" fitWidth="391.0" layoutX="191.0">
          <image>
             <Image url="@../resources/LeaderBoardTitle.png" />
@@ -39,5 +38,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
+      <Button fx:id="backbtn" layoutX="699.0" layoutY="391.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="25.0" prefWidth="57.0" text="Back " />
    </children>
 </AnchorPane>
