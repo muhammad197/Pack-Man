@@ -3,6 +3,7 @@ package View;
 import java.beans.EventHandler;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,8 +15,11 @@ import Model.Location;
 import Model.PeckPoints;
 import Model.Question;
 import Utils.GameState;
+import Utils.Level;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +30,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.robot.Robot;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -50,16 +55,18 @@ public class BoardControl implements Initializable {
 	
 	//object size on the board is set to 30 
     int ObjectSize=30;
-    
+	private Timeline timeline;
+
     private GameState gameState;
     
     private Scene scene ;
-	private Direction newDir= Direction.RIGHT;
-	private Direction directionChanged = Direction.RIGHT;
+	private Direction newDir;
 
 	KeyFrame pacman_keyFrame;
 
 	public int score;
+	
+	public Level level;
 
 	
 	private boolean down, up, left, right, keyActive, pause, resume, start;
@@ -68,7 +75,7 @@ public class BoardControl implements Initializable {
 	/**
 	 * Variable to control PackMan speed
 	 */
-	private int RegularSpeed;
+	private int Speed;
 
 	private AnimationTimer time;
 	
@@ -80,12 +87,12 @@ public class BoardControl implements Initializable {
 		fillBoard();
 		up = down = right = left = pause = resume = start = false;
 		keyActive = true;
-		RegularSpeed = 10;
+		Speed = 300;
 		gameState = GameState.Paused;
 		resume();
 		pressedKeys(pane);
 		
-
+	
 
 	}
 
@@ -128,10 +135,11 @@ public class BoardControl implements Initializable {
 			@Override public void handle(Event arg0) {
 				setScene(pane.getScene());
 				gameState= GameState.Started;
-				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
+				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {	
+					private boolean keepGoing= false;
+
 					@Override
 					public void handle(KeyEvent event) {
-						directionChanged= newDir;
 						switch(event.getCode()) 
 						{
 							case UP : newDir = Direction.UP ;
@@ -147,14 +155,31 @@ public class BoardControl implements Initializable {
 										 break ;
 						}
 						
-						movement();
 						
+						   
 
 				System.out.println(scene);			
 				System.out.println(newDir);
 				
 			}
+					
 			});		
+				if(level == level.easy)	
+					Speed= 300;
+				if(level == level.medium)	
+					Speed= 200;
+				if(level == level.hard)	
+					Speed= 100;
+	
+				pacman_keyFrame = new KeyFrame(Duration.millis(Speed), e->
+				{
+				 movement();
+				 
+				});
+				timeline = new Timeline(pacman_keyFrame) ;
+				timeline.setCycleCount(Timeline.INDEFINITE) ;
+				timeline.play() ;
+
 	}
 		});
 	}
@@ -210,18 +235,16 @@ public class BoardControl implements Initializable {
 	
 	public void movePackman(int fromX, int fromY, int toX, int toY)
 	{
+		
 		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
 		wall.setFill(Color.BLACK) ;
 		pane.getChildren().add(wall) ;
-		
 		ImageView imageView = new ImageView("Photos/packMan.png");
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		imageView.setX(toX);
 		imageView.setY(toY);
 		pane.getChildren().add(imageView) ;
-		
-		
 	}
 	
 
