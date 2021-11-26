@@ -50,8 +50,9 @@ public class BoardControl implements Initializable {
     
     private Location PacmanLocation = new Location(300, 570);
     
+    int[][] matrix1=Board.getInstance().matrixBoard_level1;
 	//get board from board model( a matrix that describes the board- see Model\Board)
-	int[][] matrix = Board.getInstance().matrixBoard_level1;
+	int[][] matrix = Board.getInstance().putRandomQuestion(matrix1);
 	
 	//object size on the board is set to 30 
     int ObjectSize=30;
@@ -63,6 +64,9 @@ public class BoardControl implements Initializable {
 	private Direction newDir;
 
 	KeyFrame pacman_keyFrame;
+	KeyFrame blueGhost_keyFrame;
+	KeyFrame redGhost_keyFrame;
+	KeyFrame pinkGhost_keyFrame;
 
 	public int score;
 	
@@ -104,25 +108,25 @@ public class BoardControl implements Initializable {
 			if(newDir == Direction.RIGHT)
 			{
 				if(isWall(newDir) == false) {
-					movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
+					movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
 					PacmanLocation.setRow((PacmanLocation.getRow())+30);
 					}
 			
 			}
 			if(newDir == Direction.LEFT)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
 				PacmanLocation.setRow((PacmanLocation.getRow())-30);
 			}
 			
 			if(newDir == Direction.UP)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()-30);
 			}
 			if(newDir == Direction.DOWN)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()+30);
 			}
 		}
@@ -131,11 +135,14 @@ public class BoardControl implements Initializable {
 		
 	
 	private void pressedKeys(Pane pane2) {
-		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		//get scene 
+		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		
+			
 			@Override public void handle(Event arg0) {
-				setScene(pane.getScene());
+				
+				setScene(pane.getScene()); //get scene 
 				gameState= GameState.Started;
 				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {	
+					
 					private boolean keepGoing= false;
 
 					@Override
@@ -156,8 +163,6 @@ public class BoardControl implements Initializable {
 						}
 						
 						
-						   
-
 				System.out.println(scene);			
 				System.out.println(newDir);
 				
@@ -233,19 +238,24 @@ public class BoardControl implements Initializable {
 	}
 
 	
-	public void movePackman(int fromX, int fromY, int toX, int toY)
+	public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
 	{
 		
 		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
 		wall.setFill(Color.BLACK) ;
 		pane.getChildren().add(wall) ;
-		ImageView imageView = new ImageView("Photos/packMan.png");
+		ImageView imageView= new ImageView("Photos/packMan.png");
+		if(dir==Direction.LEFT)
+			imageView= new ImageView("Photos/packManLeft.png");
+		else if(dir==Direction.RIGHT)
+			imageView= new ImageView("Photos/packManRight.png");
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		imageView.setX(toX);
 		imageView.setY(toY);
 		pane.getChildren().add(imageView) ;
 	}
+	
 	
 
 	//fill board acccording to the matrix. every object on the board has it's defining number(see on Model\Board) for example - 0:wall
