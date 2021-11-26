@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
    <children>
       <ImageView fitHeight="508.0" fitWidth="899.0" layoutX="-3.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -18,17 +23,41 @@
             <Image url="@../resources/title.png" />
          </image>
       </ImageView>
+<<<<<<< HEAD
       <ImageView fx:id="scoreboardbtn" fitHeight="34.0" fitWidth="158.0" layoutX="488.0" layoutY="222.0" onDragDetected="#leaderBoardClicked" onMouseClicked="#leaderBoardClicked">
+=======
+      <Button id="startbtn" fx:id="startbtn" layoutX="312.0" layoutY="188.0" mnemonicParsing="false" onAction="#playClicked" opacity="0.0" prefHeight="34.0" prefWidth="145.0" text="start game" textAlignment="CENTER" textFill="RED" />
+      <ImageView fx:id="startgamebutton" fitHeight="43.0" fitWidth="151.0" layoutX="312.0" layoutY="188.0" onAction="#playClicked">
+         <image>
+            <Image url="@../resources/startgame.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="ldrbtn" layoutX="488.0" layoutY="226.0" mnemonicParsing="false" onAction="#leaderBoardClicked" opacity="0.0" prefHeight="25.0" prefWidth="151.0" text="leaderboard" />
+      <Button fx:id="qusbtn" layoutX="601.0" layoutY="261.0" mnemonicParsing="false" onAction="#QMClicked" opacity="0.0" prefHeight="34.0" prefWidth="228.0" text="question managment" textFill="#00e5ff" />
+      <Button fx:id="insbtn" layoutX="810.0" layoutY="414.0" mnemonicParsing="false" onAction="#InstructionClicked" opacity="0.0" prefHeight="56.0" prefWidth="46.0" text="instructions">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <ImageView fx:id="scoreboardbtn" fitHeight="34.0" fitWidth="158.0" layoutX="488.0" layoutY="222.0" onAction="#leaderBoardClicked">
+>>>>>>> branch 'main' of https://github.com/idresrima/Pack-Man.git
          <image>
             <Image url="@../resources/LBoard.png" />
          </image>
       </ImageView>
+<<<<<<< HEAD
       <ImageView fx:id="QMbtn" fitHeight="51.0" fitWidth="241.0" layoutX="596.0" layoutY="258.0" onDragDetected="#QMClicked" onMouseClicked="#QMClicked">
+=======
+      <ImageView fx:id="QMbtn" fitHeight="51.0" fitWidth="241.0" layoutX="596.0" layoutY="258.0" onAction="#QMClicked">
+>>>>>>> branch 'main' of https://github.com/idresrima/Pack-Man.git
          <image>
             <Image url="@../resources/QM.png" />
          </image>
       </ImageView>
+<<<<<<< HEAD
       <ImageView fx:id="rulesicon" fitHeight="73.0" fitWidth="81.0" layoutX="793.0" layoutY="406.0" onDragDetected="#InstructionClicked" onMouseClicked="#InstructionClicked">
+=======
+      <ImageView fx:id="rulesicon" fitHeight="73.0" fitWidth="81.0" layoutX="793.0" layoutY="406.0" onAction="#InstructionClicked">
+>>>>>>> branch 'main' of https://github.com/idresrima/Pack-Man.git
          <image>
             <Image url="@../resources/Rules.png" />
          </image>
