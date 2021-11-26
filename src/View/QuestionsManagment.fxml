@@ -13,16 +13,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="566.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.QuestionsManagmentController">
+<AnchorPane fx:id="pane" prefHeight="598.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.QuestionsManagmentController">
    <children>
-      <ImageView fx:id="background" fitHeight="567.0" fitWidth="825.0" layoutY="-1.0">
+      <ImageView fx:id="background" fitHeight="605.0" fitWidth="825.0" layoutY="-1.0">
          <image>
             <Image url="@../resources/MQ-BackGround.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="ManageQuestionsTitle" fitHeight="83.0" fitWidth="386.0" layoutX="132.0" layoutY="10.0">
+      <ImageView fx:id="ManageQuestionsTitle" fitHeight="91.0" fitWidth="526.0" layoutX="148.0" layoutY="5.0">
          <image>
-            <Image url="@../resources/MQTitle.png" />
+            <Image url="@../resources/ManageQTitle.png" />
          </image>
       </ImageView>
       <TableView fx:id="questionsTable" layoutX="47.0" layoutY="107.0" onMouseClicked="#setSelectedQuestion" prefHeight="200.0" prefWidth="664.0" stylesheets="@style.css">
@@ -43,23 +43,23 @@
             <ColorAdjust hue="-0.06" />
          </effect>
       </Separator>
-      <Button fx:id="editbtn" layoutX="595.0" layoutY="195.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" textOverrun="CLIP">
+      <Button fx:id="editbtn" layoutX="722.0" layoutY="185.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" text="edit" textFill="TRANSPARENT" textOverrun="CLIP">
          <effect>
             <ColorAdjust hue="-0.02" />
          </effect>
       </Button>
-      <Button fx:id="addbtn" graphicTextGap="0.0" layoutX="613.0" layoutY="143.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="50.0" style="-fx-background-color: 100;" textOverrun="CLIP">
+      <Button fx:id="addbtn" graphicTextGap="0.0" layoutX="759.0" layoutY="133.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: 100;" text="add" textFill="TRANSPARENT" textOverrun="CLIP">
          <effect>
             <ColorAdjust hue="-0.02" />
          </effect>
       </Button>
-      <TableView fx:id="answersTable" layoutX="47.0" layoutY="361.0" prefHeight="190.0" prefWidth="664.0" stylesheets="@style.css">
+      <TableView fx:id="answersTable" layoutX="47.0" layoutY="361.0" prefHeight="200.0" prefWidth="664.0" stylesheets="@style.css">
         <columns>
           <TableColumn fx:id="answerID" prefWidth="163.9999656677246" text="ID" />
           <TableColumn fx:id="AnswersContent" editable="false" prefWidth="270.66673278808594" text="Answer" />
         </columns>
       </TableView>
-      <ImageView fx:id="deleteIcon" fitHeight="62.0" fitWidth="50.0" layoutX="758.0" layoutY="245.0">
+      <ImageView fx:id="deleteIcon" fitHeight="62.0" fitWidth="50.0" layoutX="750.0" layoutY="228.0">
          <image>
             <Image url="@../resources/delete_icon.png" />
          </image>
@@ -72,7 +72,7 @@
             
          </image>
       </ImageView>
-      <ImageView fx:id="addIcon" fitHeight="62.0" fitWidth="50.0" layoutX="765.0" layoutY="124.0">
+      <ImageView fx:id="addIcon" fitHeight="62.0" fitWidth="50.0" layoutX="750.0" layoutY="124.0">
          <image>
             <Image url="@../resources/add_icon.png" />
          </image>
@@ -80,7 +80,7 @@
             <ColorAdjust hue="0.5" />
          </effect>
       </ImageView>
-      <ImageView fx:id="editIcon" fitHeight="62.0" fitWidth="50.0" layoutX="733.0" layoutY="176.0">
+      <ImageView fx:id="editIcon" fitHeight="62.0" fitWidth="50.0" layoutX="715.0" layoutY="176.0">
          <image>
             <Image url="@../resources/edit_icon.png" />
          </image>
@@ -88,18 +88,18 @@
             <ColorAdjust hue="0.3" />
          </effect>
       </ImageView>
-      <Label fx:id="questionLabel" layoutX="57.0" layoutY="333.0" prefHeight="27.0" prefWidth="509.0" text="Question " textFill="#fffbfb">
+      <Label fx:id="questionLabel" layoutX="57.0" layoutY="325.0" prefHeight="36.0" prefWidth="620.0" text="Question " textAlignment="CENTER" textFill="#fffbfb">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="36.0" layoutX="38.0" layoutY="43.0" stroke="#c3ab11" strokeType="INSIDE" width="75.0" />
-      <Text fill="#c3ab11" layoutX="61.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="36.0" layoutX="728.0" layoutY="557.0" stroke="#febd0b" strokeType="INSIDE" width="75.0" />
+      <Text fill="#fcb80d" layoutX="736.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" textAlignment="CENTER" wrappingWidth="58.6666259765625">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="bckbtn" layoutX="38.0" layoutY="42.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="36.0" prefWidth="75.0" text="Back">
+      <Button fx:id="bckbtn" layoutX="728.0" layoutY="556.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="36.0" prefWidth="75.0" text="Back">
          <font>
             <Font size="14.0" />
          </font>
