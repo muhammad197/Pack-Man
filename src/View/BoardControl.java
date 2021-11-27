@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import Model.Board;
 import Model.BombPoints;
@@ -48,7 +47,12 @@ public class BoardControl implements Initializable {
     @FXML
     private Pane pane;
     
-    private Location PacmanLocation = new Location(300, 570);
+    private Location PacmanLocation = new Location(300, 570);// the location on the matrix is [10][9]
+    private Location BlueGhostLocation = new Location(270, 240); // the location on the matrix is [9][8]
+    private Location RedGhostLocation = new Location(300, 240); // the location on the matrix is [10][8]
+    private Location PinkGhostLocation = new Location(330, 240); // the location on the matrix is [11][8]
+    
+    private Direction red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt ;
     
     int[][] matrix1=Board.getInstance().matrixBoard_level1;
 	//get board from board model( a matrix that describes the board- see Model\Board)
@@ -56,7 +60,9 @@ public class BoardControl implements Initializable {
 	
 	//object size on the board is set to 30 
     int ObjectSize=30;
+    
 	private Timeline timeline;
+	private Timeline timeline_redGhost;
 
     private GameState gameState;
     
@@ -74,7 +80,11 @@ public class BoardControl implements Initializable {
 
 	
 	private boolean down, up, left, right, keyActive, pause, resume, start;
+	
 	private int index_row_packMan, index_column_packMan;
+	private int index_row_ghostRed, index_column_ghostRed;
+	private int index_row_ghostBlue, index_column_ghostBlue;
+	private int index_row_ghostPink, index_column_ghostPink;
 
 	/**
 	 * Variable to control PackMan speed
@@ -82,6 +92,8 @@ public class BoardControl implements Initializable {
 	private int Speed;
 
 	private AnimationTimer time;
+
+	
 	
 
 
@@ -93,7 +105,7 @@ public class BoardControl implements Initializable {
 		keyActive = true;
 		Speed = 300;
 		gameState = GameState.Paused;
-		resume();
+		ghosts();
 		pressedKeys(pane);
 		
 	
@@ -189,7 +201,60 @@ public class BoardControl implements Initializable {
 		});
 	}
 
+	/** method to check for an incoming wall specific to the direction
+	 * 
+	 * @param theDir
+	 * @param x_coord
+	 * @param y_coord
+	 * @return
+	 */
+	private Boolean checkForWalls(Direction theDir, double x_coord, double y_coord)
+	{
+		x_coord = x_coord - Speed ;
+		y_coord = y_coord - Speed ;
+		double checkX=0, checkY =0;
+		for(int i = 0 ; i < 21 ; i++)
+		{
+			for(int j=0; j<21; j++)
+			{
+				if(matrix[i][j]==1)
+				{ 
+					checkX = i ;
+				    checkY = j ;
+				}
+			}
+			
 
+			if(theDir == Direction.UP && checkY < y_coord)
+			{
+				if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+Speed == checkX) && y_coord-ObjectSize <= checkY)
+					return true ;
+			}
+			else if(theDir == Direction.DOWN && checkY > y_coord)
+			{
+				if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+Speed == checkX) && y_coord+ObjectSize >= checkY)
+					return true ;
+			}
+			else if(theDir == Direction.LEFT && checkX < x_coord)
+			{
+				if(x_coord-ObjectSize <= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+Speed == checkY))
+					return true ;
+			}
+			else if(theDir == Direction.RIGHT && checkX > x_coord)
+			{
+				if(x_coord+ObjectSize >= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+Speed == checkY))
+					return true ;
+			}
+		}
+
+		return false ;
+	}
+
+	/**
+	 * 
+	 * @param Dir
+	 * @return
+	 */
 	private boolean isWall(Direction Dir) {
 		int nextRowIndex;
 		int nextColumnIndex;
@@ -233,8 +298,6 @@ public class BoardControl implements Initializable {
 		}
 		return false;
 		
-		
-		
 	}
 
 	
@@ -258,7 +321,10 @@ public class BoardControl implements Initializable {
 	
 	
 
-	//fill board acccording to the matrix. every object on the board has it's defining number(see on Model\Board) for example - 0:wall
+	/** Fill board according to the matrix. 
+	 *  Every object on the board has it's defining number(see on Model\Board).
+	 *  For example - 0: wall
+	*/
 		private void fillBoard() {
 	    int thisRow=0;
 	    int thisColoum=0;
@@ -339,6 +405,8 @@ public class BoardControl implements Initializable {
 				// update the ghost son the board 
 				if(matrix[i][j] == 5)
 				{
+					index_row_ghostBlue=i;
+					index_column_ghostBlue=j;
 					ImageView imageView = new ImageView("Photos/ghost_blue.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
@@ -349,6 +417,8 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 6)
 				{
+					index_row_ghostRed=i;
+					index_column_ghostRed=j;
 					ImageView imageView = new ImageView("Photos/ghost_red.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
@@ -359,6 +429,8 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 7)
 				{
+					index_row_ghostPink=i;
+					index_column_ghostPink=j;
 					ImageView imageView = new ImageView("Photos/ghost_pink.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
@@ -385,21 +457,103 @@ public class BoardControl implements Initializable {
 		}
 	}
 		
-		private void resume()
+		
+		/** method that'll return a random direction 
+		 * 
+		 * @return dirc
+		 */
+		private Direction getRandomDir()
 		{
-			time= new AnimationTimer() {
+			Direction dirc = null ;		
+			int num = (int)(Math.random() * 4) ;
 
-				@Override
-				public void handle(long arg0) {
-					// TODO Auto-generated method stub
+			switch(num) 
+			{
+				case 0 : dirc = Direction.UP ;
+						 break ;
+				case 1 : dirc = Direction.DOWN ;
+						 break ;
+				case 2 : dirc = Direction.LEFT ;
+						 break ;
+				case 3 : dirc = Direction.RIGHT ;
+						 break ;
+			}		
 
+			return dirc ;
+		}
 
+		/** returns the opposite direction of the specified dirrection
+		 * 
+		 * @param d
+		 * @return
+		 */
+		private Direction oppositeDir(Direction d) 
+		{
+			Direction dir = null ;
 
+			if(d == Direction.UP) 
+				dir = Direction.DOWN ;
+			else if(d == Direction.DOWN) 
+				dir = Direction.UP ;
+			else if(d == Direction.LEFT)
+				dir = Direction.RIGHT ;
+			else if(d == Direction.RIGHT)
+				dir = Direction.LEFT ;
+
+			return dir ;
+		}
+		
+		
+		/**method that'll return the direction that points towards pacman from a ghost's current position
+		 * 
+		 * @param ghost
+		 * @return
+		 */
+//		private Direction pacmanAt(double xx, double yy)
+//		{
+//			double x = xx ;
+//			double y = yy ;
+//
+//			if(y == pacmanY && (pacmanX-x) > 0 && (pacmanX-x) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.RIGHT) == false)
+//				return Dir.RIGHT ;
+//			else if(y == pacmanY && (x-pacmanX) > 0 && (x-pacmanX) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.LEFT) == false)
+//				return Dir.LEFT ;
+//			else if(x == pacmanX && (pacmanY-y) > 0 && (pacmanY-y) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.DOWN) == false)
+//				return Dir.DOWN ;
+//			else if(x == pacmanX && (y-pacmanY) > 0 && (y-pacmanY) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.UP) == false)
+//				return Dir.UP ;
+//
+//			return null ;
+//		}
+		
+		private void ghosts()
+		{
+			redGhost_keyFrame = new KeyFrame(Duration.millis(Speed), e->
+			{
+				Direction dontGo = null ;
+				//dontGo = pacmanAt(RedGhostLocation.getRow(),RedGhostLocation.getColumn()) ;
+				// move in a random direction
+				Direction direction = getRandomDir() ;
+				if(checkForWalls(direction, RedGhostLocation.getRow() , RedGhostLocation.getColumn()) == false)
+				{
+					if(dontGo != null && direction != dontGo)
+					{
+						red_movingAt = direction ;
+						//break ;
+					}
+					else if(direction != oppositeDir(red_movingAt))
+					{
+						red_movingAt = direction ;
+						//break ;
+					}
 				}
+				
+			 
+			});
 
-
-
-			};
+			timeline_redGhost = new Timeline(redGhost_keyFrame) ;
+			timeline_redGhost.setCycleCount(Timeline.INDEFINITE) ;
+			timeline_redGhost.play() ;
 		}
 
 

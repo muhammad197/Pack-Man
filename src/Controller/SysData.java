@@ -184,7 +184,8 @@ public class SysData {
 						for (Answer a : questionAnswers){
 							answerscontent.add(a.getContent());
 						}
-						JSONArray jsonArrayAnswers = new JSONArray(answerscontent);
+						//JSONArray jsonArrayAnswers = new JSONArray(answerscontent);
+						JSONArray jsonArrayAnswers = new JSONArray();
 						map.put("answers", jsonArrayAnswers);
 						map.put("correct_ans", "" + q.getTrueAnswer());
 						map.put("level", "" + q.getLevel().getNum());
