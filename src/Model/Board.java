@@ -99,8 +99,8 @@ public class Board {
 		int count=0; 
 		while (count != 3)
 		{	
-			int index = (int)(Math.random()*22);
-			int index2= (int)(Math.random()*22);
+			int index = (int)(Math.random()*21);
+			int index2= (int)(Math.random()*21);
 			if(board[index][index2]==0)
 			{
 				count++; 
