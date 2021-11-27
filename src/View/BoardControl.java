@@ -90,12 +90,11 @@ public class BoardControl implements Initializable {
 	 * Variable to control PackMan speed
 	 */
 	private int Speed;
+	private int speedGhost;
 
 	private AnimationTimer time;
 
 	
-	
-
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -103,9 +102,9 @@ public class BoardControl implements Initializable {
 		fillBoard();
 		up = down = right = left = pause = resume = start = false;
 		keyActive = true;
+		speedGhost=300;
 		Speed = 300;
 		gameState = GameState.Paused;
-		ghosts();
 		pressedKeys(pane);
 		
 	
@@ -113,10 +112,14 @@ public class BoardControl implements Initializable {
 	}
 
 	
-
+/**
+ * method to move the pacMan
+ */
 
 	private void movement() {
+		
 		if(isWall(newDir) == false) {
+			
 			if(newDir == Direction.RIGHT)
 			{
 				if(isWall(newDir) == false) {
@@ -190,7 +193,9 @@ public class BoardControl implements Initializable {
 	
 				pacman_keyFrame = new KeyFrame(Duration.millis(Speed), e->
 				{
-				 movement();
+				 
+					movement();
+					moveGhostRed();
 				 
 				});
 				timeline = new Timeline(pacman_keyFrame) ;
@@ -210,8 +215,8 @@ public class BoardControl implements Initializable {
 	 */
 	private Boolean checkForWalls(Direction theDir, double x_coord, double y_coord)
 	{
-		x_coord = x_coord - Speed ;
-		y_coord = y_coord - Speed ;
+		//x_coord = x_coord - Speed ;
+		//y_coord = y_coord - Speed ;
 		double checkX=0, checkY =0;
 		for(int i = 0 ; i < 21 ; i++)
 		{
@@ -219,34 +224,33 @@ public class BoardControl implements Initializable {
 			{
 				if(matrix[i][j]==1)
 				{ 
-					checkX = i ;
-				    checkY = j ;
-				}
-			}
+					checkX = i*30 ;
+				    checkY = j*30 ;
 			
+				    if(theDir == Direction.UP && checkY < y_coord)
+				    {
+				    	if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+ObjectSize == checkX) && y_coord-ObjectSize <= checkY)
+				    		return true ;
+				    }
+				    else if(theDir == Direction.DOWN && checkY > y_coord)
+				    {
+				    	if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+ObjectSize == checkX) && y_coord+ObjectSize >= checkY)
+				    		return true ;
+				    }
+				    else if(theDir == Direction.LEFT && checkX < x_coord)
+				    {
+				    	if(x_coord-ObjectSize <= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+ObjectSize == checkY))
+				    		return true ;
+				    }
+				    else if(theDir == Direction.RIGHT && checkX > x_coord)
+				    {
+				    	if(x_coord+ObjectSize >= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+ObjectSize == checkY))
+				    		return true ;
+				    }
+				}
 
-			if(theDir == Direction.UP && checkY < y_coord)
-			{
-				if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+Speed == checkX) && y_coord-ObjectSize <= checkY)
-					return true ;
-			}
-			else if(theDir == Direction.DOWN && checkY > y_coord)
-			{
-				if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+Speed == checkX) && y_coord+ObjectSize >= checkY)
-					return true ;
-			}
-			else if(theDir == Direction.LEFT && checkX < x_coord)
-			{
-				if(x_coord-ObjectSize <= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+Speed == checkY))
-					return true ;
-			}
-			else if(theDir == Direction.RIGHT && checkX > x_coord)
-			{
-				if(x_coord+ObjectSize >= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+Speed == checkY))
-					return true ;
 			}
 		}
-
 		return false ;
 	}
 
@@ -503,59 +507,175 @@ public class BoardControl implements Initializable {
 			return dir ;
 		}
 		
+	
+		/** method that'll check for walls between 2 positions in a specific direction
+		 * 
+		 * @param from_x
+		 * @param from_y
+		 * @param to_x
+		 * @param to_y
+		 * @param direction
+		 * @return
+		 */
+		private Boolean checkForWallsBetween(double from_x, double from_y, double to_x, double to_y, Direction direction)
+		{
+			boolean wall_present = false ;
+
+			if(direction == Direction.UP)
+			{
+				while(from_y > to_y && wall_present == false)
+				{
+					wall_present = checkForWalls(direction, from_x, from_y) ;
+					from_y-=ObjectSize ;
+				}
+			}
+			else if(direction == Direction.DOWN)
+			{
+				while(from_y < to_y && wall_present == false)
+				{
+					wall_present = checkForWalls(direction, from_x, from_y) ;
+					from_y+=ObjectSize ;
+				}
+			}
+			else if(direction == Direction.LEFT)
+			{
+				while(from_x > to_x && wall_present == false)
+				{
+					wall_present = checkForWalls(direction, from_x, from_y) ;
+					from_x-=ObjectSize ;
+				}
+			}
+			else if(direction == Direction.RIGHT)
+			{
+				while(from_x < to_x && wall_present == false)
+				{
+					wall_present = checkForWalls(direction, from_x, from_y) ;
+					from_x+=ObjectSize ;
+				}
+			}
+
+			return wall_present ;
+		}
 		
-		/**method that'll return the direction that points towards pacman from a ghost's current position
+		
+		/** Method that'll return the direction that points towards pacman from a ghost's current position
 		 * 
 		 * @param ghost
 		 * @return
 		 */
-//		private Direction pacmanAt(double xx, double yy)
-//		{
-//			double x = xx ;
-//			double y = yy ;
-//
-//			if(y == pacmanY && (pacmanX-x) > 0 && (pacmanX-x) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.RIGHT) == false)
-//				return Dir.RIGHT ;
-//			else if(y == pacmanY && (x-pacmanX) > 0 && (x-pacmanX) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.LEFT) == false)
-//				return Dir.LEFT ;
-//			else if(x == pacmanX && (pacmanY-y) > 0 && (pacmanY-y) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.DOWN) == false)
-//				return Dir.DOWN ;
-//			else if(x == pacmanX && (y-pacmanY) > 0 && (y-pacmanY) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.UP) == false)
-//				return Dir.UP ;
-//
-//			return null ;
-//		}
-		
-		private void ghosts()
+		private Direction pacmanAt(double xx, double yy)
 		{
-			redGhost_keyFrame = new KeyFrame(Duration.millis(Speed), e->
+			double x = xx ;
+			double y = yy ;
+
+			if(y == PacmanLocation.getColumn() && (PacmanLocation.getRow()-x) > 30 && (PacmanLocation.getRow()-x) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.RIGHT) == false)
+				return Direction.RIGHT ;
+			else if(y == PacmanLocation.getColumn() && (x-PacmanLocation.getRow()) > 30 && (x-PacmanLocation.getRow()) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.LEFT) == false)
+				return Direction.LEFT ;
+			else if(x == PacmanLocation.getRow() && (PacmanLocation.getColumn()-y) > 30 && (PacmanLocation.getColumn()-y) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.DOWN) == false)
+				return Direction.DOWN ;
+			else if(x == PacmanLocation.getRow() && (y-PacmanLocation.getColumn()) > 30 && (y-PacmanLocation.getColumn()) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.UP) == false)
+				return Direction.UP ;
+
+			return null ;
+		}
+		
+		/** check if pacman is in the ghost's radar.
+		 *  If pacman is "wallCount" walls away from the ghost, 
+		 *  this method will return the direction that leads to pacman.
+		 * 
+		 * @param ghost
+		 * @param wallCount
+		 * @return
+		 */
+		private Direction tailPacman(double ghostX,double ghostY, int wallCount)
+		{
+			Direction direction = null ;
+			// from the ghost's current position find out in which direction pacman is
+			Direction pacmanDir = pacmanAt(ghostX,ghostY) ;		
+
+			if(pacmanDir == Direction.DOWN && PacmanLocation.getColumn()-ghostY <= (ObjectSize*wallCount))
 			{
-				Direction dontGo = null ;
-				//dontGo = pacmanAt(RedGhostLocation.getRow(),RedGhostLocation.getColumn()) ;
+				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.DOWN) == false)
+					direction = Direction.DOWN ;				
+			}
+			else if(pacmanDir == Direction.UP && ghostY-PacmanLocation.getColumn() <= (ObjectSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.UP) == false)
+					direction = Direction.UP ;				
+			}
+			else if(pacmanDir == Direction.LEFT && ghostX-PacmanLocation.getRow() <= (ObjectSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.LEFT) == false)
+					direction = Direction.LEFT ;				
+			}
+			else if(pacmanDir == Direction.RIGHT && PacmanLocation.getRow()-ghostX <= (ObjectSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.RIGHT) == false)
+					direction = Direction.RIGHT ;				
+			}
+
+			return direction ;
+		}		
+		
+
+
+		/**
+		 * method to move the red ghost
+		 */
+		private void moveGhostRed()
+		{
+			Direction dontGo = Direction.DOWN ;
+			for(;;)
+			{
+					if(tailPacman( RedGhostLocation.getRow(), RedGhostLocation.getColumn(), 2) != null)
+					{
+						red_movingAt = tailPacman(RedGhostLocation.getRow(), RedGhostLocation.getColumn(), 2) ;	// check if pacman is in red's radar. If pacman is 2 walls away from red, red will follow him
+						break ;
+					}
+				
+
 				// move in a random direction
 				Direction direction = getRandomDir() ;
-				if(checkForWalls(direction, RedGhostLocation.getRow() , RedGhostLocation.getColumn()) == false)
+				if(checkForWalls(direction, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
 				{
 					if(dontGo != null && direction != dontGo)
 					{
 						red_movingAt = direction ;
-						//break ;
+						break ;
 					}
 					else if(direction != oppositeDir(red_movingAt))
 					{
 						red_movingAt = direction ;
-						//break ;
+						break ;
 					}
 				}
-				
-			 
-			});
-
-			timeline_redGhost = new Timeline(redGhost_keyFrame) ;
-			timeline_redGhost.setCycleCount(Timeline.INDEFINITE) ;
-			timeline_redGhost.play() ;
+			}
+			
+			if(red_movingAt == Direction.UP)
+			{
+				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+					RedGhostLocation.setColumn(index_column_ghostBlue - ObjectSize);
+			}
+			else if(red_movingAt == Direction.DOWN)
+			{
+				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+					RedGhostLocation.setColumn(RedGhostLocation.getColumn() + ObjectSize) ;
+			}
+			else if(red_movingAt == Direction.LEFT)
+			{
+				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+					RedGhostLocation.setRow(RedGhostLocation.getRow() - ObjectSize) ;
+			}
+			else if(red_movingAt == Direction.RIGHT)
+			{
+				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+					RedGhostLocation.setRow(RedGhostLocation.getRow() + ObjectSize) ;
+			}
+			
 		}
-
+		
+		
 
 	public Pane getPane() {
 		return pane;
