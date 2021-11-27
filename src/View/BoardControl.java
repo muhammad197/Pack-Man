@@ -304,7 +304,14 @@ public class BoardControl implements Initializable {
 		
 	}
 
-	
+	/**
+	 * 
+	 * @param dir
+	 * @param fromX
+	 * @param fromY
+	 * @param toX
+	 * @param toY
+	 */
 	public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
 	{
 		
@@ -323,7 +330,31 @@ public class BoardControl implements Initializable {
 		pane.getChildren().add(imageView) ;
 	}
 	
-	
+	/**
+	 * update the photo py moving the ghost
+	 * @param dir
+	 * @param fromX
+	 * @param fromY
+	 * @param toX
+	 * @param toY
+	 */
+	public void moveRedGhost(Direction dir,int fromX, int fromY, int toX, int toY)
+	{
+		
+		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+		wall.setFill(Color.BLACK) ;
+		pane.getChildren().add(wall) ;
+		ImageView imageView= new ImageView("Photos/ghost_red.png");
+		if(dir==Direction.LEFT)
+			imageView= new ImageView("Photos/ghost_red_left.png");
+		else if(dir==Direction.RIGHT)
+			imageView= new ImageView("Photos/ghost_red.png");
+		imageView.setFitHeight(30);
+		imageView.setFitWidth(30);
+		imageView.setX(toX);
+		imageView.setY(toY);
+		pane.getChildren().add(imageView) ;
+	}
 
 	/** Fill board according to the matrix. 
 	 *  Every object on the board has it's defining number(see on Model\Board).
@@ -655,22 +686,34 @@ public class BoardControl implements Initializable {
 			if(red_movingAt == Direction.UP)
 			{
 				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
-					RedGhostLocation.setColumn(index_column_ghostBlue - ObjectSize);
+					{
+						moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow(), RedGhostLocation.getColumn()- ObjectSize);
+						RedGhostLocation.setColumn(index_column_ghostBlue - ObjectSize);
+					}
 			}
 			else if(red_movingAt == Direction.DOWN)
 			{
 				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+				{
+					moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow(), RedGhostLocation.getColumn()+ ObjectSize);
 					RedGhostLocation.setColumn(RedGhostLocation.getColumn() + ObjectSize) ;
+				}
 			}
 			else if(red_movingAt == Direction.LEFT)
 			{
 				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+				{
+					moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow()- ObjectSize, RedGhostLocation.getColumn());
 					RedGhostLocation.setRow(RedGhostLocation.getRow() - ObjectSize) ;
+				}
 			}
 			else if(red_movingAt == Direction.RIGHT)
 			{
 				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
+				{
+					moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow()+ ObjectSize, RedGhostLocation.getColumn());
 					RedGhostLocation.setRow(RedGhostLocation.getRow() + ObjectSize) ;
+				}
 			}
 			
 		}
