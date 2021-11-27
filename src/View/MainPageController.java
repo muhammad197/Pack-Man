@@ -14,23 +14,52 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import View.ViewLogic;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class MainPageController implements Initializable {
 
 	@FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private ImageView MainPageBackground;
+
+    @FXML
+    private ImageView QMbtn;
+
+    @FXML
+    private Button insbtn;
+
+    @FXML
     private Button ldrbtn;
 
     @FXML
-    private Button qusbtn;
-    
+    private AnchorPane pane;
+
     @FXML
-	private AnchorPane pane;
+    private Button qusbtn;
+
+    @FXML
+    private ImageView rulesicon;
+
+    @FXML
+    private ImageView scoreboardbtn;
 
     @FXML
     private Button startbtn;
-    
+
     @FXML
-    private Button insbtn;
+    private ImageView startgamebutton;
 
     @FXML
 	private void QMClicked(ActionEvent event) {

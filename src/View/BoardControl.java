@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import Model.Board;
 import Model.BombPoints;
@@ -25,7 +24,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.skin.TextInputControlSkin.Direction;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -49,19 +47,20 @@ public class BoardControl implements Initializable {
     @FXML
     private Pane pane;
     
-    private Location PacmanLocation = new Location(300, 570);
+    private Location PacmanLocation = new Location(300, 570);// the location on the matrix is [10][9]
     private Location BlueGhostLocation = new Location(270, 240); // the location on the matrix is [9][8]
     private Location RedGhostLocation = new Location(300, 240); // the location on the matrix is [10][8]
     private Location PinkGhostLocation = new Location(330, 240); // the location on the matrix is [11][8]
-
+    
     private Direction red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt ;
-
+    
+    int[][] matrix1=Board.getInstance().matrixBoard_level1;
 	//get board from board model( a matrix that describes the board- see Model\Board)
-	int[][] matrix1 = Board.getInstance().matrixBoard_level1;
 	int[][] matrix = Board.getInstance().putRandomQuestion(matrix1);
-
+	
 	//object size on the board is set to 30 
     int ObjectSize=30;
+    
 	private Timeline timeline;
 	private Timeline timeline_redGhost;
 
@@ -71,84 +70,94 @@ public class BoardControl implements Initializable {
 	private Direction newDir;
 
 	KeyFrame pacman_keyFrame;
+	KeyFrame blueGhost_keyFrame;
+	KeyFrame redGhost_keyFrame;
+	KeyFrame pinkGhost_keyFrame;
 
 	public int score;
 	
 	public Level level;
 
-	private ArrayList<Circle> peckpointlist = new ArrayList<Circle>() ;
-	private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
-	private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
-	private ArrayList<ImageView> packmanMoves = new ArrayList<ImageView>() ;
-
+	
+	private boolean down, up, left, right, keyActive, pause, resume, start;
+	
 	private int index_row_packMan, index_column_packMan;
 	private int index_row_ghostRed, index_column_ghostRed;
 	private int index_row_ghostBlue, index_column_ghostBlue;
 	private int index_row_ghostPink, index_column_ghostPink;
 
-	
-	private boolean down, up, left, right, keyActive, pause, resume, start;
-
 	/**
 	 * Variable to control PackMan speed
 	 */
 	private int Speed;
+	private int speedGhost;
+
 	private AnimationTimer time;
 
-	private KeyFrame retrunPeckPoints;
-
-	private Timeline timeline2;
 	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		pane.setStyle("-fx-background-color : black") ;//set background to black
 		fillBoard();
 		up = down = right = left = pause = resume = start = false;
 		keyActive = true;
+		speedGhost=300;
 		Speed = 300;
 		gameState = GameState.Paused;
-		resume();
 		pressedKeys(pane);
+		
+	
+
 	}
 
 	
-
+/**
+ * method to move the pacMan
+ */
 
 	private void movement() {
+		
 		if(isWall(newDir) == false) {
+			
 			if(newDir == Direction.RIGHT)
 			{
 				if(isWall(newDir) == false) {
-					movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
+					movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
 					PacmanLocation.setRow((PacmanLocation.getRow())+30);
 					}
 			
 			}
 			if(newDir == Direction.LEFT)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
 				PacmanLocation.setRow((PacmanLocation.getRow())-30);
 			}
 			
 			if(newDir == Direction.UP)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()-30);
 			}
 			if(newDir == Direction.DOWN)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()+30);
 			}
 		}
 	}
 	
+		
+	
 	private void pressedKeys(Pane pane2) {
-		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		//get scene 
+		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		
+			
 			@Override public void handle(Event arg0) {
-				setScene(pane.getScene());
+				
+				setScene(pane.getScene()); //get scene 
 				gameState= GameState.Started;
 				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {	
+					
 					private boolean keepGoing= false;
 
 					@Override
@@ -169,8 +178,6 @@ public class BoardControl implements Initializable {
 						}
 						
 						
-						   
-
 				System.out.println(scene);			
 				System.out.println(newDir);
 				
@@ -186,8 +193,9 @@ public class BoardControl implements Initializable {
 	
 				pacman_keyFrame = new KeyFrame(Duration.millis(Speed), e->
 				{
-				 movement();
-				 moveGhostRed();
+				 
+					movement();
+					moveGhostRed();
 				 
 				});
 				timeline = new Timeline(pacman_keyFrame) ;
@@ -197,6 +205,14 @@ public class BoardControl implements Initializable {
 	}
 		});
 	}
+
+	/** method to check for an incoming wall specific to the direction
+	 * 
+	 * @param theDir
+	 * @param x_coord
+	 * @param y_coord
+	 * @return
+	 */
 	private Boolean checkForWalls(Direction theDir, double x_coord, double y_coord)
 	{
 		//x_coord = x_coord - Speed ;
@@ -238,7 +254,11 @@ public class BoardControl implements Initializable {
 		return false ;
 	}
 
-
+	/**
+	 * 
+	 * @param Dir
+	 * @return
+	 */
 	private boolean isWall(Direction Dir) {
 		int nextRowIndex;
 		int nextColumnIndex;
@@ -284,8 +304,40 @@ public class BoardControl implements Initializable {
 		
 	}
 
+	/**
+	 * 
+	 * @param dir
+	 * @param fromX
+	 * @param fromY
+	 * @param toX
+	 * @param toY
+	 */
+	public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
+	{
+		
+		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+		wall.setFill(Color.BLACK) ;
+		pane.getChildren().add(wall) ;
+		ImageView imageView= new ImageView("Photos/packMan.png");
+		if(dir==Direction.LEFT)
+			imageView= new ImageView("Photos/packManLeft.png");
+		else if(dir==Direction.RIGHT)
+			imageView= new ImageView("Photos/packManRight.png");
+		imageView.setFitHeight(30);
+		imageView.setFitWidth(30);
+		imageView.setX(toX);
+		imageView.setY(toY);
+		pane.getChildren().add(imageView) ;
+	}
 	
-	
+	/**
+	 * update the photo py moving the ghost
+	 * @param dir
+	 * @param fromX
+	 * @param fromY
+	 * @param toX
+	 * @param toY
+	 */
 	public void moveRedGhost(Direction dir,int fromX, int fromY, int toX, int toY)
 	{
 		
@@ -304,77 +356,10 @@ public class BoardControl implements Initializable {
 		pane.getChildren().add(imageView) ;
 	}
 
-	
-	public void movePackman(int fromX, int fromY, int toX, int toY)
-	{
-		for(int n = 0 ; n < peckpointlist.size() ; n++)
-		{
-			if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
-			{
-				pane.getChildren().remove(peckpointlist.get(n)) ;
-				peckpointlist.remove(n) ;
-				score+=1 ;
-				System.out.println(score);// increment the player's score by 1
-			}
-		}
-		for(int n = 0 ; n < packmanMoves.size() ; n++)
-		{
-			if((packmanMoves.get(n).getX())== fromX && (packmanMoves.get(n).getY())== fromY)
-			{
-				pane.getChildren().remove(packmanMoves.get(n)) ;
-				packmanMoves.remove(n) ;
-			}
-		}
-		ImageView imageView = new ImageView("Photos/packMan.png");
-		imageView.setFitHeight(30);
-		imageView.setFitWidth(30);
-		imageView.setX(toX);
-		imageView.setY(toY);
-		pane.getChildren().add(imageView) ;
-		packmanMoves.add(imageView) ;
-		//return peckPoints 30 seconds after eating them
-		retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
-		{
-			Circle peckPoint = new Circle() ; // pass in x, y, width and height
-			peckPoint.setCenterX(fromX+15);  
-			peckPoint.setCenterY(fromY+15);  
-			peckPoint.setRadius(4); 
-			peckPoint.setFill(Color.web("#E4CB18"));
-			
-			boolean toadd= true;
-			for(int n = 0 ; n < peckpointlist.size() ; n++)
-			{
-				if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
-				{
-					toadd=false;
-				}
-				if(n< bonusList.size())
-					if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
-						toadd=false;
-				
-				if(PacmanLocation.getRow()== fromX && PacmanLocation.getColumn() == fromY)
-				{
-					toadd=false;
-				}
-			}
-			
-			if(toadd == true) {
-			pane.getChildren().add(peckPoint) ;
-			peckpointlist.add(peckPoint) ;
-			System.out.println(fromX +","+ fromY +","+
-					PacmanLocation.getRow() +"," + PacmanLocation.getColumn());
-			}
-			
-
-			
-		});
-		timeline2 = new Timeline(retrunPeckPoints) ;
-		timeline2.setCycleCount(Timeline.INDEFINITE) ;
-		timeline2.play() ;
-
-	}
-	
-	//fill board acccording to the matrix. every object on the board has it's defining number(see on Model\Board) for example - 0:wall
+	/** Fill board according to the matrix. 
+	 *  Every object on the board has it's defining number(see on Model\Board).
+	 *  For example - 0: wall
+	*/
 		private void fillBoard() {
 	    int thisRow=0;
 	    int thisColoum=0;
@@ -391,8 +376,6 @@ public class BoardControl implements Initializable {
 					wall.setStroke(Color.CORNFLOWERBLUE) ;
 					wall.setStrokeWidth(2.0) ;
 					pane.getChildren().add(wall) ;
-					wallList.add(wall);
-
 				}
 				
 				// update the points on the board 
@@ -404,8 +387,6 @@ public class BoardControl implements Initializable {
 					peckPoint.setRadius(4); 
 					peckPoint.setFill(Color.web("#E4CB18"));
 					pane.getChildren().add(peckPoint) ;
-					peckpointlist.add(peckPoint) ;
-
 
 				}
 				
@@ -423,7 +404,6 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
-					bonusList.add(imageView);
 
 				}
 				
@@ -455,12 +435,13 @@ public class BoardControl implements Initializable {
 					pane.getChildren().add(imageView) ;
 					index_row_packMan= i;
 					index_column_packMan=j;
-					packmanMoves.add(imageView);
 
 				}
 				// update the ghost son the board 
 				if(matrix[i][j] == 5)
 				{
+					index_row_ghostBlue=i;
+					index_column_ghostBlue=j;
 					ImageView imageView = new ImageView("Photos/ghost_blue.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
@@ -471,6 +452,8 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 6)
 				{
+					index_row_ghostRed=i;
+					index_column_ghostRed=j;
 					ImageView imageView = new ImageView("Photos/ghost_red.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
@@ -481,6 +464,8 @@ public class BoardControl implements Initializable {
 				}
 				if(matrix[i][j] == 7)
 				{
+					index_row_ghostPink=i;
+					index_column_ghostPink=j;
 					ImageView imageView = new ImageView("Photos/ghost_pink.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
@@ -507,24 +492,7 @@ public class BoardControl implements Initializable {
 		}
 	}
 		
-		private void resume()
-		{
-			time= new AnimationTimer() {
-
-				@Override
-				public void handle(long arg0) {
-					// TODO Auto-generated method stub
-
-
-
-				}
-
-
-
-			};
-		}
-
-
+		
 		/** method that'll return a random direction 
 		 * 
 		 * @return dirc
@@ -751,6 +719,7 @@ public class BoardControl implements Initializable {
 		}
 		
 		
+
 	public Pane getPane() {
 		return pane;
 	}

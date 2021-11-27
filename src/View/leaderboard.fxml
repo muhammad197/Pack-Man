@@ -1,53 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="566.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.leaderboardcontroller">
+<AnchorPane fx:id="pane" prefHeight="435.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.leaderboardcontroller">
    <children>
-      <ImageView fitHeight="576.0" fitWidth="899.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="452.0" fitWidth="782.0" layoutX="-9.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../resources/WhatsApp%20Image%202021-11-10%20at%2021.12.35.jpeg" />
+            <Image url="@../resources/LeaderBBackg.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="305.0" layoutY="29.0" text="Leader Board" textAlignment="CENTER">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.13333334028720856" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.2937853107344633">
-                     <color>
-                        <Color red="0.13333334028720856" blue="1.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.06486354768276215" green="0.00804093573242426" blue="0.43421053886413574" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
-         <font>
-            <Font name="Arial" size="24.0" />
-         </font>
-      </Label>
-      <TableView fx:id="leaderboardTable" layoutX="20.0" layoutY="81.0" opacity="0.75" prefHeight="401.0" prefWidth="857.0">
+      <TableView fx:id="leaderboardTable" layoutX="86.0" layoutY="62.0" opacity="0.75" prefHeight="355.0" prefWidth="602.0" stylesheets="@style.css">
         <columns>
           <TableColumn fx:id="usernameForBoard" prefWidth="75.0" text="Username" />
           <TableColumn fx:id="ScoreForBoard" prefWidth="75.0" text="Score" />
@@ -57,8 +27,17 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text fill="#2200ff" layoutX="45.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutX="36.0" layoutY="494.0" stroke="#2200ff" strokeType="INSIDE" width="47.0" />
-      <Button fx:id="backbtn" layoutX="36.0" layoutY="494.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" text="Back " />
+      <ImageView fitHeight="60.0" fitWidth="391.0" layoutX="191.0">
+         <image>
+            <Image url="@../resources/LeaderBoardTitle.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="25.0" layoutX="695.0" layoutY="392.0" stroke="#f8f8f8" strokeType="INSIDE" width="64.0" />
+      <Text fill="#fbf6f6" layoutX="705.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" textAlignment="CENTER" wrappingWidth="44.00000000000023">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Text>
+      <Button fx:id="backbtn" layoutX="699.0" layoutY="391.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="25.0" prefWidth="57.0" text="Back " />
    </children>
 </AnchorPane>
