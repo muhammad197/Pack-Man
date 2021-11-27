@@ -213,45 +213,49 @@ public class BoardControl implements Initializable {
 	 * @param y_coord
 	 * @return
 	 */
-	private Boolean checkForWalls(Direction theDir, double x_coord, double y_coord)
+	private Boolean checkForWalls(Direction Dir, double x_coord, double y_coord)
 	{
-		//x_coord = x_coord - Speed ;
-		//y_coord = y_coord - Speed ;
-		double checkX=0, checkY =0;
-		for(int i = 0 ; i < 21 ; i++)
+		int nextRowIndex;
+		int nextColumnIndex;
+		if(Dir == Direction.RIGHT)
 		{
-			for(int j=0; j<21; j++)
-			{
-				if(matrix[i][j]==1)
-				{ 
-					checkX = i*30 ;
-				    checkY = j*30 ;
+			nextRowIndex= (int) (y_coord/30);
+			nextColumnIndex= (int) ((x_coord/30) + 1);
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+		}
+		if(Dir == Direction.LEFT)
+		{
+			nextRowIndex= (int) (y_coord/30);
+			nextColumnIndex= (int) (x_coord/30) - 1;
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
 			
-				    if(theDir == Direction.UP && checkY < y_coord)
-				    {
-				    	if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+ObjectSize == checkX) && y_coord-ObjectSize <= checkY)
-				    		return true ;
-				    }
-				    else if(theDir == Direction.DOWN && checkY > y_coord)
-				    {
-				    	if((x_coord == checkX || (x_coord < checkX+ObjectSize && x_coord > checkX) || x_coord+ObjectSize == checkX) && y_coord+ObjectSize >= checkY)
-				    		return true ;
-				    }
-				    else if(theDir == Direction.LEFT && checkX < x_coord)
-				    {
-				    	if(x_coord-ObjectSize <= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+ObjectSize == checkY))
-				    		return true ;
-				    }
-				    else if(theDir == Direction.RIGHT && checkX > x_coord)
-				    {
-				    	if(x_coord+ObjectSize >= checkX && (y_coord == checkY || (y_coord < checkY+ObjectSize && y_coord > checkY) || y_coord+ObjectSize == checkY))
-				    		return true ;
-				    }
-				}
-
+			else {
+				return false;
+			}
+		}if(Dir == Direction.UP)
+		{
+			nextRowIndex= (int) (y_coord/30) - 1;
+			nextColumnIndex= (int) (x_coord/30);
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+			
+			else {
+				return false;
+			}
+		}if(Dir == Direction.DOWN)
+		{
+			nextRowIndex= (int) (y_coord/30) + 1;
+			nextColumnIndex= (int) (x_coord/30) ;
+			if(matrix[nextRowIndex][nextColumnIndex] == 1)
+				return true;
+			
+			else {
+				return false;
 			}
 		}
-		return false ;
+		return false;
 	}
 
 	/**
