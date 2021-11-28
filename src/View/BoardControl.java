@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import Model.Board;
 import Model.BombPoints;
@@ -22,8 +23,10 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.skin.TextInputControlSkin.Direction;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -47,20 +50,18 @@ public class BoardControl implements Initializable {
     @FXML
     private Pane pane;
     
-    private Location PacmanLocation = new Location(300, 570);// the location on the matrix is [10][9]
+    private Location PacmanLocation = new Location(300, 570);
     private Location BlueGhostLocation = new Location(270, 240); // the location on the matrix is [9][8]
-    private Location RedGhostLocation = new Location(300, 240); // the location on the matrix is [10][8]
     private Location PinkGhostLocation = new Location(330, 240); // the location on the matrix is [11][8]
-    
-    private Direction red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt ;
-    
-    int[][] matrix1=Board.getInstance().matrixBoard_level1;
+
+    private Direction red_movingAt= Direction.UP, blue_movingAt=Direction.UP, pink_movingAt=Direction.LEFT ;
+
 	//get board from board model( a matrix that describes the board- see Model\Board)
+	int[][] matrix1 = Board.getInstance().matrixBoard_level1;
 	int[][] matrix = Board.getInstance().putRandomQuestion(matrix1);
-	
+
 	//object size on the board is set to 30 
     int ObjectSize=30;
-    
 	private Timeline timeline;
 	private Timeline timeline_redGhost;
 
@@ -70,96 +71,102 @@ public class BoardControl implements Initializable {
 	private Direction newDir;
 
 	KeyFrame pacman_keyFrame;
-	KeyFrame blueGhost_keyFrame;
-	KeyFrame redGhost_keyFrame;
-	KeyFrame pinkGhost_keyFrame;
 
 	public int score;
 	
 	public Level level;
 
+	private ArrayList<Circle> peckpointlist = new ArrayList<Circle>() ;
+	private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
+	private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
+	private ArrayList<ImageView> packmanMoves = new ArrayList<ImageView>() ;
 	
-	private boolean down, up, left, right, keyActive, pause, resume, start;
-	
-	private int index_row_packMan, index_column_packMan;
-	private int index_row_ghostRed, index_column_ghostRed;
-	private int index_row_ghostBlue, index_column_ghostBlue;
-	private int index_row_ghostPink, index_column_ghostPink;
+	private ImageView redGhost= new ImageView();
+	private ImageView blueGhost= new ImageView();
+	private ImageView pinkGhost= new ImageView();
+
+
 
 	/**
 	 * Variable to control PackMan speed
 	 */
 	private int Speed;
-	private int speedGhost;
-
 	private AnimationTimer time;
 
-	
+	private KeyFrame retrunPeckPoints;
 
+	private Timeline timeline2;
+
+	protected KeyFrame ghosts_keyFrame;
+
+	protected Timeline timeline3;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		pane.setStyle("-fx-background-color : black") ;//set background to black
 		fillBoard();
-		up = down = right = left = pause = resume = start = false;
-		keyActive = true;
-		speedGhost=300;
 		Speed = 300;
 		gameState = GameState.Paused;
+		resume();
 		pressedKeys(pane);
-		
-	
 
 	}
 
-	
-/**
- * method to move the pacMan
- */
+	private boolean isWall(Direction newDir, double x, double y)
+	{
+		if(newDir == Direction.RIGHT)
+			x=x+30;
+		if(newDir == Direction.LEFT)
+			x=x-30;
+		if(newDir == Direction.UP)
+			y= y-30;
+		if(newDir == Direction.DOWN)
+			y=y+30;
+		for(int n=0; n<wallList.size(); n++)
+		{
+			if(wallList.get(n).getX()== x && wallList.get(n).getY()==y)
+				return true;
+		}
+		return false;
+	}
+
 
 	private void movement() {
-		
-		if(isWall(newDir) == false) {
-			
+		if(isWall(newDir, PacmanLocation.getRow(), PacmanLocation.getColumn()) == false) {
 			if(newDir == Direction.RIGHT)
 			{
-				if(isWall(newDir) == false) {
-					movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
-					PacmanLocation.setRow((PacmanLocation.getRow())+30);
-					}
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
+				PacmanLocation.setRow((PacmanLocation.getRow())+30);
 			
 			}
 			if(newDir == Direction.LEFT)
 			{
-				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
 				PacmanLocation.setRow((PacmanLocation.getRow())-30);
 			}
 			
 			if(newDir == Direction.UP)
 			{
-				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()-30);
 			}
 			if(newDir == Direction.DOWN)
 			{
-				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
+				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()+30);
 			}
 		}
 	}
 	
-		
-	
 	private void pressedKeys(Pane pane2) {
-		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		
-			
-			@Override public void handle(Event arg0) {
-				
-				setScene(pane.getScene()); //get scene 
+		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {		//get scene 
+
+		
+			@Override
+			public void handle(Event arg0) {
+				setScene(pane.getScene());
 				gameState= GameState.Started;
 				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {	
-					
-					private boolean keepGoing= false;
-
 					@Override
 					public void handle(KeyEvent event) {
 						switch(event.getCode()) 
@@ -177,13 +184,16 @@ public class BoardControl implements Initializable {
 										 break ;
 						}
 						
-						
 				System.out.println(scene);			
 				System.out.println(newDir);
 				
 			}
 					
 			});		
+				
+				
+
+				
 				if(level == level.easy)	
 					Speed= 300;
 				if(level == level.medium)	
@@ -193,177 +203,304 @@ public class BoardControl implements Initializable {
 	
 				pacman_keyFrame = new KeyFrame(Duration.millis(Speed), e->
 				{
-				 
-					movement();
-					moveGhostRed();
-				 
+				 movement();
 				});
 				timeline = new Timeline(pacman_keyFrame) ;
 				timeline.setCycleCount(Timeline.INDEFINITE) ;
 				timeline.play() ;
-
-	}
-		});
-	}
-
-	/** method to check for an incoming wall specific to the direction
-	 * 
-	 * @param theDir
-	 * @param x_coord
-	 * @param y_coord
-	 * @return
-	 */
-	private Boolean checkForWalls(Direction Dir, double x_coord, double y_coord)
-	{
-		int nextRowIndex;
-		int nextColumnIndex;
-		if(Dir == Direction.RIGHT)
-		{
-			nextRowIndex= (int) (y_coord/30);
-			nextColumnIndex= (int) ((x_coord/30) + 1);
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-		}
-		if(Dir == Direction.LEFT)
-		{
-			nextRowIndex= (int) (y_coord/30);
-			nextColumnIndex= (int) (x_coord/30) - 1;
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-			
-			else {
-				return false;
+				
+				
+				
+				ghosts_keyFrame = new KeyFrame(Duration.millis(Speed+10), e->
+				{
+				 moveGhost1();
+				 moveGhost2();
+				 moveGhost3();
+				 
+				});
+				timeline3 = new Timeline(ghosts_keyFrame) ;
+				timeline3.setCycleCount(Timeline.INDEFINITE) ;
+				timeline3.play() ;
 			}
-		}if(Dir == Direction.UP)
-		{
-			nextRowIndex= (int) (y_coord/30) - 1;
-			nextColumnIndex= (int) (x_coord/30);
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-			
-			else {
-				return false;
-			}
-		}if(Dir == Direction.DOWN)
-		{
-			nextRowIndex= (int) (y_coord/30) + 1;
-			nextColumnIndex= (int) (x_coord/30) ;
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-			
-			else {
-				return false;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param Dir
-	 * @return
-	 */
-	private boolean isWall(Direction Dir) {
-		int nextRowIndex;
-		int nextColumnIndex;
-		if(Dir == Direction.RIGHT)
-		{
-			nextRowIndex= ((PacmanLocation.getColumn())/30);
-			nextColumnIndex= ((PacmanLocation.getRow())/30) + 1;
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-		}
-		if(Dir == Direction.LEFT)
-		{
-			nextRowIndex= ((PacmanLocation.getColumn())/30);
-			nextColumnIndex= ((PacmanLocation.getRow())/30) - 1;
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-			
-			else {
-				return false;
-			}
-		}if(Dir == Direction.UP)
-		{
-			nextRowIndex= ((PacmanLocation.getColumn())/30) - 1;
-			nextColumnIndex= ((PacmanLocation.getRow())/30);
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-			
-			else {
-				return false;
-			}
-		}if(Dir == Direction.DOWN)
-		{
-			nextRowIndex= ((PacmanLocation.getColumn())/30) + 1;
-			nextColumnIndex= ((PacmanLocation.getRow())/30) ;
-			if(matrix[nextRowIndex][nextColumnIndex] == 1)
-				return true;
-			
-			else {
-				return false;
-			}
-		}
-		return false;
 		
-	}
-
-	/**
-	 * 
-	 * @param dir
-	 * @param fromX
-	 * @param fromY
-	 * @param toX
-	 * @param toY
-	 */
-	public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
-	{
+				});
 		
-		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall.setFill(Color.BLACK) ;
-		pane.getChildren().add(wall) ;
-		ImageView imageView= new ImageView("Photos/packMan.png");
-		if(dir==Direction.LEFT)
-			imageView= new ImageView("Photos/packManLeft.png");
-		else if(dir==Direction.RIGHT)
-			imageView= new ImageView("Photos/packManRight.png");
+		
+				}	
+			
+		public void moveGhost(Direction newDir, double d, double e, ImageView ghost)
+		{
+			
+			double toX=d, toY=e;
+			if(newDir == Direction.RIGHT)
+				toX+=30;
+			else if(newDir == Direction.LEFT)
+				toX-=30;
+			else if(newDir == Direction.UP)
+				toY-=30;
+			else if(newDir == Direction.DOWN)
+				toY+=30;
+			ImageView imageView= new ImageView();
+			if(ghost.getId()=="Red")
+				imageView = new ImageView("Photos/ghost_red.png");
+			if(ghost.getId()=="Pink")
+				imageView = new ImageView("Photos/ghost_pink.png");
+			if(ghost.getId()=="Blue")
+				imageView = new ImageView("Photos/ghost_blue.png");
+
+			imageView.setFitHeight(30);
+			imageView.setFitWidth(30);
+			imageView.setX(toX);
+			imageView.setY(toY);
+			imageView.setId(ghost.getId());
+			pane.getChildren().remove(ghost) ;	
+			pane.getChildren().add(imageView) ;
+			System.out.println(toX+","+ toY +","+ d +"," +e);
+			if(imageView.getId()=="Red")
+				redGhost= imageView;
+			if(imageView.getId()=="Pink")
+				pinkGhost= imageView;
+			if(imageView.getId()=="Blue")
+				blueGhost= imageView;
+
+		}
+
+		
+		private void moveGhost1() {
+	        //check if ghost is in PacMan's column and move towards him
+			if (PacmanLocation.getColumn() == redGhost.getY()) {
+                if (redGhost.getX() > PacmanLocation.getRow()) 
+                    red_movingAt = Direction.LEFT;
+                else 
+                	red_movingAt= Direction.RIGHT;
+                while(isWall(red_movingAt,redGhost.getX(), redGhost.getY()) == true) 
+                	red_movingAt= getRandomDir();
+			}
+			
+		    //check if ghost is in PacMan's row and move towards him
+		        else if (redGhost.getX() == PacmanLocation.getRow()) {
+		            if (redGhost.getY()> PacmanLocation.getColumn()) 
+		                red_movingAt = Direction.UP;
+		             else 
+		                red_movingAt= Direction.DOWN;
+		           
+		            while(isWall(red_movingAt,redGhost.getX(), redGhost.getY()) == true) 
+		                	red_movingAt= getRandomDir();
+		 
+		        }
+		        //move in a consistent random direction until it hits a wall, then choose a new random direction
+		    else{
+		    	if(redGhost.getX()>PacmanLocation.getRow())
+		    	{
+		    		if(redGhost.getY()>PacmanLocation.getColumn())
+		    		{
+		    			
+		    			red_movingAt= Direction.LEFT;
+		    			if(isWall(red_movingAt,redGhost.getX(), redGhost.getY()) == true) 
+		    				red_movingAt=Direction.UP;
+			        }
+			    	
+		    	}
+		    			
+    			if(redGhost.getX()<PacmanLocation.getRow())
+		    	{
+		    		if(redGhost.getY()>PacmanLocation.getColumn())
+		    		{
+		    			red_movingAt= Direction.RIGHT;
+		    			if(isWall(red_movingAt,redGhost.getX(), redGhost.getY()) == true) 
+		    				red_movingAt=Direction.UP;
+			        
+		    		} 	
+		    		if(redGhost.getY()<PacmanLocation.getColumn())
+		    		{
+		    			red_movingAt= Direction.DOWN;
+		    			if(isWall(red_movingAt,redGhost.getX(), redGhost.getY()) == true) 
+		    				red_movingAt=Direction.RIGHT;
+			        
+		    		} 	
+		    	}
+    			
+    			while(isWall(red_movingAt,redGhost.getX(), redGhost.getY()) == true) 
+    				red_movingAt= getRandomDir();	
+
+		    }        	
+			moveGhost(red_movingAt, redGhost.getX(), redGhost.getY(),redGhost);
+				
+        }	
+	
+
+		
+		private void moveGhost2() {
+	        //check if ghost is in PacMan's column and move towards him
+			if (PacmanLocation.getColumn() == blueGhost.getY()) {
+                if (blueGhost.getX() > PacmanLocation.getRow()) 
+                    blue_movingAt = Direction.LEFT;
+                else 
+                	blue_movingAt= Direction.RIGHT;
+                while(isWall(blue_movingAt,blueGhost.getX(), blueGhost.getY()) == true) 
+                	blue_movingAt= getRandomDir();
+			}
+			
+		    //check if ghost is in PacMan's row and move towards him
+		        else if (blueGhost.getX() == PacmanLocation.getRow()) {
+		            if (blueGhost.getY()> PacmanLocation.getColumn()) 
+		            	blue_movingAt = Direction.UP;
+		             else 
+		            	 blue_movingAt= Direction.DOWN;
+		           
+		            while(isWall(blue_movingAt,blueGhost.getX(), blueGhost.getY()) == true) 
+		            	blue_movingAt= getRandomDir();
+		 
+		        }
+		        //move in a consistent random direction until it hits a wall, then choose a new random direction
+		        else{
+			    	if(blueGhost.getX()>PacmanLocation.getRow())
+			    	{
+			    		if(blueGhost.getY()>PacmanLocation.getColumn())
+			    		{
+			    			
+			    			blue_movingAt= Direction.UP;
+			    			if(isWall(blue_movingAt,blueGhost.getX(), blueGhost.getY()) == true) 
+			    				blue_movingAt=Direction.LEFT;
+				        }
+				    	
+			    		
+				    	
+			    	}
+			    			
+	    			if(blueGhost.getX()<PacmanLocation.getRow())
+			    	{
+			    		if(blueGhost.getY()>PacmanLocation.getColumn())
+			    		{
+			    			blue_movingAt= Direction.UP;
+			    			if(isWall(blue_movingAt,blueGhost.getX(), blueGhost.getY()) == true) 
+			    				blue_movingAt=Direction.RIGHT;
+				        
+			    		} 
+			    		if(blueGhost.getY()<PacmanLocation.getColumn())
+			    		{
+			    			blue_movingAt= Direction.RIGHT;
+			    			if(isWall(blue_movingAt,blueGhost.getX(), blueGhost.getY()) == true) 
+			    				blue_movingAt=Direction.DOWN;
+				        
+			    		} 
+			    	}
+	    			while(isWall(blue_movingAt,blueGhost.getX(), blueGhost.getY()) == true) 
+	    				blue_movingAt= getRandomDir();	
+
+			    }        	
+				moveGhost(blue_movingAt, blueGhost.getX(), blueGhost.getY(),blueGhost);				
+        }	
+	
+
+	
+	
+		
+		private void moveGhost3() {
+	        //check if ghost is in PacMan's column and move towards him
+			if (PacmanLocation.getColumn() == pinkGhost.getY()) {
+                if (pinkGhost.getX() > PacmanLocation.getRow()) 
+                    pink_movingAt = Direction.LEFT;
+                else 
+                	pink_movingAt= Direction.RIGHT;
+                while(isWall(pink_movingAt,pinkGhost.getX(), pinkGhost.getY()) == true) 
+                	pink_movingAt= getRandomDir();
+			}
+			
+		    //check if ghost is in PacMan's row and move towards him
+		        else if (pinkGhost.getX() == PacmanLocation.getRow()) {
+		            if (pinkGhost.getY()> PacmanLocation.getColumn()) 
+		            	pink_movingAt = Direction.UP;
+		             else 
+		            	 pink_movingAt= Direction.DOWN;
+		           
+		            while(isWall(pink_movingAt,pinkGhost.getX(), pinkGhost.getY()) == true) 
+		            	pink_movingAt= getRandomDir();
+		 
+		        }
+		        //move in a consistent random direction until it hits a wall, then choose a new random direction
+		        //move in a consistent random direction until it hits a wall, then choose a new random direction
+		        else{
+	    			while(isWall(pink_movingAt,pinkGhost.getX(), pinkGhost.getY()) == true) 
+	    				pink_movingAt= getRandomDir();	
+
+			    }        	
+				moveGhost(pink_movingAt, pinkGhost.getX(), pinkGhost.getY(),pinkGhost);
+				
+        }	
+	
+
+	
+	public void movePackman(int fromX, int fromY, int toX, int toY)
+	{
+		for(int n = 0 ; n < peckpointlist.size() ; n++)
+		{
+			if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
+			{
+				pane.getChildren().remove(peckpointlist.get(n)) ;
+				peckpointlist.remove(n) ;
+				score+=1 ;
+				System.out.println(score);// increment the player's score by 1
+			}
+		}
+		for(int n = 0 ; n < packmanMoves.size() ; n++)
+		{
+			if((packmanMoves.get(n).getX())== fromX && (packmanMoves.get(n).getY())== fromY)
+			{
+				pane.getChildren().remove(packmanMoves.get(n)) ;
+				packmanMoves.remove(n) ;
+			}
+		}
+		ImageView imageView = new ImageView("Photos/packMan.png");
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		imageView.setX(toX);
 		imageView.setY(toY);
 		pane.getChildren().add(imageView) ;
+		packmanMoves.add(imageView) ;
+		//return peckPoints 30 seconds after eating them
+		retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
+		{
+			Circle peckPoint = new Circle() ; // pass in x, y, width and height
+			peckPoint.setCenterX(fromX+15);  
+			peckPoint.setCenterY(fromY+15);  
+			peckPoint.setRadius(4); 
+			peckPoint.setFill(Color.web("#E4CB18"));
+			
+			boolean toadd= true;
+			for(int n = 0 ; n < peckpointlist.size() ; n++)
+			{
+				if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
+				{
+					toadd=false;
+				}
+				if(n< bonusList.size())
+					if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
+						toadd=false;
+				
+				if(PacmanLocation.getRow()== fromX && PacmanLocation.getColumn() == fromY)
+				{
+					toadd=false;
+				}
+			}
+			
+			if(toadd == true) {
+			pane.getChildren().add(peckPoint) ;
+			peckpointlist.add(peckPoint) ;
+			System.out.println(fromX +","+ fromY +","+
+					PacmanLocation.getRow() +"," + PacmanLocation.getColumn());
+			}
+			
+
+			
+		});
+		timeline2 = new Timeline(retrunPeckPoints) ;
+		timeline2.setCycleCount(Timeline.INDEFINITE) ;
+		timeline2.play() ;
+
 	}
 	
-	/**
-	 * update the photo py moving the ghost
-	 * @param dir
-	 * @param fromX
-	 * @param fromY
-	 * @param toX
-	 * @param toY
-	 */
-	public void moveRedGhost(Direction dir,int fromX, int fromY, int toX, int toY)
-	{
-		
-		Rectangle wall = new Rectangle(fromX, fromY, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall.setFill(Color.BLACK) ;
-		pane.getChildren().add(wall) ;
-		ImageView imageView= new ImageView("Photos/ghost_red.png");
-		if(dir==Direction.LEFT)
-			imageView= new ImageView("Photos/ghost_red_left.png");
-		else if(dir==Direction.RIGHT)
-			imageView= new ImageView("Photos/ghost_red.png");
-		imageView.setFitHeight(30);
-		imageView.setFitWidth(30);
-		imageView.setX(toX);
-		imageView.setY(toY);
-		pane.getChildren().add(imageView) ;
-	}
-
-	/** Fill board according to the matrix. 
-	 *  Every object on the board has it's defining number(see on Model\Board).
-	 *  For example - 0: wall
-	*/
+	//fill board acccording to the matrix. every object on the board has it's defining number(see on Model\Board) for example - 0:wall
 		private void fillBoard() {
 	    int thisRow=0;
 	    int thisColoum=0;
@@ -380,6 +517,8 @@ public class BoardControl implements Initializable {
 					wall.setStroke(Color.CORNFLOWERBLUE) ;
 					wall.setStrokeWidth(2.0) ;
 					pane.getChildren().add(wall) ;
+					wallList.add(wall);
+
 				}
 				
 				// update the points on the board 
@@ -391,6 +530,8 @@ public class BoardControl implements Initializable {
 					peckPoint.setRadius(4); 
 					peckPoint.setFill(Color.web("#E4CB18"));
 					pane.getChildren().add(peckPoint) ;
+					peckpointlist.add(peckPoint) ;
+
 
 				}
 				
@@ -408,6 +549,7 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
+					bonusList.add(imageView);
 
 				}
 				
@@ -437,57 +579,51 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
-					index_row_packMan= i;
-					index_column_packMan=j;
+					packmanMoves.add(imageView);
 
 				}
 				// update the ghost son the board 
 				if(matrix[i][j] == 5)
 				{
-					index_row_ghostBlue=i;
-					index_column_ghostBlue=j;
 					ImageView imageView = new ImageView("Photos/ghost_blue.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
+					imageView.setId("Blue");
 					pane.getChildren().add(imageView) ;
+					blueGhost= imageView;
+
+					
 
 				}
 				if(matrix[i][j] == 6)
 				{
-					index_row_ghostRed=i;
-					index_column_ghostRed=j;
 					ImageView imageView = new ImageView("Photos/ghost_red.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
-					pane.getChildren().add(imageView) ;
+					imageView.setId("Red");
 
+					pane.getChildren().add(imageView) ;
+					redGhost= imageView;
 				}
 				if(matrix[i][j] == 7)
 				{
-					index_row_ghostPink=i;
-					index_column_ghostPink=j;
 					ImageView imageView = new ImageView("Photos/ghost_pink.png");
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
+					imageView.setId("Pink");
+
 					pane.getChildren().add(imageView) ;
+					pinkGhost= imageView;
+
 
 				}
-				if(matrix[i][j] == 8)
-				{
-					ImageView imageView = new ImageView("Photos/ghost_orange.png");
-					imageView.setFitHeight(30);
-					imageView.setFitWidth(30);
-					imageView.setX(thisRow);
-					imageView.setY(thisColoum);
-					pane.getChildren().add(imageView) ;
-
-				}
+				
 				
 				thisRow+=30;
 			}
@@ -496,6 +632,23 @@ public class BoardControl implements Initializable {
 		}
 	}
 		
+		private void resume()
+		{
+			time= new AnimationTimer() {
+
+				@Override
+				public void handle(long arg0) {
+					// TODO Auto-generated method stub
+
+
+
+				}
+
+
+
+			};
+		}
+
 		
 		/** method that'll return a random direction 
 		 * 
@@ -543,187 +696,10 @@ public class BoardControl implements Initializable {
 		}
 		
 	
-		/** method that'll check for walls between 2 positions in a specific direction
-		 * 
-		 * @param from_x
-		 * @param from_y
-		 * @param to_x
-		 * @param to_y
-		 * @param direction
-		 * @return
-		 */
-		private Boolean checkForWallsBetween(double from_x, double from_y, double to_x, double to_y, Direction direction)
-		{
-			boolean wall_present = false ;
-
-			if(direction == Direction.UP)
-			{
-				while(from_y > to_y && wall_present == false)
-				{
-					wall_present = checkForWalls(direction, from_x, from_y) ;
-					from_y-=ObjectSize ;
-				}
-			}
-			else if(direction == Direction.DOWN)
-			{
-				while(from_y < to_y && wall_present == false)
-				{
-					wall_present = checkForWalls(direction, from_x, from_y) ;
-					from_y+=ObjectSize ;
-				}
-			}
-			else if(direction == Direction.LEFT)
-			{
-				while(from_x > to_x && wall_present == false)
-				{
-					wall_present = checkForWalls(direction, from_x, from_y) ;
-					from_x-=ObjectSize ;
-				}
-			}
-			else if(direction == Direction.RIGHT)
-			{
-				while(from_x < to_x && wall_present == false)
-				{
-					wall_present = checkForWalls(direction, from_x, from_y) ;
-					from_x+=ObjectSize ;
-				}
-			}
-
-			return wall_present ;
-		}
 		
 		
-		/** Method that'll return the direction that points towards pacman from a ghost's current position
-		 * 
-		 * @param ghost
-		 * @return
-		 */
-		private Direction pacmanAt(double xx, double yy)
-		{
-			double x = xx ;
-			double y = yy ;
-
-			if(y == PacmanLocation.getColumn() && (PacmanLocation.getRow()-x) > 30 && (PacmanLocation.getRow()-x) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.RIGHT) == false)
-				return Direction.RIGHT ;
-			else if(y == PacmanLocation.getColumn() && (x-PacmanLocation.getRow()) > 30 && (x-PacmanLocation.getRow()) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.LEFT) == false)
-				return Direction.LEFT ;
-			else if(x == PacmanLocation.getRow() && (PacmanLocation.getColumn()-y) > 30 && (PacmanLocation.getColumn()-y) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.DOWN) == false)
-				return Direction.DOWN ;
-			else if(x == PacmanLocation.getRow() && (y-PacmanLocation.getColumn()) > 30 && (y-PacmanLocation.getColumn()) < 600 && checkForWallsBetween(x, y, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.UP) == false)
-				return Direction.UP ;
-
-			return null ;
-		}
-		
-		/** check if pacman is in the ghost's radar.
-		 *  If pacman is "wallCount" walls away from the ghost, 
-		 *  this method will return the direction that leads to pacman.
-		 * 
-		 * @param ghost
-		 * @param wallCount
-		 * @return
-		 */
-		private Direction tailPacman(double ghostX,double ghostY, int wallCount)
-		{
-			Direction direction = null ;
-			// from the ghost's current position find out in which direction pacman is
-			Direction pacmanDir = pacmanAt(ghostX,ghostY) ;		
-
-			if(pacmanDir == Direction.DOWN && PacmanLocation.getColumn()-ghostY <= (ObjectSize*wallCount))
-			{
-				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.DOWN) == false)
-					direction = Direction.DOWN ;				
-			}
-			else if(pacmanDir == Direction.UP && ghostY-PacmanLocation.getColumn() <= (ObjectSize*wallCount))
-			{
-				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.UP) == false)
-					direction = Direction.UP ;				
-			}
-			else if(pacmanDir == Direction.LEFT && ghostX-PacmanLocation.getRow() <= (ObjectSize*wallCount))
-			{
-				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.LEFT) == false)
-					direction = Direction.LEFT ;				
-			}
-			else if(pacmanDir == Direction.RIGHT && PacmanLocation.getRow()-ghostX <= (ObjectSize*wallCount))
-			{
-				if(checkForWallsBetween(ghostX, ghostY, PacmanLocation.getRow(), PacmanLocation.getColumn(), Direction.RIGHT) == false)
-					direction = Direction.RIGHT ;				
-			}
-
-			return direction ;
-		}		
-		
-
-
-		/**
-		 * method to move the red ghost
-		 */
-		private void moveGhostRed()
-		{
-			Direction dontGo = Direction.DOWN ;
-			for(;;)
-			{
-					if(tailPacman( RedGhostLocation.getRow(), RedGhostLocation.getColumn(), 2) != null)
-					{
-						red_movingAt = tailPacman(RedGhostLocation.getRow(), RedGhostLocation.getColumn(), 2) ;	// check if pacman is in red's radar. If pacman is 2 walls away from red, red will follow him
-						break ;
-					}
-				
-
-				// move in a random direction
-				Direction direction = getRandomDir() ;
-				if(checkForWalls(direction, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
-				{
-					if(dontGo != null && direction != dontGo)
-					{
-						red_movingAt = direction ;
-						break ;
-					}
-					else if(direction != oppositeDir(red_movingAt))
-					{
-						red_movingAt = direction ;
-						break ;
-					}
-				}
-			}
-			
-			if(red_movingAt == Direction.UP)
-			{
-				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
-					{
-						moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow(), RedGhostLocation.getColumn()- ObjectSize);
-						RedGhostLocation.setColumn(index_column_ghostBlue - ObjectSize);
-					}
-			}
-			else if(red_movingAt == Direction.DOWN)
-			{
-				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
-				{
-					moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow(), RedGhostLocation.getColumn()+ ObjectSize);
-					RedGhostLocation.setColumn(RedGhostLocation.getColumn() + ObjectSize) ;
-				}
-			}
-			else if(red_movingAt == Direction.LEFT)
-			{
-				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
-				{
-					moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow()- ObjectSize, RedGhostLocation.getColumn());
-					RedGhostLocation.setRow(RedGhostLocation.getRow() - ObjectSize) ;
-				}
-			}
-			else if(red_movingAt == Direction.RIGHT)
-			{
-				if(checkForWalls(red_movingAt, RedGhostLocation.getRow(), RedGhostLocation.getColumn()) == false)
-				{
-					moveRedGhost(red_movingAt,RedGhostLocation.getRow(), RedGhostLocation.getColumn(), RedGhostLocation.getRow()+ ObjectSize, RedGhostLocation.getColumn());
-					RedGhostLocation.setRow(RedGhostLocation.getRow() + ObjectSize) ;
-				}
-			}
-			
-		}
 		
 		
-
 	public Pane getPane() {
 		return pane;
 	}
