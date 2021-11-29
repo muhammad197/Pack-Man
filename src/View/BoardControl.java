@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import Model.Board;
 import Model.BombPoints;
+import Model.Game;
 import Model.Ghost;
 import Model.Location;
 import Model.PeckPoints;
@@ -84,7 +85,8 @@ public class BoardControl implements Initializable {
 	private ImageView redGhost= new ImageView();
 	private ImageView blueGhost= new ImageView();
 	private ImageView pinkGhost= new ImageView();
-
+	
+	private Game game;
 
 
 	/**
@@ -107,6 +109,7 @@ public class BoardControl implements Initializable {
 		fillBoard();
 		Speed = 300;
 		gameState = GameState.Paused;
+		game=new Game(0, 3, 300, GameState.Paused);  // o must be the id of the gam maching with the history json
 		resume();
 		pressedKeys(pane);
 
@@ -207,17 +210,43 @@ public class BoardControl implements Initializable {
 					if(caughtPacman((int) redGhost.getX(),(int)redGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
 					{
 						System.out.println("Reeeed BYEEEEE");
-						pane.isDisable();
+						if(game.getLive()==1)
+						{
+							Runtime.getRuntime().exit(0);
+						}
+						else
+						{
+							game.setLive(game.getLive()-1);
+							resume();
+						}
+						
 					}
 					if(caughtPacman((int) blueGhost.getX(),(int)blueGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
 					{
 						System.out.println("Bluee BYEEEEE");
-						pane.isDisable();
+						if(game.getLive()==1)
+						{
+							Runtime.getRuntime().exit(0);
+						}
+						else
+						{
+							game.setLive(game.getLive()-1);
+							resume();
+						}
+						
 					}
 					if(caughtPacman((int) pinkGhost.getX(),(int)pinkGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
 					{
 						System.out.println("pinkkk BYEEEEE");
-						pane.isDisable();
+						if(game.getLive()==1)
+						{
+							Runtime.getRuntime().exit(0);
+						}
+						else
+						{
+							game.setLive(game.getLive()-1);
+						}
+						
 					}
 					movement();
 				});
@@ -673,19 +702,7 @@ public class BoardControl implements Initializable {
 		
 		private void resume()
 		{
-			time= new AnimationTimer() {
-
-				@Override
-				public void handle(long arg0) {
-					// TODO Auto-generated method stub
-
-
-
-				}
-
-
-
-			};
+			
 		}
 
 		
