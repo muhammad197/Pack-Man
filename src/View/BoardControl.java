@@ -203,7 +203,23 @@ public class BoardControl implements Initializable {
 	
 				pacman_keyFrame = new KeyFrame(Duration.millis(Speed), e->
 				{
-				 movement();
+					
+					if(caughtPacman((int) redGhost.getX(),(int)redGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
+					{
+						System.out.println("Reeeed BYEEEEE");
+						pane.isDisable();
+					}
+					if(caughtPacman((int) blueGhost.getX(),(int)blueGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
+					{
+						System.out.println("Bluee BYEEEEE");
+						pane.isDisable();
+					}
+					if(caughtPacman((int) pinkGhost.getX(),(int)pinkGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
+					{
+						System.out.println("pinkkk BYEEEEE");
+						pane.isDisable();
+					}
+					movement();
 				});
 				timeline = new Timeline(pacman_keyFrame) ;
 				timeline.setCycleCount(Timeline.INDEFINITE) ;
@@ -227,6 +243,25 @@ public class BoardControl implements Initializable {
 		
 		
 				}	
+	/**
+	 * will check if the ghost has caught pacman 
+	 * @param x_ghost
+	 * @param y_ghost
+	 * @param x_pacMan
+	 * @param y_pacMan
+	 * @return
+	 */
+		public Boolean caughtPacman(int x_ghost, int y_ghost , int x_pacMan,int y_pacMan)		
+		{		
+			if((x_ghost- ObjectSize == x_pacMan && y_ghost == y_pacMan) || (x_ghost+ ObjectSize == x_pacMan && y_ghost == y_pacMan))
+				return true ;
+			if((x_ghost == x_pacMan && y_ghost-ObjectSize == y_pacMan) || (x_ghost == x_pacMan && y_ghost+ObjectSize == y_pacMan))
+				return true ;
+			if(x_ghost == x_pacMan && y_ghost == y_pacMan)
+				return true ;
+
+			return false ;
+	}
 			
 		public void moveGhost(Direction newDir, double d, double e, ImageView ghost)
 		{
