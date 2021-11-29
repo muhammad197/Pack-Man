@@ -135,24 +135,24 @@ public class BoardControl implements Initializable {
 		if(isWall(newDir, PacmanLocation.getRow(), PacmanLocation.getColumn()) == false) {
 			if(newDir == Direction.RIGHT)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()+30, PacmanLocation.getColumn());
 				PacmanLocation.setRow((PacmanLocation.getRow())+30);
 			
 			}
 			if(newDir == Direction.LEFT)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow()-30, PacmanLocation.getColumn());
 				PacmanLocation.setRow((PacmanLocation.getRow())-30);
 			}
 			
 			if(newDir == Direction.UP)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()-30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()-30);
 			}
 			if(newDir == Direction.DOWN)
 			{
-				movePackman(PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
+				movePackman(newDir,PacmanLocation.getRow(), PacmanLocation.getColumn(), PacmanLocation.getRow(), PacmanLocation.getColumn()+30);
 				PacmanLocation.setColumn(PacmanLocation.getColumn()+30);
 			}
 		}
@@ -431,7 +431,7 @@ public class BoardControl implements Initializable {
 	
 
 	
-	public void movePackman(int fromX, int fromY, int toX, int toY)
+	public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
 	{
 		for(int n = 0 ; n < peckpointlist.size() ; n++)
 		{
@@ -452,6 +452,10 @@ public class BoardControl implements Initializable {
 			}
 		}
 		ImageView imageView = new ImageView("Photos/packMan.png");
+		if(dir==Direction.LEFT)
+			imageView= new ImageView("Photos/packManLeft.png");
+		else if(dir==Direction.RIGHT)
+			imageView= new ImageView("Photos/packManRight.png");
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		imageView.setX(toX);
