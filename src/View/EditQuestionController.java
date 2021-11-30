@@ -1,8 +1,11 @@
 package View;
 
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import Controller.SysData;
 
 import Model.Answer;
 import Model.Question;
@@ -10,11 +13,14 @@ import Utils.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -71,6 +77,12 @@ public class EditQuestionController implements Initializable {
     
     public Question QuestionToEdit;
     
+    @FXML
+    private Label errorpopup;
+    
+    
+
+    
 
     @FXML
     void SaveQuestion(ActionEvent event) {
@@ -79,13 +91,75 @@ public class EditQuestionController implements Initializable {
 		String answer2 = answ2.getText().trim();
 		String answer3 = ans3.getText().trim();
 		String answer4 = ans4.getText().trim();
-		boolean ans1Correct = checkans1.isSelected();
-		boolean ans2Correct = checkans2.isSelected();
-		boolean ans3Correct = checkans3.isSelected();
-		boolean ans4Correct = checkans4.isSelected();
+		boolean answer1Correct = checkans1.isSelected();
+		boolean answer2Correct = checkans2.isSelected();
+		boolean answer3Correct = checkans3.isSelected();
+		boolean answer4Correct = checkans4.isSelected();
 		Level level = levelCombo.getSelectionModel().getSelectedItem();
+		int correctAnswerID;
+		Question newQuestion= QuestionToEdit;
+		
+		if (!quest.isEmpty()) {
+			if (!answer1.isEmpty()) {
+				if (!answer2.isEmpty()) {
+					if (!answer3.isEmpty()) {
+						if (!answer4.isEmpty()) {
+							if (answer1Correct || answer2Correct || answer3Correct || answer4Correct) {
+								if (level != null) {
+                                     if (answer1Correct) {
+                                    	 correctAnswerID=1;
+                                     }
+                                     else if (answer2Correct) {
+                                    	 correctAnswerID=2;
+                                     }
+                                     else if(answer3Correct){
+                                    	 correctAnswerID=3;
+                                     }
+                                     else correctAnswerID=4;
+                                    
+                                    
+									//TODO
+         							ArrayList<Answer> answers = new ArrayList<>(4);
+									answers.add(new Answer( 1,answer1, answer1Correct));
+									answers.add(new Answer( 2,answer2, answer2Correct));
+									answers.add(new Answer( 3,answer3, answer3Correct));
+									answers.add(new Answer( 4,answer4, answer4Correct));
+									
+									
+									if (QuestionToEdit != null) {
+										
+										newQuestion.setAnswers(answers);
+										newQuestion.setLevel(level);
+										newQuestion.setQuestion(quest);// update question
+										SysData.getInstance().editQuestion(QuestionToEdit, newQuestion);
+										errorpopup.setText("Question updated successfully");
+										
+									}
+									else { // new question
+										newQuestion= new Question(quest,SysData.getInstance().getQuestionID(),answers, correctAnswerID, level) ;
+										if(	SysData.getInstance().addQueastion(newQuestion))
+											errorpopup.setText("Question added successfully.");
+										else System.out.println("hh");
+									}
 
-    }
+								} else
+									errorpopup.setText("Please select a difficulty level");
+							} else
+								errorpopup.setText("Please select the correct answer");
+						} else
+							errorpopup.setText("Please enter answer No.4");
+					} else
+						errorpopup.setText("Please enter answer No.3");							
+				} else
+					errorpopup.setText("Please enter answer No.2");
+			} else
+				errorpopup.setText("Please enter answer No.1");
+		} else
+			errorpopup.setText("Please enter a question");
+	}
+
+
+    
     protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();
 	}
@@ -117,7 +191,7 @@ public class EditQuestionController implements Initializable {
 		levelCombo.getItems().setAll(Level.values());
 			if(QuestionToEdit == null)
 			{
-		        Image image = new Image(getClass().getResourceAsStream("../resources/addQuestion_title.png"));
+		        Image image = new Image(getClass().getResourceAsStream("../resources/addQt.png"));
 		        titlePhoto.setImage(image);
 
 				questionInput.setText("");
@@ -131,7 +205,7 @@ public class EditQuestionController implements Initializable {
 				checkans4.setSelected(false);
 			}
 			else {
-				Image image = new Image(getClass().getResourceAsStream("../resources/editQuestion_title.png"));
+				Image image = new Image(getClass().getResourceAsStream("../resources/editQ.png"));
 		        titlePhoto.setImage(image);
 
 			questionInput.setText(QuestionToEdit.getQuestion());

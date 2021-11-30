@@ -2,39 +2,58 @@ package Model;
 
 import java.util.Objects;
 
+import javafx.scene.image.ImageView;
+
 public class Ghost {
 
 	public int id;
-	public int regularSpeed;
-	public int levelUpspeed;
-	public String image;
+	public int speed;
+	public ImageView image;
+	public Location CurrentLocation;
+	
+
+	public Ghost(int id, int speed, ImageView image, Location currentLocation) {
+		super();
+		this.id = id;
+		this.speed = speed;
+		this.image = image;
+		CurrentLocation = currentLocation;
+	}
+	
+	
+	public Ghost() {
+	super();
+	}
+
+
+	public int getSpeed() {
+		return speed;
+	}
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	public Location getCurrentLocation() {
+		return CurrentLocation;
+	}
+	public void setCurrentLocation(Location currentLocation) {
+		CurrentLocation = currentLocation;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getRegularSpeed() {
-		return regularSpeed;
-	}
-	public void setRegularSpeed(int regularSpeed) {
-		this.regularSpeed = regularSpeed;
-	}
-	public int getLevelUpspeed() {
-		return levelUpspeed;
-	}
-	public void setLevelUpspeed(int levelUpspeed) {
-		this.levelUpspeed = levelUpspeed;
-	}
-	public String getImage() {
+	
+	public ImageView getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(ImageView image) {
 		this.image = image;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, image, levelUpspeed, regularSpeed);
+		return Objects.hash(id, image, speed);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -45,15 +64,7 @@ public class Ghost {
 		if (getClass() != obj.getClass())
 			return false;
 		Ghost other = (Ghost) obj;
-		return id == other.id && Objects.equals(image, other.image) && levelUpspeed == other.levelUpspeed
-				&& regularSpeed == other.regularSpeed;
-	}
-	public Ghost(int id, int regularSpeed, int levelUpspeed, String image) {
-		super();
-		this.id = id;
-		this.regularSpeed = regularSpeed;
-		this.levelUpspeed = levelUpspeed;
-		this.image = image;
+		return id == other.id && Objects.equals(image, other.image) && speed== other.speed;
 	}
 	
 

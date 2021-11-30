@@ -1,14 +1,20 @@
 package View;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Controller.SysData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class startgamepagecontroller implements Initializable{
@@ -43,10 +49,26 @@ public class startgamepagecontroller implements Initializable{
 				}
 				
 				@FXML
-				private void GoClicked(ActionEvent event) {
+				private void GoClicked(ActionEvent event) throws IOException {
 					closeWindow();
+					SysData.CurrentPlayer= userid.getText().trim();
 					ViewLogic.gameWindow();
-					//TODO
-				}
+/*					Stage stage = new Stage();
 
+					FXMLLoader loader = new FXMLLoader(startgamepagecontroller.class.getResource("Board.fxml"));
+			        BoardControl name= new BoardControl(userid.getText().trim()); 
+			        loader.setController(name);
+					Parent root = loader.load();
+					Scene scene = new Scene(root);
+					stage.setScene(scene);
+					
+					stage.setResizable(false);
+					
+					stage.setTitle("PackMan");
+					
+					
+					stage.showAndWait();
+					*/
+					
+				}
 }

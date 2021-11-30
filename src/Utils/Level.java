@@ -2,7 +2,7 @@ package Utils;
 
 public enum Level {
 	//values
-	 easy(1), medium(2), hard(3);
+	 easy(1), medium(2), hard(3), super_hard(4);
 	
 	//class member
 	private final int num;
@@ -25,6 +25,8 @@ public enum Level {
 			return Level.medium;
 		case 3:
 			return Level.hard;
+		case 4:
+			return Level.super_hard;
 		}
 		return null;
 	}

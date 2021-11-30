@@ -160,7 +160,7 @@ public class ViewLogic {
 				stage,
 				"Questions Managment",
 				false,
-				true);
+				false);
 	}
 	
 	// ============================= Add/Update Question =============================
@@ -176,7 +176,7 @@ public class ViewLogic {
 				stage,
 				"Edit a Question",
 				false,
-				true);
+				false);
 	}
 	
 	// ============================= How To Play =============================

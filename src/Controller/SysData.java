@@ -28,7 +28,19 @@ import Utils.Level;
 
 public class SysData {
 	
+	public static String CurrentPlayer;
 	private static SysData instance;
+	int questionID;
+
+	public int getQuestionID() {
+		return questionID;
+	}
+
+	public void setQuestionID(int questionID) {
+		this.questionID = questionID;
+	}
+
+
 	public ArrayList<Player> playersGames;
 	public ArrayList<Question> questions;
 	
@@ -146,7 +158,9 @@ public class SysData {
 				}
 		}
 		
-		 //add a new question
+		
+
+		//add a new question
 		 public boolean addQueastion(Question q) {
 
 			 for (Question question : questions) {
@@ -156,6 +170,7 @@ public class SysData {
 						return false;
 					}
 					questions.add(q);
+					questionID++;
 					try {
 
 						AddQuestionToJSON();
@@ -184,8 +199,7 @@ public class SysData {
 						for (Answer a : questionAnswers){
 							answerscontent.add(a.getContent());
 						}
-						//JSONArray jsonArrayAnswers = new JSONArray(answerscontent);
-						JSONArray jsonArrayAnswers = new JSONArray();
+						JSONArray jsonArrayAnswers = new JSONArray(answerscontent);
 						map.put("answers", jsonArrayAnswers);
 						map.put("correct_ans", "" + q.getTrueAnswer());
 						map.put("level", "" + q.getLevel().getNum());

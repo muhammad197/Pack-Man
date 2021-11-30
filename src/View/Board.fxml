@@ -1,13 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BoardControl">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.BoardControl">
    <children>
-      <Pane prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: White;" />
+      <HBox layoutX="630.0" prefHeight="630.0" prefWidth="120.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="playername" layoutY="31.0" prefHeight="34.0" prefWidth="121.0" />
+                  <ImageView fitHeight="630.0" fitWidth="120.0">
+                     <image>
+                        <Image url="@../resources/blackBG.jfif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="48.0" fitWidth="120.0">
+                     <image>
+                        <Image url="@../resources/name.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="namelab" layoutY="38.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#fff9f9" />
+                  <ImageView fitHeight="41.0" fitWidth="68.0" layoutX="27.0" layoutY="72.0">
+                     <image>
+                        <Image url="@../resources/score.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="scorelab" layoutX="25.0" layoutY="102.0" prefHeight="17.0" prefWidth="57.0" />
+                  <Label fx:id="live1" layoutX="24.0" layoutY="110.0" prefHeight="30.0" prefWidth="68.0" />
+                  <ImageView fitHeight="34.0" fitWidth="68.0" layoutX="27.0" layoutY="137.0">
+                     <image>
+                        <Image url="@../resources/lives.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="life1" fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="166.0">
+                     <image>
+                        <Image url="@../resources/heart.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="life2" fitHeight="30.0" fitWidth="30.0" layoutX="44.0" layoutY="166.0">
+                     <image>
+                        <Image url="@../resources/heart.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="life3" fitHeight="30.0" fitWidth="30.0" layoutX="77.0" layoutY="166.0">
+                     <image>
+                        <Image url="@../resources/heart.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="stopIcon" fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="586.0">
+                     <image>
+                        <Image url="@../resources/stop.png" />
+                     </image>
+                  </ImageView>
+                  <Separator layoutX="6.0" layoutY="187.0" prefHeight="17.0" prefWidth="109.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
    </children>
 </Pane>

@@ -13,8 +13,6 @@ public class Question {
 	public Level level;
 	public String team;
 
-	
-	
 	public Question(String question, int id, ArrayList<Answer> answers, int trueAnswer, Level level) {
 		super();
 		this.question = question;

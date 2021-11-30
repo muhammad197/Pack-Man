@@ -1,7 +1,18 @@
 package View;
 
 
-
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,8 +62,7 @@ public class QuestionsManagmentController implements Initializable {
     @FXML
     private TableColumn<Question, Integer> questionid;
 
-    @FXML
-    private Button editbtn;
+    
     
 
 
@@ -71,14 +81,10 @@ public class QuestionsManagmentController implements Initializable {
     @FXML
     private ImageView deleteIcon;
 
-    @FXML
-    private Button addbtn;
+   
 
     @FXML
     private TableColumn<Question, Level> questiondiff;
-
-    @FXML
-    private Button deletebtn;
 
     @FXML
     private Label questionLabel;
@@ -111,6 +117,8 @@ public class QuestionsManagmentController implements Initializable {
 	private ArrayList<Question> questions;
 
 	private Question question;
+	
+	
 	
 	protected void closeWindow() {
 		((Stage) pane.getScene().getWindow()).close();
@@ -210,7 +218,9 @@ public class QuestionsManagmentController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         EditQuestionController eq= new EditQuestionController(); 
         fxmlLoader.setController(eq);
+        
         URL url = getClass().getResource("EditQuestion.fxml");
+       
         fxmlLoader.setLocation(getClass().getResource("EditQuestion.fxml"));
         AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
         pane.getChildren().clear();
@@ -225,7 +235,9 @@ public class QuestionsManagmentController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader();
         EditQuestionController eq= new EditQuestionController(q); 
         fxmlLoader.setController(eq);
+        
         URL url = getClass().getResource("EditQuestion.fxml");
+        
         fxmlLoader.setLocation(getClass().getResource("EditQuestion.fxml"));
         AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
         pane.getChildren().clear();

@@ -8,6 +8,7 @@ public class Game {
 	public int id;
 	public int live;
 	public int speed;
+	public int score;
 	public GameState gameState;
 	
 	
@@ -17,15 +18,26 @@ public class Game {
 	 * @param speed
 	 * @param gameState
 	 */
-	public Game(int id, int live, int speed, GameState gameState) {
+	public Game(int id, int live, int speed, GameState gameState, int score) {
 		super();
 		this.id = id;
 		this.live = live;
 		this.speed = speed;
 		this.gameState = gameState;
+		this.score=score;
 	}
 	
 	
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
 	/**
 	 * @return the id
 	 */
@@ -160,4 +172,6 @@ public class Game {
 		 public void updatePassageWay(){
 			 
 		 }
+
+
 }

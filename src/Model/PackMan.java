@@ -2,6 +2,19 @@ package Model;
 
 public class PackMan {
 	
+	public Location CurrentLocation;
+	
+	
+	public PackMan(Location currentLocation) {
+		super();
+		CurrentLocation = currentLocation;
+	}
+	public Location getCurrentLocation() {
+		return CurrentLocation;
+	}
+	public void setCurrentLocation(Location currentLocation) {
+		CurrentLocation = currentLocation;
+	}
 	/**
 	 * Definition of: pack-man face 
 	 */
