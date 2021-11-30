@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeMap;
 
 import Model.Board;
 import Model.BombPoints;
@@ -26,18 +27,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.skin.TextInputControlSkin.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
 
 public class BoardControl implements Initializable {
 	
@@ -81,6 +91,7 @@ public class BoardControl implements Initializable {
 	private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
 	private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
 	private ArrayList<ImageView> packmanMoves = new ArrayList<ImageView>() ;
+	private ArrayList<ImageView> questionsPoints = new ArrayList<ImageView>() ;
 	
 	private ImageView redGhost= new ImageView();
 	private ImageView blueGhost= new ImageView();
@@ -109,8 +120,7 @@ public class BoardControl implements Initializable {
 		fillBoard();
 		Speed = 300;
 		gameState = GameState.Paused;
-		game=new Game(0, 3, 300, GameState.Paused);  // o must be the id of the gam maching with the history json
-		resume();
+		game=new Game(0, 3, 300, GameState.Paused);  // o must be the id of the game maching with the history json
 		pressedKeys(pane);
 
 	}
@@ -187,8 +197,6 @@ public class BoardControl implements Initializable {
 										 break ;
 						}
 						
-				System.out.println(scene);			
-				System.out.println(newDir);
 				
 			}
 					
@@ -210,41 +218,83 @@ public class BoardControl implements Initializable {
 					if(caughtPacman((int) redGhost.getX(),(int)redGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
 					{
 						System.out.println("Reeeed BYEEEEE");
-						if(game.getLive()==1)
+						game.setLive(game.getLive()-1);
+						if(game.getLive()==0)
 						{
 							Runtime.getRuntime().exit(0);
 						}
-						else
+						else 
 						{
-							game.setLive(game.getLive()-1);
-							resume();
+							
+							if(game.getLive()<=2)
+							{
+								PacmanLocation.setRow(300);
+								PacmanLocation.setColumn(570);
+								pane.getChildren().removeAll();
+								redGhost.setX(300);
+								redGhost.setY(240);
+								blueGhost.setX(270);
+								blueGhost.setY(240);
+								pinkGhost.setY(240);
+								pinkGhost.setX(330);
+								resume();
+							}
+							
+							
 						}
 						
 					}
 					if(caughtPacman((int) blueGhost.getX(),(int)blueGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
 					{
 						System.out.println("Bluee BYEEEEE");
-						if(game.getLive()==1)
+						game.setLive(game.getLive()-1);
+						if(game.getLive()==0)
 						{
 							Runtime.getRuntime().exit(0);
 						}
 						else
 						{
-							game.setLive(game.getLive()-1);
-							resume();
+							
+							if(game.getLive()<=2)
+							{
+								pane.getChildren().removeAll();
+								PacmanLocation.setRow(300);
+								PacmanLocation.setColumn(570);
+								redGhost.setX(300);
+								redGhost.setY(240);
+								blueGhost.setX(270);
+								blueGhost.setY(240);
+								pinkGhost.setY(240);
+								pinkGhost.setX(330);
+								resume();
+							}
+							
 						}
 						
 					}
 					if(caughtPacman((int) pinkGhost.getX(),(int)pinkGhost.getY(),PacmanLocation.getRow(),PacmanLocation.getColumn())==true)
 					{
 						System.out.println("pinkkk BYEEEEE");
-						if(game.getLive()==1)
+						game.setLive(game.getLive()-1);
+						if(game.getLive()==0)
 						{
 							Runtime.getRuntime().exit(0);
 						}
-						else
+						else 
 						{
-							game.setLive(game.getLive()-1);
+							if(game.getLive()<=2)
+							{
+								pane.getChildren().removeAll();
+								PacmanLocation.setRow(300);
+								PacmanLocation.setColumn(570);
+								redGhost.setX(300);
+								redGhost.setY(240);
+								blueGhost.setX(270);
+								blueGhost.setY(240);
+								pinkGhost.setY(240);
+								pinkGhost.setX(330);
+								resume();
+							}
 						}
 						
 					}
@@ -319,7 +369,6 @@ public class BoardControl implements Initializable {
 			imageView.setId(ghost.getId());
 			pane.getChildren().remove(ghost) ;	
 			pane.getChildren().add(imageView) ;
-			System.out.println(toX+","+ toY +","+ d +"," +e);
 			if(imageView.getId()=="Red")
 				redGhost= imageView;
 			if(imageView.getId()=="Pink")
@@ -635,6 +684,7 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
+					questionsPoints.add(imageView);
 
 				}
 				
@@ -702,6 +752,93 @@ public class BoardControl implements Initializable {
 		
 		private void resume()
 		{
+			int thisRow=0;
+		    int thisColoum=0;
+		    pane.getChildren().removeAll(bonusList);
+		    pane.getChildren().removeAll(packmanMoves);
+		    pane.getChildren().removeAll(peckpointlist);
+		    pane.getChildren().removeAll(wallList);
+		    pane.getChildren().removeAll(questionsPoints);
+		    
+			peckpointlist = new ArrayList<Circle>() ;
+			wallList = new ArrayList<Rectangle>() ;
+			bonusList = new ArrayList<ImageView>() ;
+			packmanMoves = new ArrayList<ImageView>() ;
+			questionsPoints= new ArrayList<ImageView>() ;
+			
+			
+			
+			for(int i=0; i<21; i++)
+			{
+				for(int j=0;j<21;j++) {
+					
+					// update the walls on the board
+					if(matrix[i][j]==1)
+					{
+						Rectangle wall = new Rectangle(thisRow, thisColoum, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+						wall.setFill(Color.web("#191970")) ;
+						wall.setStroke(Color.CORNFLOWERBLUE) ;
+						wall.setStrokeWidth(2.0) ;
+						pane.getChildren().add(wall) ;
+						wallList.add(wall);
+
+					}
+					
+					// update the points on the board 
+					if(matrix[i][j] == 0)
+					{
+						Circle peckPoint = new Circle() ; // pass in x, y, width and height
+						peckPoint.setCenterX(thisRow+15);  
+						peckPoint.setCenterY(thisColoum+15);  
+						peckPoint.setRadius(4); 
+						peckPoint.setFill(Color.web("#E4CB18"));
+						pane.getChildren().add(peckPoint) ;
+						peckpointlist.add(peckPoint) ;
+
+
+					}
+					
+					// update the bomb points on the board 
+					if(matrix[i][j] == 2)
+					{
+						/**
+						 * Getting random photo 
+						 */
+						BombPoints bomb=new BombPoints("");
+						int index = (int)(Math.random() * bomb.getBombPoints().size());
+						ImageView imageView = new ImageView(bomb.getBombPoints().get(index).getImage());
+						imageView.setFitHeight(30);
+						imageView.setFitWidth(30);
+						imageView.setX(thisRow);
+						imageView.setY(thisColoum);
+						pane.getChildren().add(imageView) ;
+						bonusList.add(imageView);
+
+					}
+					
+					// update the questions on the board
+					if(matrix[i][j] == 3)
+					{
+						/**
+						 * Getting random photo 
+						 */
+						Question questin=new Question();
+						int index = (int)(Math.random() * questin.getPointsQuestions().size());
+						ImageView imageView = new ImageView(questin.getPointsQuestions().get(index).getImage());
+						imageView.setFitHeight(30);
+						imageView.setFitWidth(30);
+						imageView.setX(thisRow);
+						imageView.setY(thisColoum);
+						pane.getChildren().add(imageView) ;
+						questionsPoints.add(imageView);
+
+
+					}					
+					thisRow+=30;
+				}
+				thisColoum+=30;
+				thisRow=0;
+			}
 			
 		}
 
@@ -752,7 +889,6 @@ public class BoardControl implements Initializable {
 		}
 		
 	
-		
 		
 		
 		
