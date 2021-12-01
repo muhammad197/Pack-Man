@@ -30,14 +30,14 @@ public class SysData {
 	
 	public static String CurrentPlayer;
 	private static SysData instance;
-	int questionID;
+	public static int questionID;
 
 	public int getQuestionID() {
 		return questionID;
 	}
 
 	public void setQuestionID(int questionID) {
-		this.questionID = questionID;
+		SysData.questionID = questionID;
 	}
 
 
@@ -97,6 +97,7 @@ public class SysData {
 				return false;
 			}
 		 
+		 
 		 // edit a question by replacing the old question with the new one
 		 public boolean editQuestion(Question old, Question newq) {
 				if (old != null && newq != null) {
@@ -145,6 +146,7 @@ public class SysData {
 						Question q = new Question(question, questionID, answersList, true_answer, level);
 						questionID++;
 						questions.add(q);
+						SysData.questionID++;
 					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -170,7 +172,7 @@ public class SysData {
 						return false;
 					}
 					questions.add(q);
-					questionID++;
+					setQuestionID(questionID+1);
 					try {
 
 						AddQuestionToJSON();
