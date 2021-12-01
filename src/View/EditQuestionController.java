@@ -127,19 +127,20 @@ public class EditQuestionController implements Initializable {
 									
 									
 									if (QuestionToEdit != null) {
-										
 										newQuestion.setAnswers(answers);
 										newQuestion.setLevel(level);
+										
+										newQuestion.setId(SysData.questionID);
 										newQuestion.setQuestion(quest);// update question
 										SysData.getInstance().editQuestion(QuestionToEdit, newQuestion);
 										errorpopup.setText("Question updated successfully");
 										
 									}
 									else { // new question
-										newQuestion= new Question(quest,SysData.getInstance().getQuestionID(),answers, correctAnswerID, level) ;
+										newQuestion= new Question(quest,SysData.questionID,answers, correctAnswerID, level) ;
 										if(	SysData.getInstance().addQueastion(newQuestion))
 											errorpopup.setText("Question added successfully.");
-										else System.out.println("hh");
+									
 									}
 
 								} else
@@ -191,7 +192,7 @@ public class EditQuestionController implements Initializable {
 		levelCombo.getItems().setAll(Level.values());
 			if(QuestionToEdit == null)
 			{
-		        Image image = new Image(getClass().getResourceAsStream("../resources/addQt.png"));
+		        Image image = new Image("resources/addQt.png");
 		        titlePhoto.setImage(image);
 
 				questionInput.setText("");
@@ -205,7 +206,7 @@ public class EditQuestionController implements Initializable {
 				checkans4.setSelected(false);
 			}
 			else {
-				Image image = new Image(getClass().getResourceAsStream("../resources/editQ.png"));
+				Image image = new Image("resources/editQ.png");
 		        titlePhoto.setImage(image);
 
 			questionInput.setText(QuestionToEdit.getQuestion());

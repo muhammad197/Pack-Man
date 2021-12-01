@@ -23,7 +23,6 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -80,7 +79,6 @@ public class BoardControl implements Initializable {
     private Direction red_movingAt= Direction.UP, blue_movingAt=Direction.UP, pink_movingAt=Direction.LEFT ;
 
 	//get board from board model( a matrix that describes the board- see Model\Board)
-    int[][] spareMatrix= Board.getInstance().matrixBoard_level1;
 	int[][] matrix1 = Board.getInstance().matrixBoard_level1;
 	int[][] matrix = Board.getInstance().putRandomQuestion(matrix1);
 
@@ -103,22 +101,18 @@ public class BoardControl implements Initializable {
 
 
 	public boolean levelUp=false;
+	public boolean bonusEaten=false;
 	public Level level=Level.easy;
-
 	private Game game;
-
 	private ArrayList<Circle> peckpointlist = new ArrayList<Circle>() ;
 	private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
 	private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
 	private ArrayList<ImageView> packmanMoves = new ArrayList<ImageView>() ;
 	private ArrayList<ImageView> questionsPoints = new ArrayList<ImageView>() ;	
 	
-	
 	private Ghost redGhost= new Ghost();
 	private Ghost blueGhost= new Ghost();
 	private Ghost pinkGhost= new Ghost();
-	
-	
 	
 	boolean firstRedGhostMove=true;
 
@@ -139,11 +133,17 @@ public class BoardControl implements Initializable {
 	protected int ghostSpeed=270;
 
 	private String playername= SysData.CurrentPlayer;
+
+	protected boolean isbonusUsed=true;
+
+	private KeyFrame retrunBombPoints;
+
+	private Timeline timeline4;
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		pacmanLocation= new PackMan(new Location(300, 570));
+		pacmanLocation= new PackMan(new Location(300, 570), Model.Color.yellow);
 		namelab.setText(playername);
 		pane.setStyle("-fx-background-color : black") ;//set background to black
 		fillBoard();
@@ -314,6 +314,7 @@ public class BoardControl implements Initializable {
 		timeline3.play() ;
 		
 	}
+
 			
 		public void moveGhost(Direction newDir, double d, double e, Ghost ghost)
 		{
@@ -375,6 +376,25 @@ public class BoardControl implements Initializable {
 			
 	
 		}
+		
+		
+		for(int b = 0 ; b < bonusList.size() ; b++)
+		{
+			if((bonusList.get(b).getX()== toX) && (bonusList.get(b).getY() == toY))
+			{
+				pane.getChildren().remove(bonusList.get(b)) ;
+				bonusList.remove(b) ;
+				game.setScore(game.getScore()+1);
+				scorelab.setText(String.valueOf(game.getScore()));
+				updateLevel();
+				bonusEaten=true;
+				isbonusUsed=false;
+				
+
+			}
+			
+	
+		}
 		for(int n = 0 ; n < packmanMoves.size() ; n++)
 		{
 			if((packmanMoves.get(n).getX())== fromX && (packmanMoves.get(n).getY())== fromY)
@@ -383,13 +403,76 @@ public class BoardControl implements Initializable {
 				packmanMoves.remove(n) ;
 			}
 		}
+		ImageView imageView =new ImageView();
+		if(bonusEaten==true) {
+			
+			//return bombPoints 30 seconds after eating them
+					retrunBombPoints = new KeyFrame(Duration.millis(30000), e->
+					{
+						
+						BombPoints bomb=new BombPoints("");
+						int index = (int)(Math.random() * bomb.getBombPoints().size());
+						ImageView imageView2 = new ImageView(bomb.getBombPoints().get(index).getImage());
+						imageView2.setFitHeight(30);
+						imageView2.setFitWidth(30);
+						imageView2.setX(toX);
+						imageView2.setY(toY);
+						
 
-		
-		ImageView imageView = new ImageView("Photos/packMan.png");
-		if(dir==Direction.LEFT)
-			imageView= new ImageView("Photos/packManLeft.png");
-		else if(dir==Direction.RIGHT)
-			imageView= new ImageView("Photos/packManRight.png");
+						boolean toadd= true;
+						for(int n = 0 ; n < bonusList.size() ; n++)
+						{
+							if((bonusList.get(n).getX())== toX && (bonusList.get(n).getY())== toY)
+									toadd=false;
+							
+						
+						}
+						
+						if(toadd == true) {
+						pane.getChildren().add(imageView2) ;
+						bonusList.add(imageView2) ;
+						}
+						
+						
+						
+					});
+					timeline4 = new Timeline(retrunBombPoints) ;
+					timeline4.setCycleCount(Timeline.INDEFINITE) ;
+					timeline4.play() ;
+					
+			
+			pauseGhost();
+
+			if(pacmanLocation.color == Model.Color.yellow) {
+					pacmanLocation.color= Model.Color.green;	
+					
+			}
+			else if(pacmanLocation.color== Model.Color.green)
+			{
+				pacmanLocation.color= Model.Color.yellow;
+
+			}
+
+		}
+			
+			if(pacmanLocation.color== Model.Color.yellow)
+			{
+				imageView = new ImageView("Photos/packMan.png");
+				if(dir==Direction.LEFT)
+					imageView= new ImageView("Photos/packManLeft.png");
+				else if(dir==Direction.RIGHT)
+					imageView= new ImageView("Photos/packManRight.png");
+				
+			}
+			else {
+				imageView = new ImageView("Photos/pacManGreen.png");
+				if(dir==Direction.LEFT)
+					imageView= new ImageView("Photos/pacManGreenLeft.png");
+				else if(dir==Direction.RIGHT)
+					imageView= new ImageView("Photos/PacManGreenRight.png");
+			}
+				
+			bonusEaten=false;
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		imageView.setX(toX);
@@ -427,18 +510,151 @@ public class BoardControl implements Initializable {
 			peckpointlist.add(peckPoint) ;
 			}
 			
+			
+			
+	
 
 			
 		});
 		timeline2 = new Timeline(retrunPeckPoints) ;
 		timeline2.setCycleCount(Timeline.INDEFINITE) ;
 		timeline2.play() ;
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
 
 	}
 	
 	
 	
 	
+
+
+		private void pauseGhost() {
+			scene.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
+
+				@Override
+				public void handle(Event arg0) {
+					
+					if(isbonusUsed==false) {
+					if(isbonusUsed==false && checkGhostInRadar(redGhost)==true) {
+
+						timeline3.stop();
+						timeline3.getKeyFrames().clear();
+
+						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
+						{
+						 movePink();
+						 moveBlue();
+						 
+						});
+						timeline3 = new Timeline(ghosts_keyFrame) ;
+						timeline3.setCycleCount(Timeline.INDEFINITE) ;
+						timeline3.play() ;
+						
+						Timer timer = new Timer();
+						timer.schedule(new TimerTask() {
+							
+							@Override
+							public void run() {
+								timeline3.stop();
+								timeline3.getKeyFrames().clear();
+								moveGhostAtSpeed();
+								}
+						}, 5000);
+
+						isbonusUsed=true;
+					}
+					
+					if(isbonusUsed==false && checkGhostInRadar(blueGhost)==true) {
+
+						timeline3.stop();
+						timeline3.getKeyFrames().clear();
+
+						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
+						{
+						 movePink();
+						 moveRed();
+						 
+						});
+						timeline3 = new Timeline(ghosts_keyFrame) ;
+						timeline3.setCycleCount(Timeline.INDEFINITE) ;
+						timeline3.play() ;
+						
+						Timer timer = new Timer();
+						timer.schedule(new TimerTask() {
+							
+							@Override
+							public void run() {
+								timeline3.stop();
+								timeline3.getKeyFrames().clear();
+								moveGhostAtSpeed();
+							}
+						}, 5000);
+						isbonusUsed=true;
+								}
+					if(isbonusUsed==false && checkGhostInRadar(pinkGhost)==true) {
+
+						timeline3.stop();
+						timeline3.getKeyFrames().clear();
+						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
+						{
+						 moveBlue();
+						 moveRed();
+						 
+						});
+						timeline3 = new Timeline(ghosts_keyFrame) ;
+						timeline3.setCycleCount(Timeline.INDEFINITE) ;
+						timeline3.play() ;
+						
+						Timer timer = new Timer();
+						timer.schedule(new TimerTask() {
+							
+							@Override
+							public void run() {
+								timeline3.stop();
+								timeline3.getKeyFrames().clear();
+								moveGhostAtSpeed();
+								}
+						}, 5000);
+						isbonusUsed=true;
+						}
+
+					}
+
+				}
+				
+			});
+
+
+			
+
+	}
+		
+		
+		private boolean checkGhostInRadar(Ghost ghost) {
+			boolean toReturn=false;
+			int pacmanX= pacmanLocation.getCurrentLocation().getRow();
+			int pacmanY= pacmanLocation.getCurrentLocation().getColumn();
+			int ghostX= (int) ghost.getCurrentLocation().getRow();
+			int ghostY= (int) ghost.getCurrentLocation().getColumn();
+			if((pacmanY-ghostY <= 90 && pacmanX==ghostX)
+					|| (pacmanX-ghostX <= 90 && pacmanY==ghostY)|| (ghostY-pacmanY <= 90 && ghostX==pacmanX)|| (ghostX-pacmanX <= 90 && ghostY==pacmanY))
+				toReturn=true;
+			return toReturn;
+			
+		}
+
 		private void updateLevel() {
 			if(game.score>50 && game.score<=100) {
 				level=Level.medium;
@@ -576,10 +792,7 @@ public class BoardControl implements Initializable {
 				
 				if(game.getLive()==0)
 				{
-					((Stage) pane.getScene().getWindow()).close();
-					ViewLogic. StartgameWindow();
-						//TODO
-					
+					Runtime.getRuntime().exit(0);
 				}
 				else 
 				{
@@ -600,11 +813,18 @@ public class BoardControl implements Initializable {
 						pacmanLocation.getCurrentLocation().setColumn(570);
 						pane.getChildren().removeAll();
 						redGhost.getCurrentLocation().setRow(300);
+						redGhost.getImage().setX(300);
 						redGhost.getCurrentLocation().setColumn(240);
+						redGhost.getImage().setY(240);
 						blueGhost.getCurrentLocation().setRow(270);
+						blueGhost.getImage().setX(270);
 						blueGhost.getCurrentLocation().setColumn(240);
+						blueGhost.getImage().setY(240);
 						pinkGhost.getCurrentLocation().setColumn(240);
+						pinkGhost.getImage().setY(240);
 						pinkGhost.getCurrentLocation().setRow(330);
+						pinkGhost.getImage().setX(330);
+
 						resume();
 					}
 					
@@ -639,11 +859,17 @@ public class BoardControl implements Initializable {
 						pacmanLocation.getCurrentLocation().setRow(300);
 						pacmanLocation.getCurrentLocation().setColumn(570);
 						redGhost.getCurrentLocation().setRow(300);
+						redGhost.getImage().setX(300);
 						redGhost.getCurrentLocation().setColumn(240);
+						redGhost.getImage().setY(240);
 						blueGhost.getCurrentLocation().setRow(270);
+						blueGhost.getImage().setX(270);
 						blueGhost.getCurrentLocation().setColumn(240);
+						blueGhost.getImage().setY(240);
 						pinkGhost.getCurrentLocation().setColumn(240);
+						pinkGhost.getImage().setY(240);
 						pinkGhost.getCurrentLocation().setRow(330);
+						pinkGhost.getImage().setX(330);
 						resume();
 					}
 					
@@ -677,11 +903,17 @@ public class BoardControl implements Initializable {
 						
 						pacmanLocation.getCurrentLocation().setColumn(570);
 						redGhost.getCurrentLocation().setRow(300);
+						redGhost.getImage().setX(300);
 						redGhost.getCurrentLocation().setColumn(240);
+						redGhost.getImage().setY(240);
 						blueGhost.getCurrentLocation().setRow(270);
+						blueGhost.getImage().setX(270);
 						blueGhost.getCurrentLocation().setColumn(240);
+						blueGhost.getImage().setY(240);
 						pinkGhost.getCurrentLocation().setColumn(240);
+						pinkGhost.getImage().setY(240);
 						pinkGhost.getCurrentLocation().setRow(330);
+						pinkGhost.getImage().setX(330);
 						resume();
 					}
 				}
@@ -743,7 +975,6 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
-					questionsPoints.add(imageView) ;
 					bonusList.add(imageView);
 
 				}
@@ -763,7 +994,6 @@ public class BoardControl implements Initializable {
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
 					questionsPoints.add(imageView);
-
 				}
 				
 				// update the  Pack-Man on the board
@@ -1229,9 +1459,7 @@ public class BoardControl implements Initializable {
 			return wall_present ;
 		}
 		
-		
-		
-	private Direction tailPacman(Ghost redGhost2, int wallCount) {
+		private Direction tailPacman(Ghost redGhost2, int wallCount) {
 		Direction direction = null ;
 		double ghostX = redGhost2.getCurrentLocation().getRow();
 		double ghostY = redGhost2.getCurrentLocation().getColumn();	

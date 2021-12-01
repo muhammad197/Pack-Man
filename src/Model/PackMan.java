@@ -1,13 +1,18 @@
 package Model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class PackMan {
 	
 	public Location CurrentLocation;
+	public Color color;
 	
 	
-	public PackMan(Location currentLocation) {
+	public PackMan(Location currentLocation, Color color) {
 		super();
 		CurrentLocation = currentLocation;
+		this.color=color;
 	}
 	public Location getCurrentLocation() {
 		return CurrentLocation;
