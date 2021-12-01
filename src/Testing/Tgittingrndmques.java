@@ -16,10 +16,7 @@ class Tgittingrndmques {
 	void test() {
 		SysData instance = SysData.getInstance();
 		instance.loadQuestions();
-		ArrayList<Question> Qtest = new ArrayList<Question>();
-		Qtest.add(instance.randomQuestion());
-		assertFalse(Qtest.isEmpty());
-		
+		assertNotNull(instance.randomQuestion());
 	}
 
 }
