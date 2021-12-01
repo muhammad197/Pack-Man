@@ -1,3 +1,4 @@
+
 package Model;
 
 import java.util.ArrayList;
@@ -21,6 +22,14 @@ public class Question {
 		TrueAnswer = trueAnswer;
 		this.level = level;
 		this.team = "Panther";
+	}
+	
+	public Question(int id,String question, Level level, ArrayList<Answer> answers) {
+		super();
+		this.question = question;
+		this.id = id;
+		this.level = level;
+		this.answers = answers;
 	}
 
 	public Question() {
@@ -147,3 +156,5 @@ public class Question {
 	
 		
 }
+
+

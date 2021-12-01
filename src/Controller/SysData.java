@@ -166,7 +166,7 @@ public class SysData {
 			 for (Question question : questions) {
 
 					if (question.equals(q)) {
-						System.out.println("This Question Already Exists");
+						System.out.println("This Question Already Exists ");
 						return false;
 					}
 					questions.add(q);
