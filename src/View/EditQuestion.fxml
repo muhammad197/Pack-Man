@@ -110,22 +110,22 @@
             <Image url="@../resources/ans1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="29.0" fitWidth="54.0" layoutX="37.0" layoutY="375.0">
+      <ImageView fitHeight="29.0" fitWidth="69.0" layoutX="35.0" layoutY="258.0">
          <image>
             <Image url="@../resources/ans2.png" />
          </image>
       </ImageView>
-      <ImageView layoutX="34.0" layoutY="334.0">
+      <ImageView layoutX="34.0" layoutY="296.0">
          <image>
             <Image url="@../resources/ans3.png" />
          </image>
       </ImageView>
-      <ImageView layoutX="34.0" layoutY="296.0">
+      <ImageView layoutX="35.0" layoutY="334.0">
          <image>
             <Image url="@../resources/ans4.png" />
          </image>
       </ImageView>
-      <ImageView layoutX="34.0" layoutY="258.0">
+      <ImageView layoutX="47.0" layoutY="377.0">
          <image>
             <Image url="@../resources/level.png" />
          </image>

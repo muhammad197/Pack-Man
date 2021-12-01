@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -27,6 +28,9 @@ public class startgamepagecontroller implements Initializable{
 
 			    @FXML
 			    private TextField userid;
+			    
+			    @FXML
+			    private Label error;
 			    
 			    @FXML
 				private AnchorPane pane;
@@ -50,9 +54,14 @@ public class startgamepagecontroller implements Initializable{
 				
 				@FXML
 				private void GoClicked(ActionEvent event) throws IOException {
+					if(userid.getText()=="") {
+						error.setText("Please enter your nickname");
+						
+					}
+					else {
 					closeWindow();
 					SysData.CurrentPlayer= userid.getText().trim();
-					ViewLogic.gameWindow();
+					ViewLogic.gameWindow();}
 /*					Stage stage = new Stage();
 
 					FXMLLoader loader = new FXMLLoader(startgamepagecontroller.class.getResource("Board.fxml"));
