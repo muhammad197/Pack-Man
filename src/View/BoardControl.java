@@ -23,6 +23,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -79,6 +80,7 @@ public class BoardControl implements Initializable {
     private Direction red_movingAt= Direction.UP, blue_movingAt=Direction.UP, pink_movingAt=Direction.LEFT ;
 
 	//get board from board model( a matrix that describes the board- see Model\Board)
+    int[][] spareMatrix= Board.getInstance().matrixBoard_level1;
 	int[][] matrix1 = Board.getInstance().matrixBoard_level1;
 	int[][] matrix = Board.getInstance().putRandomQuestion(matrix1);
 
@@ -574,7 +576,10 @@ public class BoardControl implements Initializable {
 				
 				if(game.getLive()==0)
 				{
-					Runtime.getRuntime().exit(0);
+					((Stage) pane.getScene().getWindow()).close();
+					ViewLogic. StartgameWindow();
+						//TODO
+					
 				}
 				else 
 				{
@@ -738,6 +743,7 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
+					questionsPoints.add(imageView) ;
 					bonusList.add(imageView);
 
 				}
@@ -756,6 +762,7 @@ public class BoardControl implements Initializable {
 					imageView.setX(thisRow);
 					imageView.setY(thisColoum);
 					pane.getChildren().add(imageView) ;
+					questionsPoints.add(imageView);
 
 				}
 				
@@ -831,6 +838,8 @@ public class BoardControl implements Initializable {
 		{
 			int thisRow=0;
 		    int thisColoum=0;
+		    int thisRow1=0;
+		    int thisColoum1=0;
 		    pane.getChildren().removeAll(bonusList);
 		    pane.getChildren().removeAll(packmanMoves);
 		    pane.getChildren().removeAll(peckpointlist);
@@ -843,6 +852,22 @@ public class BoardControl implements Initializable {
 			packmanMoves = new ArrayList<ImageView>() ;
 			questionsPoints= new ArrayList<ImageView>() ;
 			boolean addWall=false;
+			
+			for(int i=0; i<21; i++)
+			{
+				for(int j=0;j<21;j++) {
+					
+					if(matrix1[i][j]==3)
+						matrix1[i][j]=0;
+					
+					thisRow1+=30;
+				}
+				thisColoum1+=30;
+				thisRow1=0;
+			}
+			
+		    matrix = Board.getInstance().putRandomQuestion(matrix1);
+			 
 			for(int i=0; i<21; i++)
 			{
 				for(int j=0;j<21;j++) {
