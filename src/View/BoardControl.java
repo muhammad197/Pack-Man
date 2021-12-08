@@ -193,7 +193,6 @@ public class BoardControl implements Initializable {
 		
 	}
 
-
 	private void movement(Direction newDir) {
 		
 		if(isWall(newDir, pacmanLocation.getCurrentLocation().getRow(), pacmanLocation.getCurrentLocation().getColumn()) == false) {
@@ -262,14 +261,15 @@ public class BoardControl implements Initializable {
 
 			@Override
 			public void handle(Event arg0) {
-				if(game.gameState==GameState.Started) {
+				if(game.gameState==GameState.Started ) {
 					game.setGameState(GameState.Running);
 				
 				setScene(pane.getScene());
-				if(game.gameState==GameState.Running) {
-				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {	
+				scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
 					@Override
 					public void handle(KeyEvent event) {
+						if(game.gameState==GameState.Running) {
+						System.out.println("Pressed");
 						switch(event.getCode()) 
 						{
 							case UP : newDir = Direction.UP ;
@@ -282,15 +282,41 @@ public class BoardControl implements Initializable {
 										break ;
 
 							case RIGHT : newDir = Direction.RIGHT ;
-										 break ;
+									 break ;
+						}
 						}
 					}
 				});
-				movePackmanAtSpeed();
-				moveGhostAtSpeed();
+				
+				/*
+				pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
+
+					@Override
+					public void handle(Event arg0) {
+						if(game.gameState==GameState.Paused) {
+							game.gameState=GameState.Running;
+							movePackmanAtSpeed();
+							moveGhostAtSpeed();
+
+						}
+						else if(game.gameState==GameState.Running) {
+							game.gameState=GameState.Paused;
+							pauseGame();
+					}
+						
+					}
+				});
+				*/
+				if(game.gameState==GameState.Running) {
+					System.out.println("PROBLEM");
+					movePackmanAtSpeed();
+					moveGhostAtSpeed();
 				}
 
-			}		
+
+			}
+				
+				
 				
 			}
 		
@@ -360,7 +386,7 @@ public class BoardControl implements Initializable {
 
 
 	
-	public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
+		public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
 	{
 		for(int n = 0 ; n < peckpointlist.size() ; n++)
 		{
@@ -455,14 +481,12 @@ public class BoardControl implements Initializable {
 
 		}
 			
-			if(pacmanLocation.color== Model.Color.yellow)
-			{
+			if(pacmanLocation.color==Model.Color.yellow) {
 				imageView = new ImageView("Photos/packMan.png");
 				if(dir==Direction.LEFT)
 					imageView= new ImageView("Photos/packManLeft.png");
 				else if(dir==Direction.RIGHT)
 					imageView= new ImageView("Photos/packManRight.png");
-				
 			}
 			else {
 				imageView = new ImageView("Photos/pacManGreen.png");
@@ -471,7 +495,6 @@ public class BoardControl implements Initializable {
 				else if(dir==Direction.RIGHT)
 					imageView= new ImageView("Photos/PacManGreenRight.png");
 			}
-				
 			bonusEaten=false;
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
@@ -479,47 +502,7 @@ public class BoardControl implements Initializable {
 		imageView.setY(toY);
 		pane.getChildren().add(imageView) ;
 		packmanMoves.add(imageView) ;
-		//return peckPoints 30 seconds after eating them
-		retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
-		{
-			Circle peckPoint = new Circle() ; // pass in x, y, width and height
-			peckPoint.setCenterX(fromX+15);  
-			peckPoint.setCenterY(fromY+15);  
-			peckPoint.setRadius(4); 
-			peckPoint.setFill(Color.web("#E4CB18"));
-			
-			boolean toadd= true;
-			for(int n = 0 ; n < peckpointlist.size() ; n++)
-			{
-				if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
-				{
-					toadd=false;
-				}
-				if(n< bonusList.size())
-					if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
-						toadd=false;
-				
-				if(pacmanLocation.getCurrentLocation().getRow()== fromX && pacmanLocation.getCurrentLocation().getColumn() == fromY)
-				{
-					toadd=false;
-				}
-			}
-			
-			if(toadd == true) {
-			pane.getChildren().add(peckPoint) ;
-			peckpointlist.add(peckPoint) ;
-			}
-			
-			
-			
-	
-
-			
-		});
-		timeline2 = new Timeline(retrunPeckPoints) ;
-		timeline2.setCycleCount(Timeline.INDEFINITE) ;
-		timeline2.play() ;
-		
+		returnPeckPoints(fromX,fromY);
 		
 	
 		
@@ -534,11 +517,45 @@ public class BoardControl implements Initializable {
 	
 
 	}
-	
-	
-	
-	
 
+		private void returnPeckPoints(int fromX, int fromY) {
+			//return peckPoints 30 seconds after eating them
+			retrunPeckPoints = new KeyFrame(Duration.millis(3000), e->
+			{
+				Circle peckPoint = new Circle() ; // pass in x, y, width and height
+				peckPoint.setCenterX(fromX+15);  
+				peckPoint.setCenterY(fromY+15);  
+				peckPoint.setRadius(4); 
+				peckPoint.setFill(Color.web("#E4CB18"));
+				
+				boolean toadd= true;
+				for(int n = 0 ; n < peckpointlist.size() ; n++)
+				{
+					if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
+					{
+						toadd=false;
+					}
+					if(n< bonusList.size())
+						if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
+							toadd=false;
+					
+					if(pacmanLocation.getCurrentLocation().getRow()== fromX && pacmanLocation.getCurrentLocation().getColumn() == fromY)
+					{
+						toadd=false;
+					}
+				}
+				
+				if(toadd == true) {
+				pane.getChildren().add(peckPoint) ;
+				peckpointlist.add(peckPoint) ;
+				}
+					
+			});
+			timeline2 = new Timeline(retrunPeckPoints) ;
+			timeline2.setCycleCount(Timeline.INDEFINITE) ;
+			timeline2.play() ;
+					
+	}
 
 		private void pauseGhost() {
 			scene.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
@@ -1328,8 +1345,7 @@ public class BoardControl implements Initializable {
 					}
 					if(blueGhost.getCurrentLocation().getRow()==90 && blueGhost.getCurrentLocation().getColumn()==0) {
 						blue_movingAt=Direction.DOWN;
-					}
-					if(blueGhost.getCurrentLocation().getRow()==90 && blueGhost.getCurrentLocation().getColumn()==600) {
+					}if(blueGhost.getCurrentLocation().getRow()==90 && blueGhost.getCurrentLocation().getColumn()==600) {
 						blue_movingAt=Direction.UP;
 					}if(blueGhost.getCurrentLocation().getRow()==0 && blueGhost.getCurrentLocation().getColumn()==300) {
 						blue_movingAt=Direction.RIGHT;
@@ -1515,5 +1531,42 @@ public class BoardControl implements Initializable {
 		this.scene = scene;
 	}
 	
+	
+	
+	public void pauseOrUnPauseGame() {
+		if(game.gameState==GameState.Paused) {
+			game.gameState=GameState.Running;
+			movePackmanAtSpeed();
+			moveGhostAtSpeed();
+
+		}
+		else if(game.gameState==GameState.Running) {
+			game.gameState=GameState.Paused;
+			if(timeline!=null) {
+				timeline.stop();
+				timeline.getKeyFrames().clear();
+			}
+			if(timeline2!=null) {
+	
+				timeline2.stop();
+				timeline2.getKeyFrames().clear();
+			}
+			if(timeline3!=null) {
+				timeline3.stop();
+				timeline3.getKeyFrames().clear();
+			}
+			if(timeline4!=null) {
+				timeline4.stop();
+				timeline4.getKeyFrames().clear();
+			}
+	}
+
+	
+
+		
+		}		
+
+
+
 
 }
