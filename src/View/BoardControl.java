@@ -520,7 +520,7 @@ public class BoardControl implements Initializable {
 
 		private void returnPeckPoints(int fromX, int fromY) {
 			//return peckPoints 30 seconds after eating them
-			retrunPeckPoints = new KeyFrame(Duration.millis(3000), e->
+			retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
 			{
 				Circle peckPoint = new Circle() ; // pass in x, y, width and height
 				peckPoint.setCenterX(fromX+15);  
@@ -558,14 +558,23 @@ public class BoardControl implements Initializable {
 	}
 
 		private void pauseGhost() {
-			scene.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
+			pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
 
 				@Override
 				public void handle(Event arg0) {
-					
+					System.out.println("YESSSSSSS");
 					if(isbonusUsed==false) {
+				
 					if(isbonusUsed==false && checkGhostInRadar(redGhost)==true) {
+						if(pacmanLocation.color == Model.Color.yellow) {
+							pacmanLocation.color= Model.Color.green;	
+							
+					}
+					else if(pacmanLocation.color== Model.Color.green)
+					{
+						pacmanLocation.color= Model.Color.yellow;
 
+					}
 						timeline3.stop();
 						timeline3.getKeyFrames().clear();
 
@@ -594,7 +603,15 @@ public class BoardControl implements Initializable {
 					}
 					
 					if(isbonusUsed==false && checkGhostInRadar(blueGhost)==true) {
+						if(pacmanLocation.color == Model.Color.yellow) {
+							pacmanLocation.color= Model.Color.green;	
+							
+					}
+					else if(pacmanLocation.color== Model.Color.green)
+					{
+						pacmanLocation.color= Model.Color.yellow;
 
+					}
 						timeline3.stop();
 						timeline3.getKeyFrames().clear();
 
@@ -621,7 +638,15 @@ public class BoardControl implements Initializable {
 						isbonusUsed=true;
 								}
 					if(isbonusUsed==false && checkGhostInRadar(pinkGhost)==true) {
+						if(pacmanLocation.color == Model.Color.yellow) {
+							pacmanLocation.color= Model.Color.green;	
+							
+					}
+					else if(pacmanLocation.color== Model.Color.green)
+					{
+						pacmanLocation.color= Model.Color.yellow;
 
+					}
 						timeline3.stop();
 						timeline3.getKeyFrames().clear();
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
