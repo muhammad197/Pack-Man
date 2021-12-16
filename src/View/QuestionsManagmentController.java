@@ -192,7 +192,8 @@ public class QuestionsManagmentController implements Initializable {
     public void deleteQuestion() {
     	Question q = questionsTable.getSelectionModel().getSelectedItem();
 		if (q != null)
-		{Alert alert = new Alert(AlertType.WARNING);
+		{
+		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Delete Question");
 		alert.setHeaderText("Are you sure you want to delete this question?");
 		alert.setContentText("''"+q.getQuestion()+"''");
