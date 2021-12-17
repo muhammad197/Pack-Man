@@ -99,13 +99,16 @@ public class BoardControl implements Initializable {
 		
 		private Scene scene ;
 		
+		boolean QuestionMode=false;
 		// save previous and new directions of the pacman
 		private Direction newDir=Direction.RIGHT;
 		private Direction prevDir=Direction.RIGHT;
 		
-		KeyFrame pacman_keyFrame;
+		KeyFrame pacman_keyFrame,showCorrectAns;
 		
 		public boolean levelUp=false;
+		public boolean levelDown=false;
+
 		public boolean bonusEaten=false;
 		public Level level=Level.easy;
 		private Game game;
@@ -261,6 +264,7 @@ public class BoardControl implements Initializable {
 
 				@Override
 				public void handle(Event arg0) {
+					if(QuestionMode==false) {
 					pauseOrUnPauseGame();
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle("Delete Question");
@@ -276,6 +280,7 @@ public class BoardControl implements Initializable {
 						} catch (Exception e) {
 						}
 					}				
+				}
 				}
 			});
 			scene.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
@@ -338,17 +343,19 @@ public class BoardControl implements Initializable {
 		
 		
 		public void moveGhostAtSpeed() {
-			
 			ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 			{
+				if(game.gameState==GameState.Running) {
+
 			 movePink();
 			 moveRed();
 			 moveBlue();
-			 
+				}
 			});
 			timeline3 = new Timeline(ghosts_keyFrame) ;
 			timeline3.setCycleCount(Timeline.INDEFINITE) ;
 			timeline3.play() ;
+			
 			
 		}
 		
@@ -400,76 +407,192 @@ public class BoardControl implements Initializable {
 		
 		public void movePackman(Direction dir,int fromX, int fromY, int toX, int toY)
 		{
+			if(game.gameState==GameState.Running) {
 			boolean isQuestion=false;
+			
 			
 			for(int m = 0 ; m < questionsPoints.size() ; m++)
 			{
 				if((questionsPoints.get(m).getX()== toX) && (questionsPoints.get(m).getY() == toY))
 				{
+					QuestionMode=true;
+					Level QuestionLevel= Level.valueOf(questionsPoints.get(m).getId());
 					isQuestion=true;
 					pane.getChildren().remove(questionsPoints.get(m)) ;
-					questionsPoints.remove(m) ;
-					Question q= SysData.getInstance().getQuestions().get(0);
+					questionsPoints.remove(m);
+					Question q= SysData.getInstance().randomQuestion(QuestionLevel);
 					pauseOrUnPauseGame();
 					AnchorPane anchorpane= new AnchorPane();
 					anchorpane.setLayoutX(151);
 					anchorpane.setLayoutY(135);
 					anchorpane.setPrefWidth(400);
 					anchorpane.setPrefHeight(334);
-					anchorpane.setStyle("-fx-background-color: #ffffff");
-					Label question = new Label(q.getQuestion());
+					if(q.level==Level.easy)
+						anchorpane.setStyle("-fx-background-color: #ffffff");
+					if(q.level==Level.medium)
+						anchorpane.setStyle("-fx-background-color: #ffeb00");
+					if(q.level==Level.hard)
+						anchorpane.setStyle("-fx-background-color: #fe0400");
+
+					Label question = new Label(q.getQuestion()+"     Level: "+q.getLevel().toString());
 					question.setLayoutX(23);
 					question.setLayoutY(30);
-					question.setPrefWidth(314);
-					question.setPrefHeight(27);
 					CheckBox ans1= new CheckBox(q.getAnswers().get(0).getContent());
 					ans1.setLayoutX(29);
 					ans1.setLayoutY(66);
-					ans1.setPrefWidth(322);
-					ans1.setPrefHeight(41);
-					
+ 					
 					CheckBox ans2= new CheckBox(q.getAnswers().get(1).getContent());
 					ans2.setLayoutX(29);
 					ans2.setLayoutY(106);
-					ans2.setPrefWidth(322);
-					ans2.setPrefHeight(41);
-					
+ 					
 					CheckBox ans3= new CheckBox(q.getAnswers().get(2).getContent());
 					ans3.setLayoutX(29);
 					ans3.setLayoutY(146);
-					ans3.setPrefWidth(322);
-					ans3.setPrefHeight(41);
-					
+ 					
 					CheckBox ans4= new CheckBox(q.getAnswers().get(3).getContent());
 					ans4.setLayoutX(29);
 					ans4.setLayoutY(186);
-					ans4.setPrefWidth(322);
-					ans4.setPrefHeight(41);
-					
+ 					
 					Button submit= new Button("Submit Answer");
 					submit.setLayoutX(95);
 					submit.setLayoutY(246);
+					Label label= new Label();
+					label.setLayoutX(70);
+					label.setLayoutY(280);
+					label.setVisible(false);
+				
 					anchorpane.getChildren().add(question);
 					anchorpane.getChildren().add(ans1);
 					anchorpane.getChildren().add(ans2);
 					anchorpane.getChildren().add(ans3);
 					anchorpane.getChildren().add(ans4);
 					anchorpane.getChildren().add(submit);
+					anchorpane.getChildren().add(label);
+
+
 
 					pane.getChildren().add(anchorpane);
 					submit.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
+						private Timeline timeline5;
+
 						@Override
 						public void handle(Event arg0) {
-							pane.getChildren().remove(anchorpane);
-							pauseOrUnPauseGame();
-							
+							int numofsel=0;
+								if(ans1.isSelected()) numofsel++;
+								if(ans2.isSelected()) numofsel++;
+								if(ans3.isSelected()) numofsel++;
+								if(ans4.isSelected()) numofsel++;
+								if(numofsel==0)
+								{
+									label.setText("You must select an answer");
+									label.setVisible(true);
+
+								}
+								if(numofsel>1)
+								{
+									label.setText("You must select only one answer");
+									label.setVisible(true);
+
+								}
+								if(numofsel==1)
+								{
+									int rightAns=1;
+									if(ans1.isSelected()) rightAns=1;
+									if(ans2.isSelected()) rightAns=2;
+									if(ans3.isSelected()) rightAns=3;
+									if(ans4.isSelected()) rightAns=4;
+									if(q.getTrueAnswer()==rightAns) {
+										if(q.getLevel()==Level.easy)
+											game.setScore(game.getScore()+1);
+										if(q.getLevel()==Level.medium)
+											game.setScore(game.getScore()+2);
+										if(q.getLevel()==Level.hard)
+											game.setScore(game.getScore()+3);
+										scorelab.setText(String.valueOf(game.getScore()));
+										updateLevel();
+										
+										if(q.getTrueAnswer()==1)
+											ans1.setStyle("-fx-background-color: #7CFC00");
+										if(q.getTrueAnswer()==2)
+											ans2.setStyle("-fx-background-color: #7CFC00");
+										if(q.getTrueAnswer()==3)
+											ans3.setStyle("-fx-background-color: #7CFC00");
+										if(q.getTrueAnswer()==4)
+											ans4.setStyle("-fx-background-color: #7CFC00");
+
+
+										showCorrectAns = new KeyFrame(Duration.millis(1000), e->
+										{
+											pane.getChildren().remove(anchorpane);
+											replaceQuestionOnBoard(q.level, toX, toY);
+											pauseOrUnPauseGame();
+											QuestionMode=false;
+
+												});
+												timeline5 = new Timeline(showCorrectAns) ;
+												timeline5.play() ;
+												
+									
+									
+									
+									}
+									else
+									{
+										if(q.getLevel()==Level.easy)
+											game.setScore(game.getScore()-10);
+										if(q.getLevel()==Level.medium)
+											game.setScore(game.getScore()-20);
+										if(q.getLevel()==Level.hard)
+											game.setScore(game.getScore()-30);
+										if(game.getScore()<0)
+											game.setScore(0);
+										scorelab.setText(String.valueOf(game.getScore()));
+										leveldown();
+										Timer timer = new Timer();
+										if(ans1.isSelected()) ans1.setStyle("-fx-background-color: #fe0400");
+										if(ans2.isSelected()) ans2.setStyle("-fx-background-color: #fe0400");
+										if(ans3.isSelected()) ans3.setStyle("-fx-background-color: #fe0400");
+										if(ans4.isSelected()) ans4.setStyle("-fx-background-color: #fe0400");
+										if(q.getTrueAnswer()==1)
+											ans1.setStyle("-fx-background-color: #7CFC00");
+										if(q.getTrueAnswer()==2)
+											ans2.setStyle("-fx-background-color: #7CFC00");
+										if(q.getTrueAnswer()==3)
+											ans3.setStyle("-fx-background-color: #7CFC00");
+										if(q.getTrueAnswer()==4)
+											ans4.setStyle("-fx-background-color: #7CFC00");
+
+
+										showCorrectAns = new KeyFrame(Duration.millis(1000), e->
+										{
+											pane.getChildren().remove(anchorpane);
+											replaceQuestionOnBoard(q.level, toX, toY);
+											pauseOrUnPauseGame();
+											QuestionMode=false;
+
+
+												});
+												timeline5 = new Timeline(showCorrectAns) ;
+												timeline5.play() ;
+												
+									}
+									
+									
+
+									
+
+								
+								}
+							 
+								 
 						}
 					});
+
 
 				}
 			
 			}
-			
+
 			for(int n = 0 ; n < peckpointlist.size() ; n++)
 			{
 				if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
@@ -514,6 +637,8 @@ public class BoardControl implements Initializable {
 			//return bombPoints 30 seconds after eating them
 			retrunBombPoints = new KeyFrame(Duration.millis(30000), e->
 			{
+				if(game.gameState==GameState.Running) {
+
 				
 				BombPoints bomb=new BombPoints("");
 						int index = (int)(Math.random() * bomb.getBombPoints().size());
@@ -536,7 +661,7 @@ public class BoardControl implements Initializable {
 						bonusList.add(imageView2) ;
 						}
 						
-						
+				}
 						
 					});
 					timeline4 = new Timeline(retrunBombPoints) ;
@@ -583,13 +708,16 @@ public class BoardControl implements Initializable {
 			returnPeckPoints(fromX,fromY);
 				}
 			
-		
+			}
 		}
 		
 		private void returnPeckPoints(int fromX, int fromY) {
 			//return peckPoints 30 seconds after eating them
 			retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
 			{
+				if(game.gameState==GameState.Running) {
+					
+				
 				Circle peckPoint = new Circle() ; // pass in x, y, width and height
 			peckPoint.setCenterX(fromX+15);  
 			peckPoint.setCenterY(fromY+15);  
@@ -617,11 +745,13 @@ public class BoardControl implements Initializable {
 			pane.getChildren().add(peckPoint) ;
 			peckpointlist.add(peckPoint) ;
 			}
+				}
 				
 		});
 			timeline2 = new Timeline(retrunPeckPoints) ;
 			timeline2.setCycleCount(Timeline.INDEFINITE) ;
 			timeline2.play() ;
+			
 					
 	}
 	
@@ -648,8 +778,11 @@ public class BoardControl implements Initializable {
 	
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 						{
+							if(game.gameState==GameState.Running) {
+
 						 movePink();
 						 moveBlue();
+							}
 						 
 						});
 						timeline3 = new Timeline(ghosts_keyFrame) ;
@@ -685,8 +818,11 @@ public class BoardControl implements Initializable {
 	
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 						{
+							if(game.gameState==GameState.Running) {
+
 						 movePink();
 						 moveRed();
+							}
 						 
 						});
 						timeline3 = new Timeline(ghosts_keyFrame) ;
@@ -719,8 +855,11 @@ public class BoardControl implements Initializable {
 						timeline3.getKeyFrames().clear();
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 						{
+							if(game.gameState==GameState.Running) {
+
 						 moveBlue();
 						 moveRed();
+							}
 						 
 						});
 						timeline3 = new Timeline(ghosts_keyFrame) ;
@@ -764,8 +903,118 @@ public class BoardControl implements Initializable {
 			return toReturn;
 			
 		}
+		
+		
+		private void leveldown() {
+			if(game.score>=0 && game.score<=50) {
+				level=Level.easy;
+				levelDown=true;
+			 
+			}
+				if(game.score>50 && game.score<=100) {
+					level=Level.medium;
+					game.setSpeed(300);
+					levelDown=true;
+
+				  
+				}
+				if(game.score>100 && game.score<=150) {
+					level=Level.hard;
+					game.setSpeed(250);
+					ghostSpeed=270;
+					levelDown=true;
+		
+				}
+				
+				if(level == level.easy && levelDown==true)	{
+					
+					Rectangle wall1 = new Rectangle(90, 0, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall1.setFill(Color.web("#191970")) ;
+					wall1.setStroke(Color.CORNFLOWERBLUE) ;
+					wall1.setStrokeWidth(2.0) ;
+					
+					Rectangle wall2 = new Rectangle(90, 600, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall2.setFill(Color.web("#191970")) ;
+					wall2.setStroke(Color.CORNFLOWERBLUE) ;
+					wall2.setStrokeWidth(2.0) ;
+					
+					Rectangle wall3 = new Rectangle(0, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall3.setFill(Color.web("#191970")) ;
+					wall3.setStroke(Color.CORNFLOWERBLUE) ;
+					wall3.setStrokeWidth(2.0) ;
+					
+					
+					Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall4.setFill(Color.web("#191970")) ;
+								wall4.setStroke(Color.CORNFLOWERBLUE) ;
+								wall4.setStrokeWidth(2.0) ;
+					
+					
+								pane.getChildren().add(wall1) ;
+								pane.getChildren().add(wall2) ;
+								pane.getChildren().add(wall3) ;
+								pane.getChildren().add(wall4) ;
+								
+								wallList.add(wall1);
+								wallList.add(wall2);
+								wallList.add(wall3);
+								wallList.add(wall4);
+								 levelDown=false;
+
+								
+				}
+			
+				if(level == level.medium && levelDown==true)	{
+						timeline.stop();  
+						timeline.getKeyFrames().clear();
+						movePackmanAtSpeed();
+					 for(int c = 0 ; c < wallList.size() ; c++)
+						{	
+							if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 0)
+							{
+								pane.getChildren().remove(wallList.get(c)) ;
+								wallList.remove(c);
+							}
+							if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 600)
+							{
+								pane.getChildren().remove(wallList.get(c)) ;
+								wallList.remove(c);
+		
+							}
+							
+							if((wallList.get(c).getX())== 0 && (wallList.get(c).getY())== 300)
+							{
+								pane.getChildren().remove(wallList.get(c)) ;
+								wallList.remove(c);
+		
+							}
+							if((wallList.get(c).getX())== 600 && (wallList.get(c).getY())== 300)
+							{
+								pane.getChildren().remove(wallList.get(c)) ;
+								wallList.remove(c);
+		
+							}
+						}
+					 levelDown=false;
+		
+				}
+				
+				if(level== level.hard && levelDown==true)
+				{
+					timeline.stop();  
+					timeline.getKeyFrames().clear();
+					timeline3.stop();  
+					timeline3.getKeyFrames().clear();
+					levelDown=false;	
+					movePackmanAtSpeed();
+					moveGhostAtSpeed();
+				}
+				
+				
+		}
 	
 		private void updateLevel() {
+			
 				if(game.score>50 && game.score<=100) {
 					level=Level.medium;
 					levelUp= true;
@@ -776,17 +1025,14 @@ public class BoardControl implements Initializable {
 					levelUp= true;
 		
 				}
-				if(game.score>150 && game.score<=200) {
+				if(game.score>150) {
 					level=Level.super_hard;
-					game.setSpeed(150);
-					ghostSpeed=120;
+					game.setSpeed(220);
+					ghostSpeed=200;
 					levelUp= true;
 		
 				}
 				
-				
-				 
-				 
 				if(level == level.medium && levelUp==true)	{
 					 for(int c = 0 ; c < wallList.size() ; c++)
 						{
@@ -822,54 +1068,54 @@ public class BoardControl implements Initializable {
 				
 				if(level == level.hard && levelUp==true)	{
 					Rectangle wall1 = new Rectangle(90, 0, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall1.setFill(Color.web("#191970")) ;
-		wall1.setStroke(Color.CORNFLOWERBLUE) ;
-		wall1.setStrokeWidth(2.0) ;
-		
-		Rectangle wall2 = new Rectangle(90, 600, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall2.setFill(Color.web("#191970")) ;
-		wall2.setStroke(Color.CORNFLOWERBLUE) ;
-		wall2.setStrokeWidth(2.0) ;
-		
-		Rectangle wall3 = new Rectangle(0, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall3.setFill(Color.web("#191970")) ;
-		wall3.setStroke(Color.CORNFLOWERBLUE) ;
-		wall3.setStrokeWidth(2.0) ;
-		
-		
-		Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall4.setFill(Color.web("#191970")) ;
-					wall4.setStroke(Color.CORNFLOWERBLUE) ;
-					wall4.setStrokeWidth(2.0) ;
-		
-		
-					pane.getChildren().add(wall1) ;
-					pane.getChildren().add(wall2) ;
-					pane.getChildren().add(wall3) ;
-					pane.getChildren().add(wall4) ;
-		
-					wallList.add(wall1);
-					wallList.add(wall2);
-					wallList.add(wall3);
-					wallList.add(wall4);
-		
-					timeline.stop();  
-					timeline.getKeyFrames().clear();
-					levelUp=false;	
-					movePackmanAtSpeed();
+					wall1.setFill(Color.web("#191970")) ;
+					wall1.setStroke(Color.CORNFLOWERBLUE) ;
+					wall1.setStrokeWidth(2.0) ;
 					
-				}			
-				
-				if(level == level.super_hard && levelUp==true)	{
-					timeline.stop();  
-					timeline.getKeyFrames().clear();
-					timeline3.stop();  
-					timeline3.getKeyFrames().clear();
-					levelUp=false;	
-					movePackmanAtSpeed();
-					moveGhostAtSpeed();
+					Rectangle wall2 = new Rectangle(90, 600, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall2.setFill(Color.web("#191970")) ;
+					wall2.setStroke(Color.CORNFLOWERBLUE) ;
+					wall2.setStrokeWidth(2.0) ;
 					
-				}			
+					Rectangle wall3 = new Rectangle(0, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall3.setFill(Color.web("#191970")) ;
+					wall3.setStroke(Color.CORNFLOWERBLUE) ;
+					wall3.setStrokeWidth(2.0) ;
+					
+					
+					Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
+					wall4.setFill(Color.web("#191970")) ;
+								wall4.setStroke(Color.CORNFLOWERBLUE) ;
+								wall4.setStrokeWidth(2.0) ;
+					
+					
+								pane.getChildren().add(wall1) ;
+								pane.getChildren().add(wall2) ;
+								pane.getChildren().add(wall3) ;
+								pane.getChildren().add(wall4) ;
+					
+								wallList.add(wall1);
+								wallList.add(wall2);
+								wallList.add(wall3);
+								wallList.add(wall4);
+					
+								timeline.stop();  
+								timeline.getKeyFrames().clear();
+								levelUp=false;	
+								movePackmanAtSpeed();
+								
+							}			
+							
+							if(level == level.super_hard && levelUp==true)	{
+								timeline.stop();  
+								timeline.getKeyFrames().clear();
+								timeline3.stop();  
+								timeline3.getKeyFrames().clear();
+								levelUp=false;	
+								movePackmanAtSpeed();
+								moveGhostAtSpeed();
+								
+							}			
 		}
 		
 			/**
@@ -894,7 +1140,11 @@ public class BoardControl implements Initializable {
 		
 		private void movePackmanAtSpeed() {
 			pacman_keyFrame = new KeyFrame(Duration.millis(game.speed), e->
-			{
+			{		
+				if(game.gameState==GameState.Running) {
+			
+
+				
 				if(caughtPacman((int) redGhost.getCurrentLocation().getRow(),(int) redGhost.getCurrentLocation().getColumn(),pacmanLocation.getCurrentLocation().getRow(),pacmanLocation.getCurrentLocation().getColumn())==true)
 				{
 					System.out.println("Reeeed BYEEEEE");
@@ -1030,16 +1280,52 @@ public class BoardControl implements Initializable {
 					
 				}
 			 movement(newDir);
+				}
 			});
 			timeline = new Timeline(pacman_keyFrame) ;
 			timeline.setCycleCount(Timeline.INDEFINITE) ;
 			timeline.play() ;		
 		}
 		
+		
+		private void replaceQuestionOnBoard(Level level, int toX, int toY)
+		{
+				boolean placeFound=false;
+				int index = 0, index2=0;
+				while (placeFound==false)
+				{	
+					index = (int)(Math.random()*21);
+					index2= (int)(Math.random()*21);
+					if(matrix[index][index2]==0)
+					{
+						placeFound=true;
+						matrix[index][index2]=3; 
+					}
+					
+					
+				}
+				
+				Question questin=new Question();
+				int index3 = (int)(Math.random() * questin.getPointsQuestions().size());
+				ImageView imageView = new ImageView(questin.getPointsQuestions().get(index3).getImage());
+				imageView.setId(level.toString());
+				imageView.setFitHeight(30);
+				imageView.setFitWidth(30);
+				imageView.setX(index2*30);
+				imageView.setY(index*30);
+				pane.getChildren().add(imageView) ;
+				questionsPoints.add(imageView);
+		
+		}
+		
 		//fill board acccording to the matrix. every object on the board has it's defining number(see on Model\Board) for example - 0:wall
 		private void fillBoard() {
 		int thisRow=0;
 		int thisColoum=0;
+		int questioncounter=0;
+		Level question1= Level.easy;
+		Level question2=Level.medium;
+		Level question3= Level.hard;
 		
 		for(int i=0; i<21; i++)
 		{
@@ -1095,9 +1381,17 @@ public class BoardControl implements Initializable {
 			/**
 		 * Getting random photo 
 		 */
+			
 			Question questin=new Question();
 			int index = (int)(Math.random() * questin.getPointsQuestions().size());
 			ImageView imageView = new ImageView(questin.getPointsQuestions().get(index).getImage());
+			if(questioncounter==0)
+				imageView.setId(question1.toString());
+			else if(questioncounter==1)
+				imageView.setId(question2.toString());
+			else if(questioncounter==2)
+				imageView.setId(question3.toString());
+			questioncounter++;
 			imageView.setFitHeight(30);
 			imageView.setFitWidth(30);
 			imageView.setX(thisRow);
@@ -1180,6 +1474,11 @@ public class BoardControl implements Initializable {
 		    int thisColoum=0;
 		    int thisRow1=0;
 		    int thisColoum1=0;
+		    int questioncounter=0;
+			Level question1= Level.easy;
+			Level question2=Level.medium;
+			Level question3= Level.hard;
+
 		    pane.getChildren().removeAll(bonusList);
 		    pane.getChildren().removeAll(packmanMoves);
 		    pane.getChildren().removeAll(peckpointlist);
@@ -1273,12 +1572,19 @@ public class BoardControl implements Initializable {
 	// update the questions on the board
 	if(matrix[i][j] == 3)
 	{
-		/**
+				/**
 	 * Getting random photo 
 	 */
 					Question questin=new Question();
 					int index = (int)(Math.random() * questin.getPointsQuestions().size());
 					ImageView imageView = new ImageView(questin.getPointsQuestions().get(index).getImage());
+					if(questioncounter==0)
+						imageView.setId(question1.toString());
+					else if(questioncounter==1)
+						imageView.setId(question2.toString());
+					else if(questioncounter==2)
+						imageView.setId(question3.toString());
+					questioncounter++;
 					imageView.setFitHeight(30);
 					imageView.setFitWidth(30);
 					imageView.setX(thisRow);

@@ -104,7 +104,7 @@ public class Board {
 			if(board[index][index2]==0)
 			{
 				count++; 
-				board[index][index2]=3;
+				board[index][index2]=3; 
 			}
 			
 			

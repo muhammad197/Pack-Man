@@ -327,10 +327,16 @@ public class SysData {
 
 		
 		 //pick a random question to show it on board
-		 public Question randomQuestion(){
+		 public Question randomQuestion(Level level){
+			 ArrayList<Question> SameLevelQues=new ArrayList<>();
+			 for(Question q: questions)
+				 if(q.getLevel()==level)
+					 SameLevelQues.add(q);
+					 
 			 int minimum= 0;
-			 int maximum= questions.size();
+			 int maximum= SameLevelQues.size();
+			 
 			 int randomNum = minimum + (int)(Math.random() * maximum);
-			 return questions.get(randomNum);
+			 return SameLevelQues.get(randomNum);
 		 }
 }
