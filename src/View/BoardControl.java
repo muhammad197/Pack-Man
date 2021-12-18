@@ -726,45 +726,58 @@ public class BoardControl implements Initializable {
 		
 		//return peckPoints 30 seconds after eating them
 		private void returnPeckPoints(int fromX, int fromY) {
+			
 			retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
 			{
 				if(game.gameState==GameState.Running) {
+				
+			
+				for(int i=0; i<bonusList.size();i++)
+				{
+					if(bonusList.get(i).getX()!=fromX && bonusList.get(i).getY()!=fromY) {
+						
+						
+						//on level 2- pacman can move from walls(transitions), there could be a chance that a pec point comes on a wall after it closes
+							
+						if( (fromX!=90 && fromY!=0) || (fromX!=90 && fromY!=600) || (fromX!=0 && fromY!=300) || (fromX!=600 && fromY!=300) ) {
+							Circle peckPoint = new Circle() ; // pass in x, y, width and height
+							peckPoint.setCenterX(fromX+15);  
+							peckPoint.setCenterY(fromY+15);  
+							peckPoint.setRadius(4); 
+							peckPoint.setFill(Color.web("#E4CB18"));
+							
+							boolean toadd= true;
+							for(int n = 0 ; n < peckpointlist.size() ; n++)
+							{
+								if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
+								{
+									toadd=false;
+								}
+								if(n< bonusList.size())
+									if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
+										toadd=false;
+								
+								if(pacmanLocation.getCurrentLocation().getRow()== fromX && pacmanLocation.getCurrentLocation().getColumn() == fromY)
+								{
+									toadd=false;
+								}
+							}
+							
+							if(toadd == true) {
+							pane.getChildren().add(peckPoint) ;
+							peckpointlist.add(peckPoint) ;
+							}
+						}
+					}
+								}
+								}
+								
+						});
+							timeline2 = new Timeline(retrunPeckPoints) ;
+							timeline2.setCycleCount(Timeline.INDEFINITE) ;
+							timeline2.play() ;
+				
 					
-				
-				Circle peckPoint = new Circle() ; // pass in x, y, width and height
-			peckPoint.setCenterX(fromX+15);  
-			peckPoint.setCenterY(fromY+15);  
-			peckPoint.setRadius(4); 
-			peckPoint.setFill(Color.web("#E4CB18"));
-			
-			boolean toadd= true;
-			for(int n = 0 ; n < peckpointlist.size() ; n++)
-			{
-				if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
-				{
-					toadd=false;
-				}
-				if(n< bonusList.size())
-					if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
-						toadd=false;
-				
-				if(pacmanLocation.getCurrentLocation().getRow()== fromX && pacmanLocation.getCurrentLocation().getColumn() == fromY)
-				{
-					toadd=false;
-				}
-			}
-			
-			if(toadd == true) {
-			pane.getChildren().add(peckPoint) ;
-			peckpointlist.add(peckPoint) ;
-			}
-				}
-				
-		});
-			timeline2 = new Timeline(retrunPeckPoints) ;
-			timeline2.setCycleCount(Timeline.INDEFINITE) ;
-			timeline2.play() ;
-			
 					
 	}
 		
