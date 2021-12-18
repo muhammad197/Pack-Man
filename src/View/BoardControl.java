@@ -3,8 +3,12 @@ package View;
 import java.beans.EventHandler;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -18,6 +22,7 @@ import Model.Ghost;
 import Model.Location;
 import Model.PackMan;
 import Model.PeckPoints;
+import Model.Player;
 import Model.Question;
 import Utils.GameState;
 import Utils.Level;
@@ -130,11 +135,13 @@ public class BoardControl implements Initializable {
 				
 		private KeyFrame retrunPeckPoints,ghosts_keyFrame,retrunBombPoints;
 		
-		protected int ghostSpeed=270;
+		protected int ghostSpeed=280;
 		
 		private String playername= SysData.CurrentPlayer;
 		
 		protected boolean isbonusUsed=true;
+
+		private KeyFrame GameOver;
 		
 				
 		
@@ -265,21 +272,28 @@ public class BoardControl implements Initializable {
 				@Override
 				public void handle(Event arg0) {
 					if(QuestionMode==false) {
-					pauseOrUnPauseGame();
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("Delete Question");
-					alert.setHeaderText("Are you sure you want to delete this question?");
-					alert.setContentText("QURST");
+					pauseOrUnPauseGame();			          
+//					ViewLogic.PauseWindow();
+					Alert alert = new Alert(AlertType.NONE);
+					alert.setTitle("Take a break");
+					alert.setHeaderText("");
+					alert.setContentText("Do you want to quit the game?");
 					ButtonType buttonYes = new ButtonType("Yes", ButtonData.YES);
 					ButtonType buttonNo = new ButtonType("No", ButtonData.NO);
 					alert.getButtonTypes().setAll(buttonYes, buttonNo);
 					Optional<ButtonType> answer = alert.showAndWait();
-					if (answer.get().getButtonData() == ButtonData.YES) {
+					if (answer.get().getButtonData() == ButtonData.NO) {
 						try {
 							pauseOrUnPauseGame();
 						} catch (Exception e) {
 						}
-					}				
+					}
+					else {
+						Date localdate = (Date) Calendar.getInstance().getTime();
+			        	SysData.getInstance().addGameHistory(new Player(SysData.CurrentPlayer,game.getScore(),localdate));
+						((Stage) pane.getScene().getWindow()).close();
+		        	    ViewLogic.leaderBoardWindow();
+		        	    }
 				}
 				}
 			});
@@ -307,28 +321,9 @@ public class BoardControl implements Initializable {
 			}
 		});
 		
-		/*
-		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
-		
-			@Override
-			public void handle(Event arg0) {
-				if(game.gameState==GameState.Paused) {
-					game.gameState=GameState.Running;
-					movePackmanAtSpeed();
-					moveGhostAtSpeed();
-		
-				}
-				else if(game.gameState==GameState.Running) {
-					game.gameState=GameState.Paused;
-					pauseGame();
-			}
-				
-			}
-		});
-		*/
+		 
 		if(game.gameState==GameState.Running) {
-			System.out.println("PROBLEM");
-						movePackmanAtSpeed();
+ 						movePackmanAtSpeed();
 						moveGhostAtSpeed();
 					}
 		
@@ -409,7 +404,148 @@ public class BoardControl implements Initializable {
 		{
 			if(game.gameState==GameState.Running) {
 			boolean isQuestion=false;
+			isQuestion= checkQuestionEaten(toX, toY, isQuestion);
+			checkPecPointEaten(toX, toY);
+			checkBonusPointEaten(toX, toY);
+			returnBombPoint(toX, toY);
+			updatePacmanMove(dir,fromX, fromY, toX, toY, isQuestion);
 			
+			}
+		}
+		
+		//update pacman moving from for moving to location 
+		private void updatePacmanMove(Direction dir,int fromX, int fromY, int toX, int toY, boolean isQuestion) {
+			for(int n = 0 ; n < packmanMoves.size() ; n++)
+			{
+				if((packmanMoves.get(n).getX())== fromX && (packmanMoves.get(n).getY())== fromY )
+				{
+					pane.getChildren().remove(packmanMoves.get(n)) ;
+					packmanMoves.remove(n) ;
+				}
+			}
+			ImageView imageView =new ImageView();
+			
+			//if bomb point was eaten change pacman color
+			if(pacmanLocation.color==Model.Color.yellow) {
+				imageView = new ImageView("Photos/packMan.png");
+			if(dir==Direction.LEFT)
+				imageView= new ImageView("Photos/packManLeft.png");
+			else if(dir==Direction.RIGHT)
+				imageView= new ImageView("Photos/packManRight.png");
+			}
+			else {
+				imageView = new ImageView("Photos/pacManGreen.png");
+			if(dir==Direction.LEFT)
+				imageView= new ImageView("Photos/pacManGreenLeft.png");
+			else if(dir==Direction.RIGHT)
+				imageView= new ImageView("Photos/PacManGreenRight.png");
+				}
+				bonusEaten=false;
+				if(isQuestion==false) {
+			imageView.setFitHeight(30);
+			imageView.setFitWidth(30);
+			imageView.setX(toX);
+			imageView.setY(toY);
+			pane.getChildren().add(imageView) ;
+			packmanMoves.add(imageView) ;
+			returnPeckPoints(fromX,fromY);
+				}			
+		}
+		
+		//return bombPoints 30 seconds after eating them
+		private void returnBombPoint(int toX, int toY) {
+			if(bonusEaten==true) {
+				
+				retrunBombPoints = new KeyFrame(Duration.millis(30000), e->
+				{
+					if(game.gameState==GameState.Running) {
+
+					
+							BombPoints bomb=new BombPoints("");
+							int index = (int)(Math.random() * bomb.getBombPoints().size());
+							ImageView imageView2 = new ImageView(bomb.getBombPoints().get(index).getImage());
+							imageView2.setFitHeight(30);
+							imageView2.setFitWidth(30);
+							imageView2.setX(toX);
+							imageView2.setY(toY);
+							
+			
+							boolean toadd= true;
+							for(int n = 0 ; n < bonusList.size() ; n++)
+							{
+								if((bonusList.get(n).getX())== toX && (bonusList.get(n).getY())== toY)
+										toadd=false;
+							}
+							
+							if(toadd == true) {
+							pane.getChildren().add(imageView2) ;
+							bonusList.add(imageView2) ;
+							}
+							
+					}
+							
+						});
+						timeline4 = new Timeline(retrunBombPoints) ;
+						timeline4.setCycleCount(Timeline.INDEFINITE) ;
+						timeline4.play() ;
+						
+				
+				pauseGhost();
+			
+				if(pacmanLocation.color == Model.Color.yellow) {
+						pacmanLocation.color= Model.Color.green;	
+						
+				}
+				else if(pacmanLocation.color== Model.Color.green)
+				{
+					pacmanLocation.color= Model.Color.yellow;
+			
+				}
+			
+			}			
+		}
+		
+		//check if a bomb point is eaten
+		private void checkBonusPointEaten(int toX, int toY) {
+
+			for(int b = 0 ; b < bonusList.size() ; b++)
+			{
+				if((bonusList.get(b).getX()== toX) && (bonusList.get(b).getY() == toY))
+				{
+					pane.getChildren().remove(bonusList.get(b)) ;
+					bonusList.remove(b) ;
+					game.setScore(game.getScore()+1);
+					scorelab.setText(String.valueOf(game.getScore()));
+					updateLevel();
+					bonusEaten=true;
+					isbonusUsed=false;
+					
+				}
+				
+		
+			}			
+		}
+
+		//check if pec point was eaten
+		private void checkPecPointEaten(int toX, int toY) {
+			for(int n = 0 ; n < peckpointlist.size() ; n++)
+			{
+				if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
+				{
+					pane.getChildren().remove(peckpointlist.get(n)) ;
+					peckpointlist.remove(n) ;
+					game.setScore(game.getScore()+1);
+					scorelab.setText(String.valueOf(game.getScore()));
+					updateLevel();
+		
+				}
+				
+			}
+						
+		}
+		//check if a question is eaten
+		private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
+
 			
 			for(int m = 0 ; m < questionsPoints.size() ; m++)
 			{
@@ -510,7 +646,7 @@ public class BoardControl implements Initializable {
 											game.setScore(game.getScore()+3);
 										scorelab.setText(String.valueOf(game.getScore()));
 										updateLevel();
-										
+										//show that answer is right
 										if(q.getTrueAnswer()==1)
 											ans1.setStyle("-fx-background-color: #7CFC00");
 										if(q.getTrueAnswer()==2)
@@ -524,16 +660,14 @@ public class BoardControl implements Initializable {
 										showCorrectAns = new KeyFrame(Duration.millis(1000), e->
 										{
 											pane.getChildren().remove(anchorpane);
-											replaceQuestionOnBoard(q.level, toX, toY);
+											replaceQuestionOnBoard(q.level);
 											pauseOrUnPauseGame();
 											QuestionMode=false;
 
 												});
 												timeline5 = new Timeline(showCorrectAns) ;
 												timeline5.play() ;
-												
-									
-									
+											
 									
 									}
 									else
@@ -549,6 +683,7 @@ public class BoardControl implements Initializable {
 										scorelab.setText(String.valueOf(game.getScore()));
 										leveldown();
 										Timer timer = new Timer();
+										//show selected answer in red and right answer in green
 										if(ans1.isSelected()) ans1.setStyle("-fx-background-color: #fe0400");
 										if(ans2.isSelected()) ans2.setStyle("-fx-background-color: #fe0400");
 										if(ans3.isSelected()) ans3.setStyle("-fx-background-color: #fe0400");
@@ -561,12 +696,11 @@ public class BoardControl implements Initializable {
 											ans3.setStyle("-fx-background-color: #7CFC00");
 										if(q.getTrueAnswer()==4)
 											ans4.setStyle("-fx-background-color: #7CFC00");
-
-
+										
 										showCorrectAns = new KeyFrame(Duration.millis(1000), e->
 										{
 											pane.getChildren().remove(anchorpane);
-											replaceQuestionOnBoard(q.level, toX, toY);
+											replaceQuestionOnBoard(q.level);
 											pauseOrUnPauseGame();
 											QuestionMode=false;
 
@@ -576,12 +710,7 @@ public class BoardControl implements Initializable {
 												timeline5.play() ;
 												
 									}
-									
-									
-
-									
-
-								
+							
 								}
 							 
 								 
@@ -592,127 +721,11 @@ public class BoardControl implements Initializable {
 				}
 			
 			}
-
-			for(int n = 0 ; n < peckpointlist.size() ; n++)
-			{
-				if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
-				{
-					pane.getChildren().remove(peckpointlist.get(n)) ;
-					peckpointlist.remove(n) ;
-					game.setScore(game.getScore()+1);
-					scorelab.setText(String.valueOf(game.getScore()));
-					updateLevel();
-		
-				}
-				
-			}
-			
-			
-			for(int b = 0 ; b < bonusList.size() ; b++)
-			{
-				if((bonusList.get(b).getX()== toX) && (bonusList.get(b).getY() == toY))
-				{
-					pane.getChildren().remove(bonusList.get(b)) ;
-					bonusList.remove(b) ;
-					game.setScore(game.getScore()+1);
-					scorelab.setText(String.valueOf(game.getScore()));
-					updateLevel();
-					bonusEaten=true;
-					isbonusUsed=false;
-				}
-				
-		
-			}
-			for(int n = 0 ; n < packmanMoves.size() ; n++)
-			{
-				if((packmanMoves.get(n).getX())== fromX && (packmanMoves.get(n).getY())== fromY )
-				{
-					pane.getChildren().remove(packmanMoves.get(n)) ;
-					packmanMoves.remove(n) ;
-				}
-			}
-			ImageView imageView =new ImageView();
-			if(bonusEaten==true) {
-				
-			//return bombPoints 30 seconds after eating them
-			retrunBombPoints = new KeyFrame(Duration.millis(30000), e->
-			{
-				if(game.gameState==GameState.Running) {
-
-				
-				BombPoints bomb=new BombPoints("");
-						int index = (int)(Math.random() * bomb.getBombPoints().size());
-						ImageView imageView2 = new ImageView(bomb.getBombPoints().get(index).getImage());
-						imageView2.setFitHeight(30);
-						imageView2.setFitWidth(30);
-						imageView2.setX(toX);
-						imageView2.setY(toY);
-						
-		
-						boolean toadd= true;
-						for(int n = 0 ; n < bonusList.size() ; n++)
-						{
-							if((bonusList.get(n).getX())== toX && (bonusList.get(n).getY())== toY)
-									toadd=false;
-						}
-						
-						if(toadd == true) {
-						pane.getChildren().add(imageView2) ;
-						bonusList.add(imageView2) ;
-						}
-						
-				}
-						
-					});
-					timeline4 = new Timeline(retrunBombPoints) ;
-					timeline4.setCycleCount(Timeline.INDEFINITE) ;
-					timeline4.play() ;
-					
-			
-			pauseGhost();
-		
-			if(pacmanLocation.color == Model.Color.yellow) {
-					pacmanLocation.color= Model.Color.green;	
-					
-			}
-			else if(pacmanLocation.color== Model.Color.green)
-			{
-				pacmanLocation.color= Model.Color.yellow;
-		
-			}
-		
-		}
-			
-			if(pacmanLocation.color==Model.Color.yellow) {
-				imageView = new ImageView("Photos/packMan.png");
-		if(dir==Direction.LEFT)
-			imageView= new ImageView("Photos/packManLeft.png");
-		else if(dir==Direction.RIGHT)
-			imageView= new ImageView("Photos/packManRight.png");
-		}
-		else {
-			imageView = new ImageView("Photos/pacManGreen.png");
-		if(dir==Direction.LEFT)
-			imageView= new ImageView("Photos/pacManGreenLeft.png");
-		else if(dir==Direction.RIGHT)
-			imageView= new ImageView("Photos/PacManGreenRight.png");
-				}
-				bonusEaten=false;
-				if(isQuestion==false) {
-			imageView.setFitHeight(30);
-			imageView.setFitWidth(30);
-			imageView.setX(toX);
-			imageView.setY(toY);
-			pane.getChildren().add(imageView) ;
-			packmanMoves.add(imageView) ;
-			returnPeckPoints(fromX,fromY);
-				}
-			
-			}
+			return isQuestion;
 		}
 		
+		//return peckPoints 30 seconds after eating them
 		private void returnPeckPoints(int fromX, int fromY) {
-			//return peckPoints 30 seconds after eating them
 			retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
 			{
 				if(game.gameState==GameState.Running) {
@@ -754,15 +767,16 @@ public class BoardControl implements Initializable {
 			
 					
 	}
-	
+		
+		// when the ghost eat a bomb point he has the right to bomb it by clicking the mouse
+		//if a ghost is away 3 cells from pacman and the pacman clicked on the pane, the ghost stops moving and disappears for 5 second
 		private void pauseGhost() {
 			pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
 	
 				@Override
 				public void handle(Event arg0) {
-					System.out.println("YESSSSSSS");
 					if(isbonusUsed==false) {
-				
+			
 					if(isbonusUsed==false && checkGhostInRadar(redGhost)==true) {
 						if(pacmanLocation.color == Model.Color.yellow) {
 							pacmanLocation.color= Model.Color.green;	
@@ -779,7 +793,7 @@ public class BoardControl implements Initializable {
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 						{
 							if(game.gameState==GameState.Running) {
-
+							pane.getChildren().remove(redGhost.getImage());
 						 movePink();
 						 moveBlue();
 							}
@@ -819,6 +833,7 @@ public class BoardControl implements Initializable {
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 						{
 							if(game.gameState==GameState.Running) {
+								pane.getChildren().remove(blueGhost.getImage());
 
 						 movePink();
 						 moveRed();
@@ -841,6 +856,7 @@ public class BoardControl implements Initializable {
 						}, 5000);
 						isbonusUsed=true;
 								}
+					
 					if(isbonusUsed==false && checkGhostInRadar(pinkGhost)==true) {
 						if(pacmanLocation.color == Model.Color.yellow) {
 							pacmanLocation.color= Model.Color.green;	
@@ -856,6 +872,7 @@ public class BoardControl implements Initializable {
 						ghosts_keyFrame = new KeyFrame(Duration.millis(ghostSpeed), e->
 						{
 							if(game.gameState==GameState.Running) {
+								pane.getChildren().remove(pinkGhost.getImage());
 
 						 moveBlue();
 						 moveRed();
@@ -904,23 +921,32 @@ public class BoardControl implements Initializable {
 			
 		}
 		
-		
+		//when a user answers a wrong answer, he might go down with the level, then some features might not exist/might exist
 		private void leveldown() {
+			/*
+			 * level1: pacman-speed=300, ghost-speed=280
+			 * level2: pacman-speed=290, ghost-speed=270
+			 * level3: pacman-speed=270, ghost-speed=270
+			 * level4: pacman-speed=260, ghost-speed=250
+			 */
 			if(game.score>=0 && game.score<=50) {
 				level=Level.easy;
+				game.setSpeed(300);
+				ghostSpeed=280;
 				levelDown=true;
 			 
 			}
 				if(game.score>50 && game.score<=100) {
 					level=Level.medium;
-					game.setSpeed(300);
+					game.setSpeed(290);
+					ghostSpeed=270;
 					levelDown=true;
 
 				  
 				}
 				if(game.score>100 && game.score<=150) {
 					level=Level.hard;
-					game.setSpeed(250);
+					game.setSpeed(270);
 					ghostSpeed=270;
 					levelDown=true;
 		
@@ -946,20 +972,20 @@ public class BoardControl implements Initializable {
 					
 					Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
 					wall4.setFill(Color.web("#191970")) ;
-								wall4.setStroke(Color.CORNFLOWERBLUE) ;
-								wall4.setStrokeWidth(2.0) ;
+					wall4.setStroke(Color.CORNFLOWERBLUE) ;
+					wall4.setStrokeWidth(2.0) ;
+		
+		
+					pane.getChildren().add(wall1) ;
+					pane.getChildren().add(wall2) ;
+					pane.getChildren().add(wall3) ;
+					pane.getChildren().add(wall4) ;
 					
-					
-								pane.getChildren().add(wall1) ;
-								pane.getChildren().add(wall2) ;
-								pane.getChildren().add(wall3) ;
-								pane.getChildren().add(wall4) ;
-								
-								wallList.add(wall1);
-								wallList.add(wall2);
-								wallList.add(wall3);
-								wallList.add(wall4);
-								 levelDown=false;
+					wallList.add(wall1);
+					wallList.add(wall2);
+					wallList.add(wall3);
+					wallList.add(wall4);
+					 levelDown=false;
 
 								
 				}
@@ -1014,23 +1040,58 @@ public class BoardControl implements Initializable {
 		}
 	
 		private void updateLevel() {
-			
+				/*
+				 * level1: pacman-speed=300, ghost-speed=280
+				 * level2: pacman-speed=290, ghost-speed=270
+				 * level3: pacman-speed=270, ghost-speed=270
+				 * level4: pacman-speed=260, ghost-speed=250
+				 */
 				if(game.score>50 && game.score<=100) {
 					level=Level.medium;
+					game.setSpeed(290);
+					ghostSpeed=270;
 					levelUp= true;
 				}
 				if(game.score>100 && game.score<=150) {
 					level=Level.hard;
-					game.setSpeed(250);
+					game.setSpeed(270);
+					ghostSpeed=270;
 					levelUp= true;
 		
 				}
-				if(game.score>150) {
+				if(game.score>150 && game.score<200) {
 					level=Level.super_hard;
-					game.setSpeed(220);
-					ghostSpeed=200;
+					game.setSpeed(260);
+					ghostSpeed=250;
 					levelUp= true;
 		
+				}
+				if(game.score>=200) {
+					pauseOrUnPauseGame();
+					ImageView imageView = new ImageView("Photos/Youwin.png");
+					imageView.setLayoutX(151);
+					imageView.setLayoutY(135);
+					imageView.setFitWidth(400);
+					imageView.setFitHeight(334);
+
+					pane.getChildren().add(imageView);
+		            SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
+
+					Timer timer = new Timer();
+
+					TimerTask task = new TimerTask()
+					{
+					        public void run()
+					        { 
+					            Platform.runLater(() -> {
+								((Stage) pane.getScene().getWindow()).close();
+								ViewLogic.leaderBoardWindow();
+					            });
+					        
+					        }
+
+					};
+					timer.schedule(task,1000);
 				}
 				
 				if(level == level.medium && levelUp==true)	{
@@ -1085,37 +1146,37 @@ public class BoardControl implements Initializable {
 					
 					Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
 					wall4.setFill(Color.web("#191970")) ;
-								wall4.setStroke(Color.CORNFLOWERBLUE) ;
-								wall4.setStrokeWidth(2.0) ;
+					wall4.setStroke(Color.CORNFLOWERBLUE) ;
+					wall4.setStrokeWidth(2.0) ;
+		
+		
+					pane.getChildren().add(wall1) ;
+					pane.getChildren().add(wall2) ;
+					pane.getChildren().add(wall3) ;
+					pane.getChildren().add(wall4) ;
+		
+					wallList.add(wall1);
+					wallList.add(wall2);
+					wallList.add(wall3);
+					wallList.add(wall4);
+		
+					timeline.stop();  
+					timeline.getKeyFrames().clear();
+					levelUp=false;	
+					movePackmanAtSpeed();
 					
+				}			
+				
+				if(level == level.super_hard && levelUp==true)	{
+					timeline.stop();  
+					timeline.getKeyFrames().clear();
+					timeline3.stop();  
+					timeline3.getKeyFrames().clear();
+					levelUp=false;	
+					movePackmanAtSpeed();
+					moveGhostAtSpeed();
 					
-								pane.getChildren().add(wall1) ;
-								pane.getChildren().add(wall2) ;
-								pane.getChildren().add(wall3) ;
-								pane.getChildren().add(wall4) ;
-					
-								wallList.add(wall1);
-								wallList.add(wall2);
-								wallList.add(wall3);
-								wallList.add(wall4);
-					
-								timeline.stop();  
-								timeline.getKeyFrames().clear();
-								levelUp=false;	
-								movePackmanAtSpeed();
-								
-							}			
-							
-							if(level == level.super_hard && levelUp==true)	{
-								timeline.stop();  
-								timeline.getKeyFrames().clear();
-								timeline3.stop();  
-								timeline3.getKeyFrames().clear();
-								levelUp=false;	
-								movePackmanAtSpeed();
-								moveGhostAtSpeed();
-								
-							}			
+				}			
 		}
 		
 			/**
@@ -1152,8 +1213,10 @@ public class BoardControl implements Initializable {
 			
 			if(game.getLive()==0)
 			{
-				Runtime.getRuntime().exit(0);
-			}
+				pauseOrUnPauseGame();
+				GameOver();				
+					
+				}
 			else 
 			{
 				
@@ -1198,8 +1261,9 @@ public class BoardControl implements Initializable {
 			game.setLive(game.getLive()-1);
 			if(game.getLive()==0)
 			{
-				Runtime.getRuntime().exit(0);
-			}
+				pauseOrUnPauseGame();
+				GameOver();
+				}
 			else
 			{
 				
@@ -1242,8 +1306,10 @@ public class BoardControl implements Initializable {
 					game.setLive(game.getLive()-1);
 					if(game.getLive()==0)
 					{
-						Runtime.getRuntime().exit(0);
-					}
+						pauseOrUnPauseGame();
+						GameOver();
+					
+						}
 					else 
 					{
 						if(game.getLive()<=2)
@@ -1287,8 +1353,33 @@ public class BoardControl implements Initializable {
 			timeline.play() ;		
 		}
 		
-		
-		private void replaceQuestionOnBoard(Level level, int toX, int toY)
+		//on game over, finish the game and add history to json
+		private void GameOver() {
+			ImageView imageView = new ImageView("Photos/gameOver.png");
+			imageView.setLayoutX(151);
+			imageView.setLayoutY(135);
+			imageView.setFitWidth(400);
+			imageView.setFitHeight(334);
+			pane.getChildren().add(imageView);
+            SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
+
+			Timer timer = new Timer();
+			TimerTask task = new TimerTask()
+			{
+			        public void run()
+			        { Platform.runLater(() -> {
+
+						((Stage) pane.getScene().getWindow()).close();
+						ViewLogic.leaderBoardWindow();
+			            });
+			        }
+
+			};
+			timer.schedule(task,1000);			
+		}
+
+		//replace question with the same level in a random place
+		private void replaceQuestionOnBoard(Level level)
 		{
 				boolean placeFound=false;
 				int index = 0, index2=0;
@@ -1301,7 +1392,6 @@ public class BoardControl implements Initializable {
 						placeFound=true;
 						matrix[index][index2]=3; 
 					}
-					
 					
 				}
 				
@@ -1322,11 +1412,28 @@ public class BoardControl implements Initializable {
 		private void fillBoard() {
 		int thisRow=0;
 		int thisColoum=0;
+		int thisRow1=0;
+		int thisColoum1=0;
+
 		int questioncounter=0;
 		Level question1= Level.easy;
 		Level question2=Level.medium;
 		Level question3= Level.hard;
+		for(int i=0; i<21; i++)
+		{
+			for(int j=0;j<21;j++) {
+				
+				if(matrix1[i][j]==3)
+					matrix1[i][j]=0;
+				
+				thisRow1+=30;
+			}
+			thisColoum1+=30;
+			thisRow1=0;
+		}
 		
+	    matrix = Board.getInstance().putRandomQuestion(matrix1);
+
 		for(int i=0; i<21; i++)
 		{
 			for(int j=0;j<21;j++) {
@@ -1335,7 +1442,7 @@ public class BoardControl implements Initializable {
 		if(matrix[i][j]==1)
 		{
 			Rectangle wall = new Rectangle(thisRow, thisColoum, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-		wall.setFill(Color.web("#191970")) ;
+			wall.setFill(Color.web("#191970")) ;
 			wall.setStroke(Color.CORNFLOWERBLUE) ;
 			wall.setStrokeWidth(2.0) ;
 			pane.getChildren().add(wall) ;
