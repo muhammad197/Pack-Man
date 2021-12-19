@@ -3,9 +3,9 @@ package Controller;
 import java.util.ArrayList;
 
 import Model.Answer;
-import Model.Color;
 import Model.Player;
 import Model.Question;
+import Utils.Color;
 import Utils.Level;
 import View.ViewLogic;
 import javafx.application.Application;

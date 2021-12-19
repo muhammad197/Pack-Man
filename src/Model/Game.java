@@ -3,12 +3,14 @@ package Model;
 import java.util.Objects;
 
 import Utils.GameState;
+import Utils.Level;
 
 public class Game {
 	public int id;
+	public String playerName;
 	public int live;
-	public int speed;
 	public int score;
+	public Level level;
 	public GameState gameState;
 	
 	
@@ -18,16 +20,37 @@ public class Game {
 	 * @param speed
 	 * @param gameState
 	 */
-	public Game(int id, int live, int speed, GameState gameState, int score) {
+	public Game(int id, int live, GameState gameState, int score, Level level, String Playername) {
 		super();
 		this.id = id;
 		this.live = live;
-		this.speed = speed;
 		this.gameState = gameState;
 		this.score=score;
+		this.level=level;
+		this.playerName=Playername;
 	}
 	
 	
+	public String getPlayerName() {
+		return playerName;
+	}
+
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+
+	public Level getLevel() {
+		return level;
+	}
+
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+
 	public int getScore() {
 		return score;
 	}
@@ -70,22 +93,7 @@ public class Game {
 	}
 
 
-	/**
-	 * @return the speed
-	 */
-	public int getSpeed() {
-		return speed;
-	}
-
-
-	/**
-	 * @param speed the speed to set
-	 */
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-
+	
 	/**
 	 * @return the gameState
 	 */
@@ -104,18 +112,7 @@ public class Game {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, live, speed);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Game other = (Game) obj;
-		return id == other.id && live == other.live && speed == other.speed;
+		return Objects.hash(id, live );
 	}
 	
 	 //opens the game
