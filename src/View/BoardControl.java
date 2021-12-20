@@ -467,8 +467,7 @@ public class BoardControl implements Initializable {
 
 					
 							BombPoints bomb=new BombPoints("");
-							int index = (int)(Math.random() * bomb.getBombPoints().size());
-							ImageView imageView2 = new ImageView(bomb.getBombPoints().get(index).getImage());
+							ImageView imageView2 = new ImageView("Photos/dynamite.png");
 							imageView2.setFitHeight(30);
 							imageView2.setFitWidth(30);
 							imageView2.setX(toX);
@@ -577,9 +576,9 @@ public class BoardControl implements Initializable {
 					if(q.level==Level.easy)
 						anchorpane.setStyle("-fx-background-color: #ffffff");
 					if(q.level==Level.medium)
-						anchorpane.setStyle("-fx-background-color: #ffeb00");
+						anchorpane.setStyle("-fx-background-color: #DAA520");
 					if(q.level==Level.hard)
-						anchorpane.setStyle("-fx-background-color: #fe0400");
+						anchorpane.setStyle("-fx-background-color: #B22222");
 
 					Label question = new Label(q.getQuestion()+"     Level: "+q.getLevel().toString());
 					question.setLayoutX(23);
@@ -1498,9 +1497,8 @@ public class BoardControl implements Initializable {
 				/**
 			 * Getting random photo 
 			 */
-			BombPoints bomb=new BombPoints("");
-				int index = (int)(Math.random() * bomb.getBombPoints().size());
-				ImageView imageView = new ImageView(bomb.getBombPoints().get(index).getImage());
+				BombPoints bomb=new BombPoints("");
+				ImageView imageView = new ImageView("Photos/dynamite.png");
 				imageView.setFitHeight(30);
 				imageView.setFitWidth(30);
 				imageView.setX(thisRow);
@@ -1687,9 +1685,8 @@ public class BoardControl implements Initializable {
 		/**
 	 * Getting random photo 
 	 */
-	BombPoints bomb=new BombPoints("");
-		int index = (int)(Math.random() * bomb.getBombPoints().size());
-		ImageView imageView = new ImageView(bomb.getBombPoints().get(index).getImage());
+		BombPoints bomb=new BombPoints("");
+		ImageView imageView = new ImageView("Photos/dynamite.png");
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		imageView.setX(thisRow);
