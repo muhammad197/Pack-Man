@@ -31,40 +31,71 @@ public class SysData {
 	public static String CurrentPlayer;
 	private static SysData instance;
 	public static int questionID;
-
-	public int getQuestionID() {
-		return questionID;
-	}
-
-	public void setQuestionID(int questionID) {
-		SysData.questionID = questionID;
-	}
-
-
 	public ArrayList<Player> playersGames;
 	public ArrayList<Question> questions;
 	
+	/**
+	 * 
+	 * @return sysDATA instance
+	 */
 	public static SysData getInstance() {
 		if (instance == null)
 			instance = new SysData();
 		return instance;
 	}
-	
+
+	/**
+	 * 
+	 * @return questionID
+	 */
+	public int getQuestionID() {
+		return questionID;
+	}
+
+	/**
+	 * set questionID
+	 */
+	public void setQuestionID(int questionID) {
+		SysData.questionID = questionID;
+	}
+
+	/**
+	 * 
+	 * @return playersGames
+	 */
 	public ArrayList<Player> getPlayersGames() {
 		return playersGames;
 	}
 
+	/**
+	 * 
+	 * @param players
+	 */
 	public void setPlayersGames(ArrayList<Player> players) {
 		this.playersGames = players;
 	}
+	
+	/**
+	 * 
+	 * @return questions
+	 */
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
+	
+	/**
+	 * 
+	 * @param questions
+	 */
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
 	}
 	
-	    //adds a new player
+	    /**
+	     * adds a new player
+	     * @param player
+	     * @return true if success, false else
+	     */
 		public boolean addPlayer(Player player) {
 			 for (Player P : playersGames) {
 				if (P.equals(player)) {
@@ -79,14 +110,21 @@ public class SysData {
 		}
 		
 
-		//load Questions from JSON file
+		/**
+		 * load Questions from JSON file
+		 * @return
+		 */
 		 public ArrayList<Question> loadQuestions() {
 				readQuestionFromJson();
 				return questions;
 			}
 		 
 		 
-		 // remove question and then refresh the JSON file
+		 /**
+		  * remove question and then refresh the JSON file
+		  * @param q
+		  * @return
+		  */
 		 public boolean removeQuestion(Question q) {
 				if (q != null) {
 					questions.remove(questions.indexOf(q));
@@ -98,7 +136,12 @@ public class SysData {
 			}
 		 
 		 
-		 // edit a question by replacing the old question with the new one
+		 /**
+		  * edit a question by replacing the old question with the new one
+		  * @param old
+		  * @param newq
+		  * @return
+		  */
 		 public boolean editQuestion(Question old, Question newq) {
 				if (old != null && newq != null) {
 					if (removeQuestion(old))
@@ -110,7 +153,9 @@ public class SysData {
 
 		 
 		 
-		 //read questions from json
+		 /**
+		  * read questions from json
+		  */
 		 void readQuestionFromJson() {
 			 	questions = new ArrayList<Question>();
 				try {
@@ -162,7 +207,11 @@ public class SysData {
 		
 		
 
-		//add a new question
+		/**
+		 * add a new question
+		 * @param q
+		 * @return
+		 */
 		 public boolean addQueastion(Question q) {
 
 			 for (Question question : questions) {
@@ -223,7 +272,9 @@ public class SysData {
 			
 		}
 		  	
-	 	//read history from JSON File
+	 	/**
+	 	 * read history from JSON File
+	 	 */
 		public void readHistoryJSON() {
 			playersGames = new ArrayList<Player>();
 			try {
@@ -268,7 +319,9 @@ public class SysData {
 			}
 		}
 
-		//write history to json file
+		/**
+		 * write history to json file
+		 */
 		public void writeHistoryJSON() {
 			try {
 				JSONObject JsonObject = new JSONObject();
@@ -296,12 +349,20 @@ public class SysData {
 			}
 		}
 		
-		//get games history
+		/**
+		 * get games history
+		 * @return
+		 */
 		public ArrayList<Player> getGamesHistory() {
 			readHistoryJSON();
 			return playersGames;
 		}
-		// add game to history
+		
+		/**
+		 * add game to history
+		 * @param player
+		 * @return
+		 */
 		public boolean addGameHistory(Player player) {
 			if (player != null) {
 				playersGames.add(player);
@@ -310,14 +371,19 @@ public class SysData {
 			}
 			return false;
 		}
-		//delete game from history
+		/**
+		 * delete game from history
+		 */
 		public void deleteGameHistory() {
 			for (int i = playersGames.size(); i > 0; i--)
 				playersGames.remove(i - 1);
 			writeHistoryJSON();
 		}
 	
-		 //get the first three winners. the array "players" is sorted due highscores.
+		 /**
+		  * get the first three winners. the array "players" is sorted due highscores.
+		  * @return
+		  */
 		 public ArrayList<Player> First3Winners(){
 			 ArrayList<Player> PlayersToReturn= new ArrayList<>();
 			 for(int i=0;i <3;i++)
@@ -326,7 +392,11 @@ public class SysData {
 		 }
 
 		
-		 //pick a random question to show it on board
+		 /**
+		  * pick a random question to show it on board
+		  * @param level
+		  * @return
+		  */
 		 public Question randomQuestion(Level level){
 			 ArrayList<Question> SameLevelQues=new ArrayList<>();
 			 for(Question q: questions)

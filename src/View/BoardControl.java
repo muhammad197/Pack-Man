@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Controller.ShapeObject;
 import Controller.SysData;
 import Model.Board;
 import Model.BombPoints;
@@ -53,6 +54,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -754,11 +756,6 @@ public class BoardControl implements Initializable {
 						//on level 2- pacman can move from walls(transitions), there could be a chance that a pec point comes on a wall after it closes
 							
 						if( (fromX!=90 && fromY!=0) || (fromX!=90 && fromY!=600) || (fromX!=0 && fromY!=300) || (fromX!=600 && fromY!=300) ) {
-							Circle peckPoint = new Circle() ; // pass in x, y, width and height
-							peckPoint.setCenterX(fromX+15);  
-							peckPoint.setCenterY(fromY+15);  
-							peckPoint.setRadius(4); 
-							peckPoint.setFill(Color.web("#E4CB18"));
 							
 							boolean toadd= true;
 							for(int n = 0 ; n < peckpointlist.size() ; n++)
@@ -778,8 +775,8 @@ public class BoardControl implements Initializable {
 							}
 							
 							if(toadd == true) {
-							pane.getChildren().add(peckPoint) ;
-							peckpointlist.add(peckPoint) ;
+								pane.getChildren().add(ShapeObject.getShapeObject("Circle" , fromX, fromX, ObjectSize)) ;
+								peckpointlist.add((Circle) ShapeObject.getShapeObject("Circle" , fromX, fromY, ObjectSize)) ;
 							}
 						}
 					}
@@ -995,38 +992,16 @@ public class BoardControl implements Initializable {
 				
 				if(game.getLevel() == Level.easy && levelDown==true)	{
 					
-					Rectangle wall1 = new Rectangle(90, 0, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall1.setFill(Color.web("#191970")) ;
-					wall1.setStroke(Color.CORNFLOWERBLUE) ;
-					wall1.setStrokeWidth(2.0) ;
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
 					
-					Rectangle wall2 = new Rectangle(90, 600, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall2.setFill(Color.web("#191970")) ;
-					wall2.setStroke(Color.CORNFLOWERBLUE) ;
-					wall2.setStrokeWidth(2.0) ;
-					
-					Rectangle wall3 = new Rectangle(0, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall3.setFill(Color.web("#191970")) ;
-					wall3.setStroke(Color.CORNFLOWERBLUE) ;
-					wall3.setStrokeWidth(2.0) ;
-					
-					
-					Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall4.setFill(Color.web("#191970")) ;
-					wall4.setStroke(Color.CORNFLOWERBLUE) ;
-					wall4.setStrokeWidth(2.0) ;
-		
-					
-					pane.getChildren().add(wall1) ;
-					pane.getChildren().add(wall2) ;
-					pane.getChildren().add(wall3) ;
-					pane.getChildren().add(wall4) ;
-					
-					wallList.add(wall1);
-					wallList.add(wall2);
-					wallList.add(wall3);
-					wallList.add(wall4);
-					 levelDown=false;
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
+					levelDown=false;
 
 								
 				}
@@ -1181,37 +1156,17 @@ public class BoardControl implements Initializable {
 				
 				
 				if(game.getLevel() == Level.hard && levelUp==true)	{
-					Rectangle wall1 = new Rectangle(90, 0, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall1.setFill(Color.web("#191970")) ;
-					wall1.setStroke(Color.CORNFLOWERBLUE) ;
-					wall1.setStrokeWidth(2.0) ;
 					
-					Rectangle wall2 = new Rectangle(90, 600, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall2.setFill(Color.web("#191970")) ;
-					wall2.setStroke(Color.CORNFLOWERBLUE) ;
-					wall2.setStrokeWidth(2.0) ;
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
+					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
 					
-					Rectangle wall3 = new Rectangle(0, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall3.setFill(Color.web("#191970")) ;
-					wall3.setStroke(Color.CORNFLOWERBLUE) ;
-					wall3.setStrokeWidth(2.0) ;
-					
-					
-					Rectangle wall4 = new Rectangle(600, 300, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-					wall4.setFill(Color.web("#191970")) ;
-					wall4.setStroke(Color.CORNFLOWERBLUE) ;
-					wall4.setStrokeWidth(2.0) ;
-		
-		
-					pane.getChildren().add(wall1) ;
-					pane.getChildren().add(wall2) ;
-					pane.getChildren().add(wall3) ;
-					pane.getChildren().add(wall4) ;
-		
-					wallList.add(wall1);
-					wallList.add(wall2);
-					wallList.add(wall3);
-					wallList.add(wall4);
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
+					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
+
 		
 					pacman_timeline.stop();  
 					pacman_timeline.getKeyFrames().clear();
@@ -1504,25 +1459,17 @@ public class BoardControl implements Initializable {
 					// update the walls on the board
 			if(matrix[i][j]==1)
 			{
-				Rectangle wall = new Rectangle(thisRow, thisColoum, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-				wall.setFill(Color.web("#191970")) ;
-				wall.setStroke(Color.CORNFLOWERBLUE) ;
-				wall.setStrokeWidth(2.0) ;
-				pane.getChildren().add(wall) ;
-				wallList.add(wall);
+				
+				pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize)) ;
+				wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize));
 			
 			}
 			
 			// update the points on the board 
 			if(matrix[i][j] == 0)
 			{
-				Circle peckPoint = new Circle() ; // pass in x, y, width and height
-			peckPoint.setCenterX(thisRow+15);  
-			peckPoint.setCenterY(thisColoum+15);  
-			peckPoint.setRadius(4); 
-			peckPoint.setFill(Color.web("#E4CB18"));
-				pane.getChildren().add(peckPoint) ;
-				peckpointlist.add(peckPoint) ;
+				pane.getChildren().add(ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
+				peckpointlist.add((Circle) ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
 			
 			
 			}
@@ -1695,12 +1642,8 @@ public class BoardControl implements Initializable {
 						addWall=true;
 							
 					if(addWall==true) {
-						Rectangle wall = new Rectangle(thisRow, thisColoum, ObjectSize, ObjectSize) ; 		// pass in x, y, width and height
-						wall.setFill(Color.web("#191970")) ;
-						wall.setStroke(Color.CORNFLOWERBLUE) ;
-						wall.setStrokeWidth(2.0) ;
-						pane.getChildren().add(wall) ;
-						wallList.add(wall);
+						pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize)) ;
+						wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize));
 						addWall=false;
 						}
 	
@@ -1710,14 +1653,8 @@ public class BoardControl implements Initializable {
 	// update the points on the board 
 	if(matrix[i][j] == 0)
 	{
-		Circle peckPoint = new Circle() ; // pass in x, y, width and height
-	peckPoint.setCenterX(thisRow+15);  
-	peckPoint.setCenterY(thisColoum+15);  
-	peckPoint.setRadius(4); 
-	peckPoint.setFill(Color.web("#E4CB18"));
-		pane.getChildren().add(peckPoint) ;
-		peckpointlist.add(peckPoint) ;
-	
+		pane.getChildren().add(ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
+		peckpointlist.add((Circle) ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
 	
 	}
 	
