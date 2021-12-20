@@ -54,6 +54,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -569,20 +570,14 @@ public class BoardControl implements Initializable {
 					Question q= SysData.getInstance().randomQuestion(QuestionLevel);
 					pauseOrUnPauseGame();
 					AnchorPane anchorpane= new AnchorPane();
-					anchorpane.setLayoutX(151);
+					anchorpane.setLayoutX(95);
 					anchorpane.setLayoutY(135);
 					anchorpane.setPrefWidth(400);
 					anchorpane.setPrefHeight(334);
-					if(q.level==Level.easy)
-						anchorpane.setStyle("-fx-background-color: #ffffff");
-					if(q.level==Level.medium)
-						anchorpane.setStyle("-fx-background-color: #DAA520");
-					if(q.level==Level.hard)
-						anchorpane.setStyle("-fx-background-color: #B22222");
-
 					Label question = new Label(q.getQuestion()+"     Level: "+q.getLevel().toString());
 					question.setLayoutX(23);
 					question.setLayoutY(30);
+					question.setFont(new Font("Rockwell", 14));
 					CheckBox ans1= new CheckBox(q.getAnswers().get(0).getContent());
 					ans1.setLayoutX(29);
 					ans1.setLayoutY(66);
@@ -606,6 +601,23 @@ public class BoardControl implements Initializable {
 					label.setLayoutX(70);
 					label.setLayoutY(280);
 					label.setVisible(false);
+					
+					if(q.level==Level.easy)
+						anchorpane.setStyle("-fx-background-color: #ffffff");
+					if(q.level==Level.medium)
+						anchorpane.setStyle("-fx-background-color: #DAA520");
+					if(q.level==Level.hard)
+					{
+						anchorpane.setStyle("-fx-background-color: #B22222");
+						question.setTextFill(Color.WHITE);
+						ans1.setTextFill(Color.WHITE);
+						ans2.setTextFill(Color.WHITE);
+						ans3.setTextFill(Color.WHITE);
+						ans4.setTextFill(Color.WHITE);
+						label.setTextFill(Color.WHITE);
+					}
+
+					
 				
 					anchorpane.getChildren().add(question);
 					anchorpane.getChildren().add(ans1);
