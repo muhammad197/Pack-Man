@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Controller.ShapeObject;
+import Controller.ShapeFactory;
 import Controller.SysData;
 import Model.Board;
 import Model.BombPoints;
@@ -54,7 +54,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -117,8 +116,7 @@ public class BoardControl implements Initializable {
 		private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
 		private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
 		private ArrayList<ImageView> questionsPoints = new ArrayList<ImageView>() ;	
-	
-	
+		
 		private Ghost redGhost;
 		private Ghost blueGhost;
 		private Ghost pinkGhost;
@@ -134,9 +132,7 @@ public class BoardControl implements Initializable {
 			
 		protected boolean isbonusUsed=true;
 
-		
-				
-		
+
 		@Override
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			pacman= new PackMan(1,300, new ImageView(),new Location(300, 570),Utils.Color.yellow);
@@ -150,7 +146,6 @@ public class BoardControl implements Initializable {
 			scorelab.setText(String.valueOf(game.getScore()));
 			pressedKeys(pane);
 		
-			
 		}
 		
 		/*
@@ -321,8 +316,8 @@ public class BoardControl implements Initializable {
 							case RIGHT : newDir = Direction.RIGHT ;
 									 break ;
 						}
-						}
 					}
+				}
 				});
 				
 				 
@@ -433,21 +428,23 @@ public class BoardControl implements Initializable {
 				
 				//if bomb point was eaten change pacman color
 				if(pacman.getColor()==Utils.Color.yellow) {
-					imageView = new ImageView("Photos/packMan.png");
-				if(dir==Direction.LEFT)
-					imageView= new ImageView("Photos/packManLeft.png");
-				else if(dir==Direction.RIGHT)
-					imageView= new ImageView("Photos/packManRight.png");
+					imageView = new ImageView("/Photos/packMan.png");
+					if(dir==Direction.LEFT)
+						imageView= new ImageView("/Photos/packManLeft.png");
+					else if(dir==Direction.RIGHT)
+						imageView= new ImageView("/Photos/packManRight.png");
 				}
-				else {
-					imageView = new ImageView("Photos/pacManGreen.png");
-				if(dir==Direction.LEFT)
-					imageView= new ImageView("Photos/pacManGreenLeft.png");
-				else if(dir==Direction.RIGHT)
-					imageView= new ImageView("Photos/PacManGreenRight.png");
+		
+			 	else {
+					imageView = new ImageView("/Photos/pacManGreen.png");
+					if(dir==Direction.LEFT)
+						imageView= new ImageView("/Photos/pacManGreenLeft.png");
+					else if(dir==Direction.RIGHT)
+						imageView= new ImageView("/Photos/pacManGreenRight.png");
 					}
-					bonusEaten=false;
-					if(isQuestion==false) {
+					
+				bonusEaten=false;
+				if(isQuestion==false) {
 				imageView.setFitHeight(30);
 				imageView.setFitWidth(30);
 				imageView.setX(toX);
@@ -756,6 +753,7 @@ public class BoardControl implements Initializable {
 						//on level 2- pacman can move from walls(transitions), there could be a chance that a pec point comes on a wall after it closes
 							
 						if( (fromX!=90 && fromY!=0) || (fromX!=90 && fromY!=600) || (fromX!=0 && fromY!=300) || (fromX!=600 && fromY!=300) ) {
+							Circle peckPoint = (Circle) ShapeFactory.getShapeObject("Circle" , fromX, fromY, ObjectSize);
 							
 							boolean toadd= true;
 							for(int n = 0 ; n < peckpointlist.size() ; n++)
@@ -775,8 +773,8 @@ public class BoardControl implements Initializable {
 							}
 							
 							if(toadd == true) {
-								pane.getChildren().add(ShapeObject.getShapeObject("Circle" , fromX, fromX, ObjectSize)) ;
-								peckpointlist.add((Circle) ShapeObject.getShapeObject("Circle" , fromX, fromY, ObjectSize)) ;
+							pane.getChildren().add(peckPoint) ;
+							peckpointlist.add(peckPoint) ;
 							}
 						}
 					}
@@ -992,16 +990,21 @@ public class BoardControl implements Initializable {
 				
 				if(game.getLevel() == Level.easy && levelDown==true)	{
 					
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
+					Rectangle wall1 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 0, ObjectSize); // pass in x, y, width and height
+					Rectangle wall2 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 600, ObjectSize); // pass in x, y, width and height
+					Rectangle wall3 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 0, 300, ObjectSize); // pass in x, y, width and height
+					Rectangle wall4 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 600, 300, ObjectSize); // pass in x, y, width and height
+
+					pane.getChildren().add(wall1) ;
+					pane.getChildren().add(wall2) ;
+					pane.getChildren().add(wall3) ;
+					pane.getChildren().add(wall4) ;
 					
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
-					levelDown=false;
+					wallList.add(wall1);
+					wallList.add(wall2);
+					wallList.add(wall3);
+					wallList.add(wall4);
+					 levelDown=false;
 
 								
 				}
@@ -1095,31 +1098,7 @@ public class BoardControl implements Initializable {
 		
 				}
 				if(game.score>=200) {
-					pauseOrUnPauseGame();
-					ImageView imageView = new ImageView("Photos/Youwin.png");
-					imageView.setLayoutX(151);
-					imageView.setLayoutY(135);
-					imageView.setFitWidth(400);
-					imageView.setFitHeight(334);
-
-					pane.getChildren().add(imageView);
-		            SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
-
-					Timer timer = new Timer();
-
-					TimerTask task = new TimerTask()
-					{
-					        public void run()
-					        { 
-					            Platform.runLater(() -> {
-								((Stage) pane.getScene().getWindow()).close();
-								ViewLogic.leaderBoardWindow();
-					            });
-					        
-					        }
-
-					};
-					timer.schedule(task,1000);
+					WinGame();
 				}
 				
 				if(game.getLevel() == Level.medium && levelUp==true)	{
@@ -1157,16 +1136,21 @@ public class BoardControl implements Initializable {
 				
 				if(game.getLevel() == Level.hard && levelUp==true)	{
 					
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
-					pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
-					
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 0, ObjectSize));
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 90, 600, ObjectSize));
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 0, 300, ObjectSize));
-					wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , 600, 300, ObjectSize));
-
+					Rectangle wall1 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 0, ObjectSize); // pass in x, y, width and height
+					Rectangle wall2 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 600, ObjectSize); // pass in x, y, width and height
+					Rectangle wall3 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 0, 300, ObjectSize); // pass in x, y, width and height
+					Rectangle wall4 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 600, 300, ObjectSize); // pass in x, y, width and height
+		
+		
+					pane.getChildren().add(wall1) ;
+					pane.getChildren().add(wall2) ;
+					pane.getChildren().add(wall3) ;
+					pane.getChildren().add(wall4) ;
+		
+					wallList.add(wall1);
+					wallList.add(wall2);
+					wallList.add(wall3);
+					wallList.add(wall4);
 		
 					pacman_timeline.stop();  
 					pacman_timeline.getKeyFrames().clear();
@@ -1187,6 +1171,38 @@ public class BoardControl implements Initializable {
 				}			
 		}
 		
+		/*
+		 * this function tells the user that he won, then the game board changes to the leader board game
+		 */
+			private void WinGame() {
+				pauseOrUnPauseGame();
+				ImageView imageView = new ImageView("Photos/Youwin.png");
+				imageView.setLayoutX(151);
+				imageView.setLayoutY(135);
+				imageView.setFitWidth(400);
+				imageView.setFitHeight(334);
+
+				pane.getChildren().add(imageView);
+	            SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
+
+				Timer timer = new Timer();
+
+				TimerTask task = new TimerTask()
+				{
+				        public void run()
+				        { 
+				            Platform.runLater(() -> {
+							((Stage) pane.getScene().getWindow()).close();
+							ViewLogic.leaderBoardWindow();
+				            });
+				        
+				        }
+
+				};
+				timer.schedule(task,1000);
+				
+		}
+
 			/**
 		* will check if the ghost has caught pacman 
 		* @param x_ghost
@@ -1459,17 +1475,19 @@ public class BoardControl implements Initializable {
 					// update the walls on the board
 			if(matrix[i][j]==1)
 			{
-				
-				pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize)) ;
-				wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize));
+				Rectangle wall =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize); // pass in x, y, width and height
+				pane.getChildren().add(wall) ;
+				wallList.add(wall);
 			
 			}
 			
 			// update the points on the board 
 			if(matrix[i][j] == 0)
 			{
-				pane.getChildren().add(ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
-				peckpointlist.add((Circle) ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
+				
+				Circle peckPoint = (Circle) ShapeFactory.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize);// pass in x, y, width and height
+				pane.getChildren().add(peckPoint) ;
+				peckpointlist.add(peckPoint) ;
 			
 			
 			}
@@ -1642,8 +1660,10 @@ public class BoardControl implements Initializable {
 						addWall=true;
 							
 					if(addWall==true) {
-						pane.getChildren().add(ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize)) ;
-						wallList.add((Rectangle) ShapeObject.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize));
+						Rectangle wall =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , thisRow, thisColoum, ObjectSize); // pass in x, y, width and height
+
+						pane.getChildren().add(wall) ;
+						wallList.add(wall);
 						addWall=false;
 						}
 	
@@ -1653,8 +1673,11 @@ public class BoardControl implements Initializable {
 	// update the points on the board 
 	if(matrix[i][j] == 0)
 	{
-		pane.getChildren().add(ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
-		peckpointlist.add((Circle) ShapeObject.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize)) ;
+		
+		Circle peckPoint =(Circle) ShapeFactory.getShapeObject("Circle" , thisRow, thisColoum, ObjectSize); // pass in x, y, width and height
+		pane.getChildren().add(peckPoint) ;
+		peckpointlist.add(peckPoint) ;
+	
 	
 	}
 	
