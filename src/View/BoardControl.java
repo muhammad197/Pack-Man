@@ -555,7 +555,8 @@ public class BoardControl implements Initializable {
 		/*
 		 * check if a question is eaten
 		 */
-		private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
+
+    private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 
 			
 			for(int m = 0 ; m < questionsPoints.size() ; m++)
@@ -571,10 +572,18 @@ public class BoardControl implements Initializable {
 					pauseOrUnPauseGame();
 					AnchorPane anchorpane= new AnchorPane();
 					anchorpane.setLayoutX(95);
-					anchorpane.setLayoutY(135);
+					anchorpane.setLayoutY(125);
 					anchorpane.setPrefWidth(400);
 					anchorpane.setPrefHeight(334);
-					Label question = new Label(q.getQuestion()+"     Level: "+q.getLevel().toString());
+					
+					
+					ImageView imageView = new ImageView("Photos/pacman-ghost.png");
+					imageView.setLayoutX(450);
+					imageView.setLayoutY(250);
+					imageView.setFitWidth(120);
+					imageView.setFitHeight(75);
+					
+					Label question = new Label(q.getQuestion()+"         Level: "+q.getLevel().toString());
 					question.setLayoutX(23);
 					question.setLayoutY(30);
 					question.setFont(new Font("Rockwell", 14));
@@ -617,9 +626,8 @@ public class BoardControl implements Initializable {
 						label.setTextFill(Color.WHITE);
 					}
 
-					
-				
 					anchorpane.getChildren().add(question);
+					anchorpane.getChildren().add(imageView);
 					anchorpane.getChildren().add(ans1);
 					anchorpane.getChildren().add(ans2);
 					anchorpane.getChildren().add(ans3);
