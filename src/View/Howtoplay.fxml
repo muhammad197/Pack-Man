@@ -18,7 +18,7 @@
       </ImageView>
       <Text fill="#a80d0d" layoutX="85.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="26.0" layoutX="60.0" layoutY="568.0" stroke="#a80d0d" strokeType="INSIDE" width="77.0" />
-      <Label layoutX="342.0" layoutY="27.0" text="How to play" textFill="#464dd7">
+      <Label layoutX="342.0" layoutY="13.0" text="How to play" textFill="#464dd7">
          <font>
             <Font size="36.0" />
          </font></Label>
