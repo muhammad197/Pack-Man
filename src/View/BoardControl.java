@@ -1000,23 +1000,31 @@ public class BoardControl implements Initializable {
 				}
 				
 				if(game.getLevel() == Level.easy && levelDown==true)	{
-					
-					Rectangle wall1 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 0, ObjectSize); // pass in x, y, width and height
-					Rectangle wall2 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 600, ObjectSize); // pass in x, y, width and height
-					Rectangle wall3 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 0, 300, ObjectSize); // pass in x, y, width and height
-					Rectangle wall4 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 600, 300, ObjectSize); // pass in x, y, width and height
-
-					pane.getChildren().add(wall1) ;
-					pane.getChildren().add(wall2) ;
-					pane.getChildren().add(wall3) ;
-					pane.getChildren().add(wall4) ;
-					
-					wallList.add(wall1);
-					wallList.add(wall2);
-					wallList.add(wall3);
-					wallList.add(wall4);
-					 levelDown=false;
-
+					if(QuestionMode==false) {
+						boolean toaddwall=false;
+						Rectangle wall1 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 0, ObjectSize); // pass in x, y, width and height
+						Rectangle wall2 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 600, ObjectSize); // pass in x, y, width and height
+						Rectangle wall3 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 0, 300, ObjectSize); // pass in x, y, width and height
+						Rectangle wall4 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 600, 300, ObjectSize); // pass in x, y, width and height
+						for(int i=0;i<wallList.size();i++)
+						{
+							if(wallList.get(i).getX()==wall1.getX() && wallList.get(i).getY()==wall1.getY() )
+								toaddwall=true;
+						}
+						if(toaddwall==true) {
+							pane.getChildren().add(wall1) ;
+							pane.getChildren().add(wall2) ;
+							pane.getChildren().add(wall3) ;
+							pane.getChildren().add(wall4) ;
+							
+							wallList.add(wall1);
+							wallList.add(wall2);
+							wallList.add(wall3);
+							wallList.add(wall4);
+						}
+						 levelDown=false;
+						 
+					}
 								
 				}
 			
@@ -1188,11 +1196,11 @@ public class BoardControl implements Initializable {
 			private void WinGame() {
 				pauseOrUnPauseGame();
 				ImageView imageView = new ImageView("Photos/Youwin.png");
-				imageView.setLayoutX(151);
-				imageView.setLayoutY(135);
-				imageView.setFitWidth(400);
-				imageView.setFitHeight(334);
-
+				imageView.setLayoutX(140);
+				imageView.setLayoutY(190);
+				imageView.setFitWidth(350);
+				imageView.setFitHeight(200);
+				
 				pane.getChildren().add(imageView);
 	            SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
 
@@ -1397,10 +1405,10 @@ public class BoardControl implements Initializable {
 		 */
 		private void GameOver() {
 			ImageView imageView = new ImageView("Photos/gameOver.png");
-			imageView.setLayoutX(151);
-			imageView.setLayoutY(135);
-			imageView.setFitWidth(400);
-			imageView.setFitHeight(334);
+			imageView.setLayoutX(140);
+			imageView.setLayoutY(190);
+			imageView.setFitWidth(350);
+			imageView.setFitHeight(200);
 			pane.getChildren().add(imageView);
             SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
 
