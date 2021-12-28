@@ -123,6 +123,17 @@ public class BoardControl implements Initializable {
 		private Ghost pinkGhost;
 		
 		boolean firstRedGhostMove=true;
+		//fields for question
+		CheckBox ans1= new CheckBox();
+		CheckBox ans2 = new CheckBox();
+		CheckBox ans3 = new CheckBox();
+		CheckBox ans4 = new CheckBox();
+		Label label_ans1 = new Label();
+		Label label_ans2 = new Label();
+		Label label_ans3 = new Label();
+		Label label_ans4 = new Label();
+		
+		
 		
 		/**
 		 * Variable to control PackMan speed
@@ -558,7 +569,7 @@ public class BoardControl implements Initializable {
 
     private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 
-			
+    	
 			for(int m = 0 ; m < questionsPoints.size() ; m++)
 			{
 				if((questionsPoints.get(m).getX()== toX) && (questionsPoints.get(m).getY() == toY))
@@ -578,34 +589,184 @@ public class BoardControl implements Initializable {
 					
 					
 					ImageView imageView = new ImageView("Photos/pacman-ghost.png");
-					imageView.setLayoutX(450);
+					imageView.setLayoutX(434);
 					imageView.setLayoutY(250);
-					imageView.setFitWidth(120);
+					imageView.setFitWidth(100);
 					imageView.setFitHeight(75);
 					
-					Label question = new Label(q.getQuestion()+"         Level: "+q.getLevel().toString());
+					Label question = new Label(q.getQuestion());
 					question.setLayoutX(23);
 					question.setLayoutY(30);
 					question.setFont(new Font("Rockwell", 14));
-					CheckBox ans1= new CheckBox(q.getAnswers().get(0).getContent());
-					ans1.setLayoutX(29);
-					ans1.setLayoutY(66);
+					Label level = new Label("Level: "+q.getLevel().toString());
+					level.setLayoutX(23);
+					level.setLayoutY(55);
+					level.setFont(new Font("Rockwell", 14));
+					
+
+					
+					// -----------------------------------answer 1			
+ 					if(q.getAnswers().get(0).getContent().length() > 81)
+					{
+ 						int len= q.getAnswers().get(0).getContent().length();
+						int c=81; // counter
+						if(q.getAnswers().get(0).getContent().charAt(c)!=' ')
+						{	while(q.getAnswers().get(0).getContent().charAt(c)!=' ')
+								c= c-1;
+							
+							ans1= new CheckBox(q.getAnswers().get(0).getContent().substring(0, c));
+							ans1.setLayoutX(29);
+							ans1.setLayoutY(100);
+							label_ans1= new Label(q.getAnswers().get(0).getContent().substring(c, len));
+							label_ans1.setLayoutX(45);
+							label_ans1.setLayoutY(118);
+							if(q.level==Level.hard)
+								label_ans1.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans1);
+						}
+						else
+						{
+							
+							ans1= new CheckBox(q.getAnswers().get(0).getContent().substring(0, c));
+							ans1.setLayoutX(29);
+							ans1.setLayoutY(100);
+							label_ans1= new Label(q.getAnswers().get(0).getContent().substring(c, len));
+							label_ans1.setLayoutX(45);
+							label_ans1.setLayoutY(118);
+							if(q.level==Level.hard)
+								label_ans1.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans1);
+						}
+						
+					}
+					else
+					{
+						ans1= new CheckBox(q.getAnswers().get(0).getContent());
+						ans1.setLayoutX(29);
+						ans1.setLayoutY(100);
+					}
+ 					// -----------------------------------answer 2 
+					if(q.getAnswers().get(1).getContent().length() > 81)
+					{
+						int len= q.getAnswers().get(1).getContent().length();
+						int c=81; // counter
+						if(q.getAnswers().get(1).getContent().charAt(c)!=' ')
+						{	while(q.getAnswers().get(1).getContent().charAt(c)!=' ')
+								c= c-1;
+							
+							ans2= new CheckBox(q.getAnswers().get(1).getContent().substring(0, c));
+							ans2.setLayoutX(29);
+							ans2.setLayoutY(150);
+							label_ans2= new Label(q.getAnswers().get(1).getContent().substring(c, len));
+							label_ans2.setLayoutX(45);
+							label_ans2.setLayoutY(168);
+							if(q.level==Level.hard)
+								label_ans2.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans2);
+						}
+						else
+						{
+							
+							ans2= new CheckBox(q.getAnswers().get(1).getContent().substring(0, c));
+							ans2.setLayoutX(29);
+							ans2.setLayoutY(150);
+							label_ans2= new Label(q.getAnswers().get(1).getContent().substring(c, len));
+							label_ans2.setLayoutX(45);
+							label_ans2.setLayoutY(168);
+							if(q.level==Level.hard)
+								label_ans2.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans2);
+						}
+					}
+					else
+					{
+					 ans2= new CheckBox(q.getAnswers().get(1).getContent());
+					 ans2.setLayoutX(29);
+					 ans2.setLayoutY(150);
+					}
+					// -----------------------------------answer 3 
+					if(q.getAnswers().get(2).getContent().length() > 81)
+					{
+						int len= q.getAnswers().get(2).getContent().length();
+						int c=81; // counter
+						if(q.getAnswers().get(2).getContent().charAt(c)!=' ')
+						{	while(q.getAnswers().get(2).getContent().charAt(c)!=' ')
+								c= c-1;
+							
+							ans3= new CheckBox(q.getAnswers().get(2).getContent().substring(0, c));
+							ans3.setLayoutX(29);
+							ans3.setLayoutY(200);
+							label_ans3= new Label(q.getAnswers().get(2).getContent().substring(c, len));
+							label_ans3.setLayoutX(45);
+							label_ans3.setLayoutY(218);
+							if(q.level==Level.hard)
+								label_ans3.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans3);
+						}
+						else
+						{
+							
+							ans3= new CheckBox(q.getAnswers().get(2).getContent().substring(0, c));
+							ans3.setLayoutX(29);
+							ans3.setLayoutY(200);
+							label_ans3= new Label(q.getAnswers().get(2).getContent().substring(c, len));
+							label_ans3.setLayoutX(45);
+							label_ans3.setLayoutY(218);
+							if(q.level==Level.hard)
+								label_ans3.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans3);
+						}
+					}
+					else
+					{
+						ans3= new CheckBox(q.getAnswers().get(2).getContent());
+						ans3.setLayoutX(29);
+						ans3.setLayoutY(200);
+					}
+					// -----------------------------------answer 4 					
+					if(q.getAnswers().get(3).getContent().length() > 81)
+					{
+						int len= q.getAnswers().get(3).getContent().length();
+						int c=81; // counter
+						if(q.getAnswers().get(3).getContent().charAt(c)!=' ')
+						{	while(q.getAnswers().get(3).getContent().charAt(c)!=' ')
+								c= c-1;
+							
+							ans4= new CheckBox(q.getAnswers().get(3).getContent().substring(0, c));
+							ans4.setLayoutX(29);
+							ans4.setLayoutY(250);
+							label_ans4= new Label(q.getAnswers().get(3).getContent().substring(c, len));
+							label_ans4.setLayoutX(45);
+							label_ans4.setLayoutY(268);
+							if(q.level==Level.hard)
+								label_ans4.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans4);
+						}
+						else
+						{
+							
+							ans4= new CheckBox(q.getAnswers().get(3).getContent().substring(0, c));
+							ans4.setLayoutX(29);
+							ans4.setLayoutY(250);
+							label_ans4= new Label(q.getAnswers().get(3).getContent().substring(c, len));
+							label_ans4.setLayoutX(45);
+							label_ans4.setLayoutY(268);
+							if(q.level==Level.hard)
+								label_ans4.setTextFill(Color.WHITE);
+							anchorpane.getChildren().add(label_ans4);
+						}
+					}
+					else
+					{
+						ans4= new CheckBox(q.getAnswers().get(3).getContent());
+						ans4.setLayoutX(29);
+						ans4.setLayoutY(250);
+					}
  					
-					CheckBox ans2= new CheckBox(q.getAnswers().get(1).getContent());
-					ans2.setLayoutX(29);
-					ans2.setLayoutY(106);
- 					
-					CheckBox ans3= new CheckBox(q.getAnswers().get(2).getContent());
-					ans3.setLayoutX(29);
-					ans3.setLayoutY(146);
- 					
-					CheckBox ans4= new CheckBox(q.getAnswers().get(3).getContent());
-					ans4.setLayoutX(29);
-					ans4.setLayoutY(186);
- 					
+					// ------------------- submit 
 					Button submit= new Button("Submit Answer");
-					submit.setLayoutX(95);
-					submit.setLayoutY(246);
+					submit.setLayoutX(200);
+					submit.setLayoutY(290);
 					Label label= new Label();
 					label.setLayoutX(70);
 					label.setLayoutY(280);
@@ -619,6 +780,7 @@ public class BoardControl implements Initializable {
 					{
 						anchorpane.setStyle("-fx-background-color: #B22222");
 						question.setTextFill(Color.WHITE);
+						level.setTextFill(Color.WHITE);
 						ans1.setTextFill(Color.WHITE);
 						ans2.setTextFill(Color.WHITE);
 						ans3.setTextFill(Color.WHITE);
@@ -627,6 +789,7 @@ public class BoardControl implements Initializable {
 					}
 
 					anchorpane.getChildren().add(question);
+					anchorpane.getChildren().add(level);
 					anchorpane.getChildren().add(imageView);
 					anchorpane.getChildren().add(ans1);
 					anchorpane.getChildren().add(ans2);
@@ -635,9 +798,9 @@ public class BoardControl implements Initializable {
 					anchorpane.getChildren().add(submit);
 					anchorpane.getChildren().add(label);
 
-
-
 					pane.getChildren().add(anchorpane);
+					
+					
 					submit.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
 						private Timeline timeline5;
 
@@ -678,13 +841,25 @@ public class BoardControl implements Initializable {
 										levelUp();
 										//show that answer is right
 										if(q.getTrueAnswer()==1)
+										{
 											ans1.setStyle("-fx-background-color: #7CFC00");
+											label_ans1.setStyle("-fx-background-color: #7CFC00");
+										}
 										if(q.getTrueAnswer()==2)
+										{
 											ans2.setStyle("-fx-background-color: #7CFC00");
+											label_ans2.setStyle("-fx-background-color: #7CFC00");
+										}
 										if(q.getTrueAnswer()==3)
+										{
 											ans3.setStyle("-fx-background-color: #7CFC00");
+											label_ans3.setStyle("-fx-background-color: #7CFC00");
+										}
 										if(q.getTrueAnswer()==4)
+										{
 											ans4.setStyle("-fx-background-color: #7CFC00");
+											label_ans4.setStyle("-fx-background-color: #7CFC00");
+										}
 
 
 										showCorrectAns = new KeyFrame(Duration.millis(1000), e->
