@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.event.ActionEvent;
 import java.beans.EventHandler;
 
 import java.net.URL;
@@ -15,7 +16,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Controller.ShapeFactory;
+import Controller.Sound;
 import Controller.SysData;
+
 import Model.Board;
 import Model.BombPoints;
 import Model.Game;
@@ -68,6 +71,7 @@ public class BoardControl implements Initializable {
 	
 	    @FXML
 	    private Label namelab;
+	    
 	
 	    @FXML
 	    private ImageView life3;
@@ -83,6 +87,8 @@ public class BoardControl implements Initializable {
 	
 	    @FXML
 	    private ImageView stopIcon;
+	    
+	   
 	
 	    @FXML
 	    private Pane pane;
@@ -143,6 +149,9 @@ public class BoardControl implements Initializable {
 		
 			
 		protected boolean isbonusUsed=true;
+		
+		
+
 
 
 		@Override
@@ -157,8 +166,12 @@ public class BoardControl implements Initializable {
 			namelab.setText(game.getPlayerName());
 			scorelab.setText(String.valueOf(game.getScore()));
 			pressedKeys(pane);
+			
 		
 		}
+		
+		
+
 		
 		/*
 		 * this function returns if there is a wall in location x, y on board according to the direction that the object is turning to
@@ -552,6 +565,7 @@ public class BoardControl implements Initializable {
 			{
 				if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
 				{
+//					Sound.playSound(Sound.class.getResource("../resources/eat.mp3"), 80);
 					pane.getChildren().remove(peckpointlist.get(n)) ;
 					peckpointlist.remove(n) ;
 					game.setScore(game.getScore()+1);
@@ -831,6 +845,7 @@ public class BoardControl implements Initializable {
 									if(ans3.isSelected()) rightAns=3;
 									if(ans4.isSelected()) rightAns=4;
 									if(q.getTrueAnswer()==rightAns) {
+										Sound.playSound(Sound.class.getResource("../resources/correct.mp3"), 80);
 										if(q.getLevel()==Level.easy)
 											game.setScore(game.getScore()+1);
 										if(q.getLevel()==Level.medium)
@@ -877,6 +892,7 @@ public class BoardControl implements Initializable {
 									}
 									else
 									{
+										Sound.playSound(Sound.class.getResource("../resources/wrong.mp3"), 80);
 										if(q.getLevel()==Level.easy)
 											game.setScore(game.getScore()-10);
 										if(q.getLevel()==Level.medium)
@@ -1152,6 +1168,7 @@ public class BoardControl implements Initializable {
 			 * level4: pacman-speed=260, ghost-speed=250
 			 */
 			if(game.score>=0 && game.score<=50) {
+				
 				game.setLevel(Level.easy);
 				pacman.setSpeed(300);
 				redGhost.setSpeed(280);
@@ -1161,6 +1178,7 @@ public class BoardControl implements Initializable {
 			 
 			}
 				if(game.score>50 && game.score<=100) {
+					
 					game.setLevel(Level.medium);
 					pacman.setSpeed(290);
 					redGhost.setSpeed(270);
@@ -1172,6 +1190,7 @@ public class BoardControl implements Initializable {
 				  
 				}
 				if(game.score>100 && game.score<=150) {
+					
 					game.setLevel(Level.hard);
 					pacman.setSpeed(270);
 					redGhost.setSpeed(270);
@@ -1271,7 +1290,11 @@ public class BoardControl implements Initializable {
 				 * level3: pacman-speed=270, ghost-speed=270
 				 * level4: pacman-speed=260, ghost-speed=250
 				 */
+			
+			
 				if(game.score>50 && game.score<=100) {
+					
+					
 					game.setLevel(Level.medium);
 					pacman.setSpeed(290);
 					redGhost.setSpeed(270);
@@ -1280,6 +1303,7 @@ public class BoardControl implements Initializable {
 					levelUp= true;
 				}
 				if(game.score>100 && game.score<=150) {
+					
 					game.setLevel(Level.hard);
 					pacman.setSpeed(270);
 					redGhost.setSpeed(270);
@@ -1290,6 +1314,7 @@ public class BoardControl implements Initializable {
 		
 				}
 				if(game.score>150 && game.score<200) {
+					
 					game.setLevel(Level.super_hard);
 					pacman.setSpeed(260);
 					redGhost.setSpeed(250);
@@ -1304,6 +1329,7 @@ public class BoardControl implements Initializable {
 				}
 				
 				if(game.getLevel() == Level.medium && levelUp==true)	{
+					
 					 for(int c = 0 ; c < wallList.size() ; c++)
 						{
 							if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 0)
@@ -1362,6 +1388,7 @@ public class BoardControl implements Initializable {
 				}			
 				
 				if(game.getLevel() == Level.super_hard && levelUp==true)	{
+					
 					pacman_timeline.stop();  
 					pacman_timeline.getKeyFrames().clear();
 					ghosts_timeline.stop();  
@@ -1378,6 +1405,7 @@ public class BoardControl implements Initializable {
 		 */
 			private void WinGame() {
 				pauseOrUnPauseGame();
+				Sound.playSound(Sound.class.getResource("../resources/levelup.mp3"), 80);
 				ImageView imageView = new ImageView("Photos/Youwin.png");
 				imageView.setLayoutX(140);
 				imageView.setLayoutY(190);
@@ -1587,6 +1615,7 @@ public class BoardControl implements Initializable {
 		 * on game over, finish the game and add history to json
 		 */
 		private void GameOver() {
+			Sound.playSound(Sound.class.getResource("../resources/Death.mp3"), 80);
 			ImageView imageView = new ImageView("Photos/gameOver.png");
 			imageView.setLayoutX(140);
 			imageView.setLayoutY(190);

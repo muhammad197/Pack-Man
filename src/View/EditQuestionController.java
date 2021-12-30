@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import Controller.Sound;
 import Controller.SysData;
 
 import Model.Answer;
@@ -133,30 +134,40 @@ public class EditQuestionController implements Initializable {
 										newQuestion.setId(SysData.questionID);
 										newQuestion.setQuestion(quest);// update question
 										SysData.getInstance().editQuestion(QuestionToEdit, newQuestion);
+										Sound.playSound(Sound.class.getResource("../resources/successfully.mp3"), 80);
 										errorpopup.setText("Question updated successfully");
 										
 									}
 									else { // new question
 										newQuestion= new Question(quest,SysData.questionID,answers, correctAnswerID, level) ;
 										if(	SysData.getInstance().addQueastion(newQuestion))
+											Sound.playSound(Sound.class.getResource("../resources/successfully.mp3"), 80);
 											errorpopup.setText("Question added successfully.");
 									
 									}
 
 								} else
-									errorpopup.setText("Please select a difficulty level");
+									{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+									errorpopup.setText("Please select a difficulty level");}
 							} else
-								errorpopup.setText("Please select the correct answer");
+								{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+								errorpopup.setText("Please select the correct answer");}
 						} else
-							errorpopup.setText("Please enter answer No.4");
+							{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+							errorpopup.setText("Please enter answer No.4");}
 					} else
-						errorpopup.setText("Please enter answer No.3");							
+						{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+						errorpopup.setText("Please enter answer No.3");		}					
 				} else
-					errorpopup.setText("Please enter answer No.2");
-			} else
-				errorpopup.setText("Please enter answer No.1");
-		} else
+					
+					{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+					errorpopup.setText("Please enter answer No.2");}
+			} else {
+				Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+				errorpopup.setText("Please enter answer No.1");}
+		} else {
 			errorpopup.setText("Please enter a question");
+		    Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);}
 	}
 
 

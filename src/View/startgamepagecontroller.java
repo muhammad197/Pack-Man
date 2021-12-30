@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Controller.Sound;
 import Controller.SysData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +56,7 @@ public class startgamepagecontroller implements Initializable{
 				@FXML
 				private void GoClicked(ActionEvent event) throws IOException {
 					if(userid.getText()=="") {
+						Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
 						error.setText("Please enter your nickname");
 						
 					}

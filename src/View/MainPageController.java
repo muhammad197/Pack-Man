@@ -5,6 +5,7 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 
+import Controller.Sound;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,6 +64,7 @@ public class MainPageController implements Initializable {
 
     @FXML
 	private void QMClicked(ActionEvent event) {
+    	Sound.playSound(Sound.class.getResource("../resources/click.mp3"), 80);
 		closeWindow();
 		ViewLogic.questionsManagmentWindow();
 		//TODO
@@ -70,18 +72,21 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	private void InstructionClicked(ActionEvent event) {
+		Sound.playSound(Sound.class.getResource("../resources/click.mp3"), 80);
 		closeWindow();
 		ViewLogic.howToPlayWindow();
 	}
 
 	@FXML
 	private void leaderBoardClicked(ActionEvent event) {
+		Sound.playSound(Sound.class.getResource("../resources/click.mp3"), 80);
 		closeWindow();
 		ViewLogic.leaderBoardWindow();
 	}
 
 	@FXML
 	private void playClicked(ActionEvent event) {
+		Sound.playSound(Sound.class.getResource("../resources/click.mp3"), 80);
 		closeWindow();
 		ViewLogic.StartgameWindow();
 		

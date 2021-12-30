@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Controller.Sound;
 import Controller.SysData;
 import Model.Answer;
 import Model.Question;
@@ -204,6 +205,7 @@ public class QuestionsManagmentController implements Initializable {
 		if (answer.get().getButtonData() == ButtonData.YES) {
 			try {
 				SysData.getInstance().removeQuestion(q);
+				Sound.playSound(Sound.class.getResource("../resources/successfully.mp3"), 80);
 				setQuestionsTable();
 				setSelectedQuestion();
 			} catch (Exception e) {
