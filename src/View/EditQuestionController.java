@@ -105,7 +105,7 @@ public class EditQuestionController implements Initializable {
 				if (!answer2.isEmpty()) {
 					if (!answer3.isEmpty()) {
 						if (!answer4.isEmpty()) {
-							if (answer1Correct || answer2Correct || answer3Correct || answer4Correct) {
+							if ((answer1Correct && answer2Correct==false && answer3Correct==false && answer4Correct==false) ||(answer1Correct==false && answer2Correct && answer3Correct==false && answer4Correct==false) ||(answer1Correct==false && answer2Correct==false && answer3Correct && answer4Correct==false)||(answer1Correct==false && answer2Correct==false && answer3Correct==false && answer4Correct)) {
 								if (level != null) {
                                      if (answer1Correct) {
                                     	 correctAnswerID=1;
@@ -140,9 +140,15 @@ public class EditQuestionController implements Initializable {
 									}
 									else { // new question
 										newQuestion= new Question(quest,SysData.questionID,answers, correctAnswerID, level) ;
-										if(	SysData.getInstance().addQueastion(newQuestion))
+										if(SysData.getInstance().getQuestions().contains(newQuestion)) {
+											Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+											errorpopup.setText("This Question already exists.");
+											
+										}
+										else {
+										if(SysData.getInstance().addQueastion(newQuestion))
 											Sound.playSound(Sound.class.getResource("../resources/successfully.mp3"), 80);
-											errorpopup.setText("Question added successfully.");
+											errorpopup.setText("Question added successfully.");}
 									
 									}
 
@@ -151,7 +157,7 @@ public class EditQuestionController implements Initializable {
 									errorpopup.setText("Please select a difficulty level");}
 							} else
 								{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
-								errorpopup.setText("Please select the correct answer");}
+								errorpopup.setText("Please select one correct answer only");}
 						} else
 							{Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
 							errorpopup.setText("Please enter answer No.4");}
