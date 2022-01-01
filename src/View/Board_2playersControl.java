@@ -2204,7 +2204,7 @@ public class Board_2playersControl implements Initializable {
 		private void WinGamewomen() {
 			pauseOrUnPauseGame();
 			Sound.playSound(Sound.class.getResource("../resources/levelup.mp3"), 80);
-			ImageView imageView = new ImageView("Photos/player2-removebg-preview.png.png");
+			ImageView imageView = new ImageView("Photos/player2-removebg-preview.png");
 			imageView.setLayoutX(140);
 			imageView.setLayoutY(190);
 			imageView.setFitWidth(350);
