@@ -130,7 +130,8 @@ public class startgamepagecontroller implements Initializable{
 					}
 					else {
 					closeWindow();
-					SysData.CurrentPlayer= userid.getText().trim();
+					SysData.CurrentPlayer= userid1.getText().trim();
+					SysData.CurrentPlayer2= userid2.getText().trim();
 					ViewLogic.gameWindow_2players();}
 					
 				}

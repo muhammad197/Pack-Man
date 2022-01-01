@@ -31,31 +31,21 @@
                      <font>
                         <Font size="25.0" />
                      </font></Label>
-                  <ImageView fitHeight="41.0" fitWidth="68.0" layoutX="27.0" layoutY="72.0">
-                     <image>
-                        <Image url="@../resources/score.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="scorelab" alignment="CENTER" layoutX="32.0" layoutY="101.0" prefHeight="17.0" prefWidth="57.0" textFill="WHITE">
+                  <Label fx:id="scorelab" alignment="CENTER" layoutX="31.0" layoutY="119.0" prefHeight="17.0" prefWidth="57.0" textFill="WHITE">
                      <font>
                         <Font size="25.0" />
                      </font></Label>
-                  <ImageView fitHeight="34.0" fitWidth="68.0" layoutX="27.0" layoutY="137.0">
-                     <image>
-                        <Image url="@../resources/lives.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="life1" fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="166.0">
+                  <ImageView fx:id="life1" fitHeight="30.0" fitWidth="30.0" layoutX="11.0" layoutY="181.0">
                      <image>
                         <Image url="@../resources/heart.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="life2" fitHeight="30.0" fitWidth="30.0" layoutX="44.0" layoutY="166.0">
+                  <ImageView fx:id="life2" fitHeight="30.0" fitWidth="30.0" layoutX="45.0" layoutY="181.0">
                      <image>
                         <Image url="@../resources/heart.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="life3" fitHeight="30.0" fitWidth="30.0" layoutX="77.0" layoutY="166.0">
+                  <ImageView fx:id="life3" fitHeight="30.0" fitWidth="30.0" layoutX="79.0" layoutY="181.0">
                      <image>
                         <Image url="@../resources/heart.png" />
                      </image>
@@ -65,7 +55,7 @@
                         <Image url="@../resources/stop.png" />
                      </image>
                   </ImageView>
-                  <Separator layoutX="6.0" layoutY="213.0" prefHeight="17.0" prefWidth="109.0" />
+                  <Separator layoutX="6.0" layoutY="228.0" prefHeight="17.0" prefWidth="109.0" />
                   <Separator orientation="VERTICAL" prefHeight="630.0" prefWidth="5.0" />
                   <Label layoutX="17.0" layoutY="14.0" prefHeight="17.0" prefWidth="93.0" text="PLAYER 1 ">
                      <font>
@@ -80,6 +70,102 @@
                         </LinearGradient>
                      </textFill>
                   </Label>
+                  <Label layoutX="17.0" layoutY="258.0" prefHeight="17.0" prefWidth="93.0" text="PLAYER 2 ">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="20.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.11538461538461536" startY="0.5240384615384616">
+                           <stops>
+                              <Stop color="#35da26" />
+                              <Stop color="#e49408" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label fx:id="namelab2" alignment="CENTER" layoutX="1.0" layoutY="289.0" prefHeight="34.0" prefWidth="120.0" textAlignment="CENTER" textFill="#fff9f9">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="scorelab2" alignment="CENTER" layoutX="31.0" layoutY="376.0" prefHeight="17.0" prefWidth="57.0" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="26.0" layoutY="72.0" prefHeight="32.0" prefWidth="68.0" text="score">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="27.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.7884615384615384" startX="0.11538461538461536" startY="0.5240384615384616">
+                           <stops>
+                              <Stop color="#0da7e0" />
+                              <Stop color="#e49408" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="149.0" prefHeight="32.0" prefWidth="57.0" text="lives">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="27.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.7884615384615384" startX="0.11538461538461536" startY="0.5240384615384616">
+                           <stops>
+                              <Stop color="#0da7e0" />
+                              <Stop color="#e49408" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Separator layoutX="5.0" layoutY="220.0" prefHeight="17.0" prefWidth="109.0" />
+                  <Label layoutX="30.0" layoutY="332.0" prefHeight="32.0" prefWidth="68.0" text="score">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="27.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.7884615384615384" endY="1.0" startX="0.11538461538461536" startY="0.5240384615384616">
+                           <stops>
+                              <Stop color="#35da26" />
+                              <Stop color="#e49408" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Label fx:id="scorelab2" alignment="CENTER" layoutX="32.0" layoutY="370.0" prefHeight="17.0" prefWidth="57.0" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="406.0" prefHeight="32.0" prefWidth="57.0" text="lives">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="27.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="0.7884615384615384" endY="1.0" startX="0.11538461538461536" startY="0.5240384615384616">
+                           <stops>
+                              <Stop color="#35da26" />
+                              <Stop color="#e49408" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <ImageView fx:id="life11" fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="438.0">
+                     <image>
+                        <Image url="@../resources/heart.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="life21" fitHeight="30.0" fitWidth="30.0" layoutX="45.0" layoutY="438.0">
+                     <image>
+                        <Image url="@../resources/heart.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="life31" fitHeight="30.0" fitWidth="30.0" layoutX="79.0" layoutY="438.0">
+                     <image>
+                        <Image url="@../resources/heart.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>

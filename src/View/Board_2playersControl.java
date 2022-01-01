@@ -85,9 +85,21 @@ public class Board_2playersControl implements Initializable {
  
     @FXML
     private ImageView life1;
+    
+    @FXML
+    private ImageView life31;
+
+    @FXML
+    private ImageView life21;
+ 
+    @FXML
+    private ImageView life11;
 
     @FXML
     private Label scorelab;
+    
+    @FXML
+    private Label scorelab2;
 
     @FXML
     private ImageView stopIcon;
@@ -128,13 +140,16 @@ public class Board_2playersControl implements Initializable {
 	
 	public boolean levelUp=false;
 	public boolean levelDown=false;
+	
 	public boolean levelUp_women=false;
 	public boolean levelDown_women=false;
 	
 	public boolean bonusEaten=false;
 	public boolean bonusEaten_women=false;
+	
 	private Game game;
 	private Game game_women;
+	
 	private ArrayList<Circle> peckpointlist = new ArrayList<Circle>() ;
 	private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
 	private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
@@ -145,6 +160,7 @@ public class Board_2playersControl implements Initializable {
 	private Ghost pinkGhost;
 	
 	boolean firstRedGhostMove=true;
+	
 	//fields for question
 	CheckBox ans1= new CheckBox();
 	CheckBox ans2 = new CheckBox();
@@ -180,14 +196,17 @@ public class Board_2playersControl implements Initializable {
 		pinkGhost= new Ghost(3, 280, new ImageView(), new Location(330, 240), Utils.Color.pink);
 		
 		game=new Game(0, 3, GameState.Started, 0, Level.easy, SysData.CurrentPlayer); 
-		game_women=new Game(0, 3, GameState.Started, 0, Level.easy, SysData.CurrentPlayer); 
+		game_women=new Game(1, 3, GameState.Started, 0, Level.easy, SysData.CurrentPlayer2); 
 		
 		pane.setStyle("-fx-background-color : black") ;//set background to black
 		fillBoard();
 		
 
 		namelab.setText(game.getPlayerName());
+		namelab2.setText(game_women.getPlayerName());
+		
 		scorelab.setText(String.valueOf(game.getScore()));
+		scorelab2.setText(String.valueOf(game_women.getScore()));
 		pressedKeys(pane);
 		
 	
@@ -235,6 +254,9 @@ public class Board_2playersControl implements Initializable {
 		
 		
 	}
+
+	 /**                         --------- man *** women ----------                * */
+	
 	
 	/*
 	 * this function calls the function movePacman which moves the pacman only if the movement direction does not contain a wall
@@ -301,6 +323,78 @@ public class Board_2playersControl implements Initializable {
 		
 	}
 	
+	
+	
+	/*
+	 * this function calls the function movePacwomen which moves the pacman only if the movement direction does not contain a wall
+	 */
+	private void movement_women(Direction newDir) {
+		
+		if(isWall(newDir, pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn()) == false) {
+			prevDir_women= newDir;
+		}
+		else
+			newDir= prevDir_women;
+		if(isWall(newDir, pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn()) == false) {
+	
+			if(newDir == Direction.RIGHT)
+			{
+				if(pacwomen.getCurrentLocation().getRow()== 600 && pacwomen.getCurrentLocation().getColumn()==300) {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), 0, pacwomen.getCurrentLocation().getColumn());
+					pacwomen.getCurrentLocation().setRow(0);
+				}
+	
+				else {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), pacwomen.getCurrentLocation().getRow()+30, pacwomen.getCurrentLocation().getColumn());
+					pacwomen.getCurrentLocation().setRow((pacwomen.getCurrentLocation().getRow())+30);
+				}
+			}
+			if(newDir == Direction.LEFT)
+			{
+				if(pacwomen.getCurrentLocation().getRow()== 0 && pacwomen.getCurrentLocation().getColumn()==300) {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), 600, pacwomen.getCurrentLocation().getColumn());
+					pacwomen.getCurrentLocation().setRow(600);
+				}
+				else {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), pacwomen.getCurrentLocation().getRow()-30, pacwomen.getCurrentLocation().getColumn());
+				pacwomen.getCurrentLocation().setRow((pacwomen.getCurrentLocation().getRow())-30);
+				}
+			}
+				
+			
+			if(newDir == Direction.UP)
+			{
+				if(pacwomen.getCurrentLocation().getRow()== 90 && pacwomen.getCurrentLocation().getColumn()==0) {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), pacwomen.getCurrentLocation().getRow(), 600);
+					pacwomen.getCurrentLocation().setColumn(600);
+				}
+				else {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn()-30);
+				pacwomen.getCurrentLocation().setColumn(pacwomen.getCurrentLocation().getColumn()-30);
+				}
+			}
+			if(newDir == Direction.DOWN)
+			{
+				if(pacwomen.getCurrentLocation().getRow()== 90 && pacwomen.getCurrentLocation().getColumn()==600) {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), pacwomen.getCurrentLocation().getRow(), 0);
+					pacwomen.getCurrentLocation().setColumn(0);
+				}
+				else {
+					movePackwomen(newDir,pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn(), pacwomen.getCurrentLocation().getRow(), pacwomen.getCurrentLocation().getColumn()+30);
+				pacwomen.getCurrentLocation().setColumn(pacwomen.getCurrentLocation().getColumn()+30);
+				}
+			}
+		
+		}
+	
+		
+	}
+	
+	
+	
+	
+	
+	
 	/*
 	 * this function handles the user key pressing(left, right, up, down)
 	 */
@@ -310,8 +404,11 @@ public class Board_2playersControl implements Initializable {
 	
 	@Override
 	public void handle(Event arg0) {
-		if(game.gameState==GameState.Started ) {
-			game.setGameState(GameState.Running);
+		if(game.gameState==GameState.Started && game_women.gameState==GameState.Started ) {
+			{
+				game.setGameState(GameState.Running);
+				game_women.setGameState(GameState.Running);
+			}
 		setScene(pane.getScene());
 		//if user press on the stop game icon and there is a question is shown on board, he can't stop the game
 		stopIcon.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
@@ -337,7 +434,8 @@ public class Board_2playersControl implements Initializable {
 						//save game history annd go to leaderboard window
 						Date localdate = (Date) Calendar.getInstance().getTime();
 			        	SysData.getInstance().addGameHistory(new Player(SysData.CurrentPlayer,game.getScore(),localdate));
-						((Stage) pane.getScene().getWindow()).close();
+			        	SysData.getInstance().addGameHistory(new Player(SysData.CurrentPlayer2,game_women.getScore(),localdate));
+			        	((Stage) pane.getScene().getWindow()).close();
 		        	    ViewLogic.leaderBoardWindow();
 		        	    }
 				}
@@ -365,13 +463,31 @@ public class Board_2playersControl implements Initializable {
 								 break ;
 					}
 				}
+				
+				if(game_women.gameState==GameState.Running) {
+					switch(event.getCode()) 
+					{
+						case W : newDir_women = Direction.UP ;
+								  break ;
+			
+						case S : newDir_women = Direction.DOWN ;
+									break ;
+			
+						case A : newDir_women = Direction.LEFT ;
+									break ;
+			
+						case D : newDir_women = Direction.RIGHT ;
+								 break ;
+					}
+				}
 			}
 			});
 			
 			 
-			if(game.gameState==GameState.Running) {
+			if(game.gameState==GameState.Running && game_women.gameState==GameState.Running ) {
 	 						movePackmanAtSpeed();// move pacman at pacman speed
-							moveGhostAtSpeed();//move all ghosts at ghosts speed
+	 						movePacwomenAtSpeed();
+							moveGhostAtSpeed();//move all ghosts at ghosts speed 77777777777777777777777777777777777777777777777777777777777777
 						}
 			
 					}
@@ -385,6 +501,7 @@ public class Board_2playersControl implements Initializable {
 	 * all ghosts move at the same speed, so here we called the move ghost at speed of the red one 
 	 * the speed is presented as: how many cells can a go move in a millisecond
 	 */
+	
 	public void moveGhostAtSpeed() {
 		ghosts_keyFrame = new KeyFrame(Duration.millis(redGhost.getSpeed()), e->
 		{
@@ -447,6 +564,10 @@ public class Board_2playersControl implements Initializable {
 			}
 		}
 
+	 /**                         --------- man *** women ----------                * */
+	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * when moving the pacman, check if a question is eaten/ pecpoint is eaten/ bomb points is eaten
 	 * after checking move pacman from  location x, y to location x2,y2
@@ -464,6 +585,25 @@ public class Board_2playersControl implements Initializable {
 		}
 	}
 	
+	
+	
+	public void movePackwomen(Direction dir,int fromX, int fromY, int toX, int toY)
+	{
+		if(game_women.gameState==GameState.Running) {
+		boolean isQuestion=false;
+		isQuestion= checkQuestionEaten(toX, toY, isQuestion);
+		checkPecPointEatenwomen(toX, toY);
+		checkBonusPointEatenwomen(toX, toY); 
+		returnBombPointwomen(toX, toY);
+		updatePacwomenMove(dir,fromX, fromY, toX, toY, isQuestion);
+		
+		}
+	}
+	
+	 /**                         --------- man *** women ----------                * */
+	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * update pacman moving from for moving to location 
 	 */
@@ -476,19 +616,19 @@ public class Board_2playersControl implements Initializable {
 			
 			//if bomb point was eaten change pacman color
 			if(pacman.getColor()==Utils.Color.yellow) {
-				imageView = new ImageView("/Photos/packMan.png");
+				imageView = new ImageView("/Photos/Pac-Man__PMVS_-removebg-preview.png");
 				if(dir==Direction.LEFT)
-					imageView= new ImageView("/Photos/packManLeft.png");
+					imageView= new ImageView("/Photos/Pac-Man__PMVS_-removebg-preview.png");
 				else if(dir==Direction.RIGHT)
-					imageView= new ImageView("/Photos/packManRight.png");
+					imageView= new ImageView("/Photos/Pac-Man__PMVS_-removebg-preview.png");
 			}
 	
 		 	else {
-				imageView = new ImageView("/Photos/pacManGreen.png");
+				imageView = new ImageView("/Photos/Pac-Man__PMVS_-removebg-preview.png");
 				if(dir==Direction.LEFT)
-					imageView= new ImageView("/Photos/pacManGreenLeft.png");
+					imageView= new ImageView("/Photos/Pac-Man__PMVS_-removebg-preview.png");
 				else if(dir==Direction.RIGHT)
-					imageView= new ImageView("/Photos/pacManGreenRight.png");
+					imageView= new ImageView("/Photos/Pac-Man__PMVS_-removebg-preview.png");
 				}
 				
 			bonusEaten=false;
@@ -502,7 +642,52 @@ public class Board_2playersControl implements Initializable {
 			returnPeckPoints(fromX,fromY);
 				}			
 		}
+	
+	
+	
+	private void updatePacwomenMove(Direction dir,int fromX, int fromY, int toX, int toY, boolean isQuestion) 
+		{
+			pane.getChildren().remove(pacwomen.getImage()) ;
+			pacwomen.setImage(new ImageView());
 		
+			ImageView imageView =new ImageView();
+			
+			//if bomb point was eaten change pacman color
+			if(pacwomen.getColor()==Utils.Color.yellow) {
+				imageView = new ImageView("/Photos/Photo87-removebg-preview.png");
+				if(dir==Direction.LEFT)
+					imageView= new ImageView("/Photos/Photo87-removebg-preview.png");
+				else if(dir==Direction.RIGHT)
+					imageView= new ImageView("/Photos/Photo87-removebg-preview.png");
+			}
+	
+		 	else {
+				imageView = new ImageView("/Photos/Photo87-removebg-preview.png");
+				if(dir==Direction.LEFT)
+					imageView= new ImageView("/Photos/Photo87-removebg-preview.png");
+				else if(dir==Direction.RIGHT)
+					imageView= new ImageView("/Photos/Photo87-removebg-preview.png");
+				}
+				
+			bonusEaten=false;
+			if(isQuestion==false) {
+			imageView.setFitHeight(30);
+			imageView.setFitWidth(30);
+			imageView.setX(toX);
+			imageView.setY(toY);
+			pane.getChildren().add(imageView) ;
+			pacwomen.setImage(imageView);
+			returnPeckPointswomen(fromX,fromY);
+				}			
+		}
+	
+	 
+	
+	
+	/**                         --------- man *** women ----------                * */	
+	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * return bombPoints 30 seconds after eating them
 	 */
@@ -557,6 +742,62 @@ public class Board_2playersControl implements Initializable {
 		}			
 	}
 	
+	
+	private void returnBombPointwomen(int toX, int toY) {
+		if(bonusEaten_women==true) {
+			
+			retrunBombPoints = new KeyFrame(Duration.millis(30000), e->
+			{
+				if(game_women.gameState==GameState.Running) {
+
+				
+						BombPoints bomb=new BombPoints("");
+						ImageView imageView2 = new ImageView("Photos/dynamite.png");
+						imageView2.setFitHeight(30);
+						imageView2.setFitWidth(30);
+						imageView2.setX(toX);
+						imageView2.setY(toY);
+						
+		
+						boolean toadd= true;
+						for(int n = 0 ; n < bonusList.size() ; n++)
+						{
+							if((bonusList.get(n).getX())== toX && (bonusList.get(n).getY())== toY)
+									toadd=false;
+						}
+						
+						if(toadd == true) {
+						pane.getChildren().add(imageView2) ;
+						bonusList.add(imageView2) ;
+						}
+						
+				}
+						
+					});
+					bombPoints_timeline = new Timeline(retrunBombPoints) ;
+					bombPoints_timeline.setCycleCount(Timeline.INDEFINITE) ;
+					bombPoints_timeline.play() ;
+					
+			
+			pauseGhostwomen();
+		
+			if(pacwomen.getColor() == Utils.Color.pink) {
+				pacwomen.setColor(Utils.Color.green);
+					
+			}
+			else if(pacwomen.getColor()== Utils.Color.green)
+			{
+				pacwomen.setColor(Utils.Color.pink);
+		
+			}
+		
+		}			
+	}
+	
+	
+	/**                         --------- man *** women ----------                * */	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * check if a bomb point is eaten
 	 */
@@ -580,6 +821,31 @@ public class Board_2playersControl implements Initializable {
 		}			
 	}
 
+	
+	private void checkBonusPointEatenwomen(int toX, int toY) {
+
+		for(int b = 0 ; b < bonusList.size() ; b++)
+		{
+			if((bonusList.get(b).getX()== toX) && (bonusList.get(b).getY() == toY))
+			{
+				pane.getChildren().remove(bonusList.get(b)) ;
+				bonusList.remove(b) ;
+				game_women.setScore(game_women.getScore()+1);
+				scorelab2.setText(String.valueOf(game_women.getScore()));
+				levelUpwomen();
+				bonusEaten_women=true;
+				isbonusUsed_women=false;
+				
+			}
+			
+	
+		}			
+	}
+
+	
+	/**                         --------- man *** women ----------                * */	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * check if pec point was eaten
 	 */
@@ -600,11 +866,33 @@ public class Board_2playersControl implements Initializable {
 		}
 					
 	}
+	
+	
+	
+	private void checkPecPointEatenwomen(int toX, int toY) {
+		for(int n = 0 ; n < peckpointlist.size() ; n++)
+		{
+			if((peckpointlist.get(n).getCenterX()-15)== toX && (peckpointlist.get(n).getCenterY()-15)== toY)
+			{
+//				Sound.playSound(Sound.class.getResource("../resources/eat.mp3"), 80);
+				pane.getChildren().remove(peckpointlist.get(n)) ;
+				peckpointlist.remove(n) ;
+				game_women.setScore(game_women.getScore()+1);
+				scorelab2.setText(String.valueOf(game_women.getScore()));
+				levelUpwomen();
+	
+			}
+			
+		}
+					
+	}
+	
+	
+	
 	/*
 	 * check if a question is eaten
 	 */
-
-private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
+	private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 
 	
 		for(int m = 0 ; m < questionsPoints.size() ; m++)
@@ -968,6 +1256,11 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 		return isQuestion;
 	}
 	
+	
+	
+	/**                         --------- man *** women ----------                * */		
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * return peckPoints 30 seconds after eating them
 	 */
@@ -1018,11 +1311,66 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 						pecPoints_timeline = new Timeline(retrunPeckPoints) ;
 						pecPoints_timeline.setCycleCount(Timeline.INDEFINITE) ;
 						pecPoints_timeline.play() ;
-			
-				
-				
+							
 }
 	
+	
+	
+	private void returnPeckPointswomen(int fromX, int fromY) {
+		
+		retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
+		{
+			if(game_women.gameState==GameState.Running) {
+			
+		
+			for(int i=0; i<bonusList.size();i++)
+			{
+				if(bonusList.get(i).getX()!=fromX && bonusList.get(i).getY()!=fromY) {
+					
+					
+					//on level 2- pacman can move from walls(transitions), there could be a chance that a pec point comes on a wall after it closes
+						
+					if( (fromX!=90 && fromY!=0) || (fromX!=90 && fromY!=600) || (fromX!=0 && fromY!=300) || (fromX!=600 && fromY!=300) ) {
+						Circle peckPoint = (Circle) ShapeFactory.getShapeObject("Circle" , fromX, fromY, ObjectSize);
+						
+						boolean toadd= true;
+						for(int n = 0 ; n < peckpointlist.size() ; n++)
+						{
+							if((peckpointlist.get(n).getCenterX()-15)== fromX && (peckpointlist.get(n).getCenterY()-15)== fromY)
+							{
+								toadd=false;
+							}
+							if(n< bonusList.size())
+								if((bonusList.get(n).getX())== fromX && (bonusList.get(n).getY())== fromY)
+									toadd=false;
+							
+							if(pacwomen.getCurrentLocation().getRow()== fromX && pacwomen.getCurrentLocation().getColumn() == fromY)
+							{
+								toadd=false;
+							}
+						}
+						
+						if(toadd == true) {
+						pane.getChildren().add(peckPoint) ;
+						peckpointlist.add(peckPoint) ;
+						}
+					}
+				}
+							}
+							}
+							
+					});
+						pecPoints_timeline = new Timeline(retrunPeckPoints) ;
+						pecPoints_timeline.setCycleCount(Timeline.INDEFINITE) ;
+						pecPoints_timeline.play() ;
+							
+}
+	
+	
+	/**                         --------- man *** women ----------                * */		
+	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * when the ghost eat a bomb point he has the right to bomb it by clicking the mouse
 	 * if a ghost is away 3 cells from pacman and the pacman clicked on the pane, the ghost stops moving and disappears for 5 second
@@ -1158,12 +1506,152 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 			}
 			
 		});
+}
+	
+	
+	
+	
+	private void pauseGhostwomen() {
+		pane.setOnMouseClicked(new javafx.event.EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				if(isbonusUsed_women==false) {
+		
+				if(isbonusUsed_women==false && checkGhostInRadarwomen(redGhost)==true) {
+					if(pacwomen.getColor() == Utils.Color.pink) {
+						pacwomen.setColor( Utils.Color.green);	
+						
+				}
+				else if(pacwomen.getColor()== Utils.Color.green)
+				{
+					pacwomen.setColor( Utils.Color.pink);	
+
+				}
+					ghosts_timeline.stop();
+					ghosts_timeline.getKeyFrames().clear();
+
+					ghosts_keyFrame = new KeyFrame(Duration.millis(redGhost.getSpeed()), e->
+					{
+						if(game_women.gameState==GameState.Running) {
+						pane.getChildren().remove(redGhost.getImage());
+					 movePink();
+					 moveBlue();
+						}
+					 
+					});
+					ghosts_timeline = new Timeline(ghosts_keyFrame) ;
+					ghosts_timeline.setCycleCount(Timeline.INDEFINITE) ;
+					ghosts_timeline.play() ;
+					
+					Timer timer = new Timer();
+					timer.schedule(new TimerTask() {
+						
+						@Override
+						public void run() {
+							ghosts_timeline.stop();
+							ghosts_timeline.getKeyFrames().clear();
+							moveGhostAtSpeed();
+							}
+					}, 5000);
+
+					isbonusUsed_women=true;
+				}
+				
+				if(isbonusUsed_women==false && checkGhostInRadarwomen(blueGhost)==true) {
+					if(pacwomen.getColor() == Utils.Color.pink) {
+						pacwomen.setColor(Utils.Color.green);;	
+						
+				}
+				else if(pacwomen.getColor()== Utils.Color.green)
+				{
+					pacwomen.setColor(Utils.Color.pink);
+
+				}
+					ghosts_timeline.stop();
+					ghosts_timeline.getKeyFrames().clear();
+
+					ghosts_keyFrame = new KeyFrame(Duration.millis(redGhost.getSpeed()), e->
+					{
+						if(game_women.gameState==GameState.Running) {
+							pane.getChildren().remove(blueGhost.getImage());
+
+					 movePink();
+					 moveRed();
+						}
+					 
+					});
+					ghosts_timeline = new Timeline(ghosts_keyFrame) ;
+					ghosts_timeline.setCycleCount(Timeline.INDEFINITE) ;
+					ghosts_timeline.play() ;
+					
+					Timer timer = new Timer();
+					timer.schedule(new TimerTask() {
+						
+						@Override
+						public void run() {
+							ghosts_timeline.stop();
+							ghosts_timeline.getKeyFrames().clear();
+							moveGhostAtSpeed();
+						}
+					}, 5000);
+					isbonusUsed_women=true;
+							}
+				
+				if(isbonusUsed_women==false && checkGhostInRadarwomen(pinkGhost)==true) {
+					if(pacwomen.getColor() == Utils.Color.pink) {
+						pacwomen.setColor(Utils.Color.green);	
+						
+				}
+				else if(pacwomen.getColor()== Utils.Color.green)
+				{
+					pacwomen.setColor(Utils.Color.pink);	
+
+				}
+					ghosts_timeline.stop();
+					ghosts_timeline.getKeyFrames().clear();
+					ghosts_keyFrame = new KeyFrame(Duration.millis(redGhost.getSpeed()), e->
+					{
+						if(game.gameState==GameState.Running) {
+							pane.getChildren().remove(pinkGhost.getImage());
+
+					 moveBlue();
+					 moveRed();
+						}
+					 
+					});
+					ghosts_timeline = new Timeline(ghosts_keyFrame) ;
+					ghosts_timeline.setCycleCount(Timeline.INDEFINITE) ;
+					ghosts_timeline.play() ;
+					
+					Timer timer = new Timer();
+					timer.schedule(new TimerTask() {
+						
+						@Override
+						public void run() {
+							ghosts_timeline.stop();
+							ghosts_timeline.getKeyFrames().clear();
+							moveGhostAtSpeed();
+							}
+					}, 5000);
+					isbonusUsed_women=true;
+					}
+
+				}
+
+			}
+			
+		});
 
 
 		
 
 }
 	
+	
+	/**                         --------- man *** women ----------                * */			
+	
+	 /**                         --------- man *** women ----------                * */
 	/*  
 	 * check if ghost is in radar
 	 */
@@ -1180,6 +1668,23 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 		
 	}
 	
+	
+	private boolean checkGhostInRadarwomen(Ghost ghost) {
+		boolean toReturn=false;
+		int pacmanX= pacwomen.getCurrentLocation().getRow();
+		int pacmanY= pacwomen.getCurrentLocation().getColumn();
+		int ghostX= (int) ghost.getCurrentLocation().getRow();
+		int ghostY= (int) ghost.getCurrentLocation().getColumn();
+		if((pacmanY-ghostY <= 90 && pacmanX==ghostX)
+				|| (pacmanX-ghostX <= 90 && pacmanY==ghostY)|| (ghostY-pacmanY <= 90 && ghostX==pacmanX)|| (ghostX-pacmanX <= 90 && ghostY==pacmanY))
+			toReturn=true;
+		return toReturn;
+		
+	}
+	
+	/**                         --------- man *** women ----------                * */	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * when a user answers a wrong answer, he might go down with the level, then some features might not exist/might exist
 	 */
@@ -1302,6 +1807,123 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 			
 	}
 
+	
+	private void leveldownwomen() {
+		if(game_women.score>=0 && game_women.score<=50) {
+			
+			game_women.setLevel(Level.easy);
+			pacwomen.setSpeed(300);
+			redGhost.setSpeed(280);
+			pinkGhost.setSpeed(280);
+			blueGhost.setSpeed(280);
+			levelDown_women=true;
+		 
+		}
+			if(game_women.score>50 && game_women.score<=100) {
+				
+				game_women.setLevel(Level.medium);
+				pacwomen.setSpeed(290);
+				redGhost.setSpeed(270);
+				pinkGhost.setSpeed(270);
+				blueGhost.setSpeed(270);
+
+				levelDown_women=true;
+
+			  
+			}
+			if(game_women.score>100 && game_women.score<=150) {
+				
+				game_women.setLevel(Level.hard);
+				pacwomen.setSpeed(270);
+				redGhost.setSpeed(270);
+				pinkGhost.setSpeed(270);
+				blueGhost.setSpeed(270);
+				
+				levelDown_women=true;
+	
+			}
+			
+			if(game_women.getLevel() == Level.easy && levelDown_women==true)	{
+				if(QuestionMode==false) {
+					boolean toaddwall=false;
+					Rectangle wall1 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 0, ObjectSize); // pass in x, y, width and height
+					Rectangle wall2 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 600, ObjectSize); // pass in x, y, width and height
+					Rectangle wall3 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 0, 300, ObjectSize); // pass in x, y, width and height
+					Rectangle wall4 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 600, 300, ObjectSize); // pass in x, y, width and height
+					for(int i=0;i<wallList.size();i++)
+					{
+						if(wallList.get(i).getX()==wall1.getX() && wallList.get(i).getY()==wall1.getY() )
+							toaddwall=true;
+					}
+					if(toaddwall==true) {
+						pane.getChildren().add(wall1) ;
+						pane.getChildren().add(wall2) ;
+						pane.getChildren().add(wall3) ;
+						pane.getChildren().add(wall4) ;
+						
+						wallList.add(wall1);
+						wallList.add(wall2);
+						wallList.add(wall3);
+						wallList.add(wall4);
+					}
+					 levelDown_women=false;
+					 
+				}
+							
+			}
+		
+			if(game_women.getLevel() == Level.medium && levelDown_women==true)	{
+					pacwomen_timeline.stop();  
+					pacwomen_timeline.getKeyFrames().clear();
+					movePacwomenAtSpeed();
+				 for(int c = 0 ; c < wallList.size() ; c++)
+					{	
+						if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 0)
+						{
+							pane.getChildren().remove(wallList.get(c)) ;
+							wallList.remove(c);
+						}
+						if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 600)
+						{
+							pane.getChildren().remove(wallList.get(c)) ;
+							wallList.remove(c);
+	
+						}
+						
+						if((wallList.get(c).getX())== 0 && (wallList.get(c).getY())== 300)
+						{
+							pane.getChildren().remove(wallList.get(c)) ;
+							wallList.remove(c);
+	
+						}
+						if((wallList.get(c).getX())== 600 && (wallList.get(c).getY())== 300)
+						{
+							pane.getChildren().remove(wallList.get(c)) ;
+							wallList.remove(c);
+	
+						}
+					}
+				 levelDown_women=false;
+	
+			}
+			
+			if(game_women.getLevel()== Level.hard && levelDown_women==true)
+			{
+				pacwomen_timeline.stop();  
+				pacwomen_timeline.getKeyFrames().clear();
+				ghosts_timeline.stop();  
+				ghosts_timeline.getKeyFrames().clear();
+				levelDown_women=false;	
+				movePacwomenAtSpeed();
+				moveGhostAtSpeed();  
+			}
+			
+			
+	}
+
+	/**                         --------- man *** women ----------                * */		
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * update level according to player score
 	 * add features on every level that the player reaches to
@@ -1423,13 +2045,136 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 			}			
 	}
 	
+	
+	
+	private void levelUpwomen() {
+		/*
+		 * level1: pacman-speed=300, ghost-speed=280
+		 * level2: pacman-speed=290, ghost-speed=270
+		 * level3: pacman-speed=270, ghost-speed=270
+		 * level4: pacman-speed=260, ghost-speed=250
+		 */
+	
+	
+		if(game_women.score>50 && game_women.score<=100) {
+			
+			
+			game_women.setLevel(Level.medium);
+			pacwomen.setSpeed(290);
+			redGhost.setSpeed(270);
+			pinkGhost.setSpeed(270);
+			blueGhost.setSpeed(270);
+			levelUp_women= true;
+		}
+		if(game_women.score>100 && game_women.score<=150) {
+			
+			game_women.setLevel(Level.hard);
+			pacwomen.setSpeed(270);
+			redGhost.setSpeed(270);
+			pinkGhost.setSpeed(270);
+			blueGhost.setSpeed(270);
+			
+			levelUp_women= true;
+
+		}
+		if(game_women.score>150 && game_women.score<200) {
+			
+			game_women.setLevel(Level.super_hard);
+			pacwomen.setSpeed(260);
+			redGhost.setSpeed(250);
+			pinkGhost.setSpeed(250);
+			blueGhost.setSpeed(250);
+
+			levelUp_women= true;
+
+		}
+		if(game_women.score>=200) {
+			WinGamewomen();
+		}
+		
+		if(game_women.getLevel() == Level.medium && levelUp_women==true)	{
+			
+			 for(int c = 0 ; c < wallList.size() ; c++)
+				{
+					if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 0)
+					{
+						pane.getChildren().remove(wallList.get(c)) ;
+						wallList.remove(c);
+					}
+					if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 600)
+					{
+						pane.getChildren().remove(wallList.get(c)) ;
+						wallList.remove(c);
+
+					}
+					
+					if((wallList.get(c).getX())== 0 && (wallList.get(c).getY())== 300)
+					{
+						pane.getChildren().remove(wallList.get(c)) ;
+						wallList.remove(c);
+
+					}
+					if((wallList.get(c).getX())== 600 && (wallList.get(c).getY())== 300)
+					{
+						pane.getChildren().remove(wallList.get(c)) ;
+						wallList.remove(c);
+
+					}
+				}
+			 levelUp_women=false;
+
+		}
+		
+		
+		if(game_women.getLevel() == Level.hard && levelUp_women==true)	{
+			
+			Rectangle wall1 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 0, ObjectSize); // pass in x, y, width and height
+			Rectangle wall2 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 90, 600, ObjectSize); // pass in x, y, width and height
+			Rectangle wall3 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 0, 300, ObjectSize); // pass in x, y, width and height
+			Rectangle wall4 =(Rectangle) ShapeFactory.getShapeObject("Rectangle" , 600, 300, ObjectSize); // pass in x, y, width and height
+
+
+			pane.getChildren().add(wall1) ;
+			pane.getChildren().add(wall2) ;
+			pane.getChildren().add(wall3) ;
+			pane.getChildren().add(wall4) ;
+
+			wallList.add(wall1);
+			wallList.add(wall2);
+			wallList.add(wall3);
+			wallList.add(wall4);
+
+			pacwomen_timeline.stop();  
+			pacwomen_timeline.getKeyFrames().clear();
+			levelUp_women=false;	
+			movePacwomenAtSpeed();
+			
+		}			
+		
+		if(game_women.getLevel() == Level.super_hard && levelUp_women==true)	{
+			
+			pacwomen_timeline.stop();  
+			pacwomen_timeline.getKeyFrames().clear();
+			ghosts_timeline.stop();  
+			ghosts_timeline.getKeyFrames().clear();
+			levelUp_women=false;	
+			movePacwomenAtSpeed();
+			moveGhostAtSpeed();
+			
+		}			
+}
+	
+	/**                         --------- man *** women ----------                * */	
+	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * this function tells the user that he won, then the game board changes to the leader board game
 	 */
 		private void WinGame() {
 			pauseOrUnPauseGame();
 			Sound.playSound(Sound.class.getResource("../resources/levelup.mp3"), 80);
-			ImageView imageView = new ImageView("Photos/Youwin.png");
+			ImageView imageView = new ImageView("Photos/player1-removebg-preview.png");
 			imageView.setLayoutX(140);
 			imageView.setLayoutY(190);
 			imageView.setFitWidth(350);
@@ -1455,8 +2200,39 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 			timer.schedule(task,1000);
 			
 	}
+	
+		private void WinGamewomen() {
+			pauseOrUnPauseGame();
+			Sound.playSound(Sound.class.getResource("../resources/levelup.mp3"), 80);
+			ImageView imageView = new ImageView("Photos/player2-removebg-preview.png.png");
+			imageView.setLayoutX(140);
+			imageView.setLayoutY(190);
+			imageView.setFitWidth(350);
+			imageView.setFitHeight(200);
+			
+			pane.getChildren().add(imageView);
+            SysData.getInstance().addGameHistory(new Player(namelab2.getText(), game_women.score,Calendar.getInstance().getTime()));;
 
-		/**
+			Timer timer = new Timer();
+
+			TimerTask task = new TimerTask()
+			{
+			        public void run()
+			        { 
+			            Platform.runLater(() -> {
+						((Stage) pane.getScene().getWindow()).close();
+						ViewLogic.leaderBoardWindow();
+			            });
+			        
+			        }
+
+			};
+			timer.schedule(task,1000);
+			
+	}
+	
+		
+	/**
 	* will check if the ghost has caught pacman 
 	* @param x_ghost
 	* @param y_ghost
@@ -1475,7 +2251,11 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 	
 	return false ;
 	}
+
 	
+	/**                         --------- man *** women ----------                * */	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * move pacman at a speed 
 	 * speed is defined as: number of cells a pacman can move through within a specific time(in millisec)
@@ -1634,6 +2414,170 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 			pacman_timeline.play() ;		
 	}
 	
+	
+	
+	
+	private void movePacwomenAtSpeed() {
+		pacwomen_keyFrame = new KeyFrame(Duration.millis(pacwomen.getSpeed()), e->
+		{		
+			if(game_women.gameState==GameState.Running) {
+		
+
+			if(caughtPacman((int) redGhost.getCurrentLocation().getRow(),(int) redGhost.getCurrentLocation().getColumn(),pacwomen.getCurrentLocation().getRow(),pacwomen.getCurrentLocation().getColumn())==true)
+			{
+				System.out.println("Reeeed BYEEEEE");
+				game_women.setLive(game_women.getLive()-1);
+			
+			if(game_women.getLive()==0)
+			{
+				pauseOrUnPauseGame();  /////// 777777777777777777777777777777777777777777777777777
+				GameOverwomen();			//// 7777777777777777777777777777777777777777777777777777777	
+					
+				}
+			else 
+			{
+				
+				if(game_women.getLive()<=2)
+				{
+					if(game_women.getLive()==2)
+					{
+						life31.setVisible(false);
+					}
+					if(game_women.getLive()==1)
+					{		
+						life31.setVisible(false);
+		
+						life21.setVisible(false);
+					}
+					pacwomen.getCurrentLocation().setRow(300);
+					pacwomen.getCurrentLocation().setColumn(330);
+					
+					pane.getChildren().removeAll();
+					redGhost.getCurrentLocation().setRow(300);
+					redGhost.getImage().setX(300);
+					redGhost.getCurrentLocation().setColumn(240);
+					redGhost.getImage().setY(240);
+					blueGhost.getCurrentLocation().setRow(270);
+					blueGhost.getImage().setX(270);
+					blueGhost.getCurrentLocation().setColumn(240);
+					blueGhost.getImage().setY(240);
+					pinkGhost.getCurrentLocation().setColumn(240);
+					pinkGhost.getImage().setY(240);
+					pinkGhost.getCurrentLocation().setRow(330);
+					pinkGhost.getImage().setX(330);
+		
+					resume();
+				}
+				
+				
+			}
+			
+		}
+		if(caughtPacman((int) blueGhost.getCurrentLocation().getRow(),(int)blueGhost.getCurrentLocation().getColumn(),pacwomen.getCurrentLocation().getRow(),pacwomen.getCurrentLocation().getColumn())==true)
+		{
+			System.out.println("Bluee BYEEEEE");
+			game_women.setLive(game_women.getLive()-1);
+			if(game_women.getLive()==0)
+			{
+				pauseOrUnPauseGame();
+				GameOverwomen();
+				}
+			else
+			{
+				
+				if(game_women.getLive()<=2)
+				{
+					if(game_women.getLive()==2)
+					{
+						life31.setVisible(false);
+					}
+					if(game_women.getLive()==1)
+					{		
+						life31.setVisible(false);
+		
+						life21.setVisible(false);
+					}
+					pane.getChildren().removeAll();
+					pacwomen.getCurrentLocation().setRow(300);
+					pacwomen.getCurrentLocation().setColumn(330);
+					
+					redGhost.getCurrentLocation().setRow(300);
+					redGhost.getImage().setX(300);
+					redGhost.getCurrentLocation().setColumn(240);
+					redGhost.getImage().setY(240);
+					blueGhost.getCurrentLocation().setRow(270);
+					blueGhost.getImage().setX(270);
+					blueGhost.getCurrentLocation().setColumn(240);
+					blueGhost.getImage().setY(240);
+					pinkGhost.getCurrentLocation().setColumn(240);
+					pinkGhost.getImage().setY(240);
+					pinkGhost.getCurrentLocation().setRow(330);
+					pinkGhost.getImage().setX(330);
+					resume();
+				}
+				
+			}
+			
+		}
+		if(caughtPacman((int) pinkGhost.getCurrentLocation().getRow(),(int)pinkGhost.getCurrentLocation().getColumn(),pacwomen.getCurrentLocation().getRow(),pacwomen.getCurrentLocation().getColumn())==true)
+		{
+			System.out.println("pinkkk BYEEEEE");
+			game_women.setLive(game_women.getLive()-1);
+					if(game_women.getLive()==0)
+					{
+						pauseOrUnPauseGame();
+						GameOverwomen();
+					
+						}
+					else 
+					{
+						if(game_women.getLive()<=2)
+						{
+							if(game_women.getLive()==2)
+							{
+								life31.setVisible(false);
+							}
+							if(game_women.getLive()==1)
+							{		
+								life31.setVisible(false);
+		
+								life21.setVisible(false);
+							}
+							pane.getChildren().removeAll();
+							
+							pacwomen.getCurrentLocation().setRow(300);
+							pacwomen.getCurrentLocation().setColumn(330);
+							
+							
+							redGhost.getCurrentLocation().setRow(300);
+							redGhost.getImage().setX(300);
+							redGhost.getCurrentLocation().setColumn(240);
+							redGhost.getImage().setY(240);
+							blueGhost.getCurrentLocation().setRow(270);
+							blueGhost.getImage().setX(270);
+							blueGhost.getCurrentLocation().setColumn(240);
+							blueGhost.getImage().setY(240);
+							pinkGhost.getCurrentLocation().setColumn(240);
+							pinkGhost.getImage().setY(240);
+							pinkGhost.getCurrentLocation().setRow(330);
+							pinkGhost.getImage().setX(330);
+							resume();
+						}
+					}
+					
+				}
+			 movement_women(newDir_women);
+				}
+			});
+			pacwomen_timeline = new Timeline(pacwomen_keyFrame) ;
+			pacwomen_timeline.setCycleCount(Timeline.INDEFINITE) ;
+			pacwomen_timeline.play() ;		
+	}
+	
+	
+	/**                         --------- man *** women ----------                * */		
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * on game over, finish the game and add history to json
 	 */
@@ -1662,6 +2606,31 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 		timer.schedule(task,1000);			
 	}
 
+	
+	private void GameOverwomen() {
+		Sound.playSound(Sound.class.getResource("../resources/Death.mp3"), 80);
+		ImageView imageView = new ImageView("Photos/gameOver.png");
+		imageView.setLayoutX(140);
+		imageView.setLayoutY(190);
+		imageView.setFitWidth(350);
+		imageView.setFitHeight(200);
+		pane.getChildren().add(imageView);
+        SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
+
+		Timer timer = new Timer();
+		TimerTask task = new TimerTask()
+		{
+		        public void run()
+		        { Platform.runLater(() -> {
+
+					((Stage) pane.getScene().getWindow()).close();
+					ViewLogic.leaderBoardWindow();
+		            });
+		        }
+
+		};
+		timer.schedule(task,1000);			
+	}
 	/*
 	 * replace question with the same level in a random place
 	 */
@@ -1919,7 +2888,7 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 				// update the walls on the board
 				if(matrix[i][j]==1)
 				{
-						if(game.getLevel()==Level.medium) {
+						if(game.getLevel()==Level.medium || game_women.getLevel()==Level.medium) {
 							if(((thisRow!=90 && thisColoum==0) || (thisRow!=90 && thisColoum!=600) ||
 									(thisRow!=0 && thisColoum!=300) || (thisRow!=600 && thisColoum!=300) ))
 								addWall=true;
@@ -2063,9 +3032,13 @@ if(matrix[i][j] == 3)
 				if(tailPacman(redGhost, 10) != null)
 				{
 					red_movingAt = tailPacman(redGhost, 10) ;	// check if pacman is in red's radar. If pacman is 7 walls away from red, red will follow him
-		break ;
-	}
-	
+					break ;
+				}
+				if(tailPacwomen(redGhost, 10) != null)
+				{
+					red_movingAt = tailPacwomen(redGhost, 10) ;	// check if pacman is in red's radar. If pacman is 7 walls away from red, red will follow him
+					break ;
+				}
 	
 	// move in a random direction
 				Direction direction = getRandomDir() ;
@@ -2115,12 +3088,16 @@ if(matrix[i][j] == 3)
 			for(;;)
 			{
 				
-					if(tailPacman(blueGhost, 5) != null)
+					if(tailPacman(blueGhost, 6) != null)
 					{
-						blue_movingAt = tailPacman(blueGhost, 5) ;	// check if pacman is in red's radar. If pacman is 7 walls away from red, red will follow him
-			break ;
-		}
-		
+						blue_movingAt = tailPacman(blueGhost, 6) ;	// check if pacman is in red's radar. If pacman is 7 walls away from red, red will follow him
+						break ;
+					}
+					if(tailPacwomen(blueGhost, 6) != null)
+					{
+						blue_movingAt = tailPacwomen(blueGhost, 6) ;	// check if pacman is in red's radar. If pacman is 7 walls away from red, red will follow him
+						break ;
+					}
 		
 		// move in a random direction
 					Direction direction = getRandomDir() ;
@@ -2171,9 +3148,13 @@ if(matrix[i][j] == 3)
 						if(tailPacman(pinkGhost, 4) != null)
 						{
 							pink_movingAt = tailPacman(pinkGhost, 4) ;	// check if pacman is in pink's radar. If pacman is 4 walls away from pink, pink will follow him
-				break ;
-			}
-			
+							break ;
+						}
+						if(tailPacwomen(pinkGhost, 4) != null)
+						{
+							pink_movingAt = tailPacwomen(pinkGhost, 4) ;	// check if pacman is in pink's radar. If pacman is 4 walls away from pink, pink will follow him
+							break ;
+						}
 			
 			// move in a random direction
 					Direction direction = getRandomDir() ;
@@ -2207,6 +3188,9 @@ if(matrix[i][j] == 3)
 
 		}
 	
+	/**                         --------- man *** women ----------                * */	
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * checks the pacman location according to ghost location
 	 * this method was used in order that the ghost can chase the pacman	
@@ -2230,6 +3214,28 @@ if(matrix[i][j] == 3)
 			return null ;
 		}	
 		
+	
+	
+	private Direction pacwomenAt(Ghost ghost)
+	{
+		double x = ghost.getCurrentLocation().getRow();
+		double y = ghost.getCurrentLocation().getColumn();
+		double pacmanX= pacwomen.getCurrentLocation().getRow();
+		double pacmanY= pacwomen.getCurrentLocation().getColumn();
+
+		if(y == pacmanY && (pacmanX-x) > 0 && (pacmanX-x) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Direction.RIGHT) == false)
+			return Direction.RIGHT ;
+		else if(y == pacmanY && (x-pacmanX) > 0 && (x-pacmanX) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Direction.LEFT) == false)
+			return Direction.LEFT ;
+		else if(x == pacmanX && (pacmanY-y) > 0 && (pacmanY-y) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Direction.DOWN) == false)
+			return Direction.DOWN ;
+		else if(x == pacmanX && (y-pacmanY) > 0 && (y-pacmanY) < 100 && checkForWallsBetween(x, y, pacmanX, pacmanY, Direction.UP) == false)
+			return Direction.UP ;
+
+		return null ;
+	}	
+	
+	
 	/*
 	 * method that'll check for walls between 2 positions in a specific direction
 	 */
@@ -2273,6 +3279,11 @@ if(matrix[i][j] == 3)
 	
 			return wall_present ;
 		}
+	
+	
+	/**                         --------- man *** women ----------                * */		
+	
+	 /**                         --------- man *** women ----------                * */
 	/*
 	 * this function returns the direction that the ghost has to move to in order to chase tha pacman
 	 */
@@ -2308,6 +3319,38 @@ if(matrix[i][j] == 3)
 			return direction ;
 			}
 
+	
+	private Direction tailPacwomen(Ghost ghost, int wallCount) {
+		Direction direction = null ;
+		double ghostX = ghost.getCurrentLocation().getRow();
+		double ghostY = ghost.getCurrentLocation().getColumn();	
+		double pacmanX = pacwomen.getCurrentLocation().getRow() ;	
+		double pacmanY = pacwomen.getCurrentLocation().getColumn() ;	
+	
+		// from the ghost's current position find out in which direction pacman is
+		
+			Direction pacmanDir = pacwomenAt(ghost) ;	
+			int wallSize= ObjectSize;
+	
+			if(pacmanDir == Direction.DOWN && pacmanY-ghostY <= (wallSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Direction.DOWN) == false)	direction = Direction.DOWN ;				
+			}
+			else if(pacmanDir == Direction.UP && ghostY-pacmanY <= (wallSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Direction.UP) == false)	direction = Direction.UP ;				
+			}
+			else if(pacmanDir == Direction.LEFT && ghostX-pacmanX <= (wallSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Direction.LEFT) == false)	direction = Direction.LEFT ;				
+			}
+			else if(pacmanDir == Direction.RIGHT && pacmanX-ghostX <= (wallSize*wallCount))
+			{
+				if(checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Direction.RIGHT) == false)	direction = Direction.RIGHT ;				
+			}
+	
+			return direction ;
+			}
 	/*
 	 * this method returns num of turns that were made by the ghost 
 	 * used for the ghost algorithm for chasing pacman
@@ -2335,18 +3378,26 @@ if(matrix[i][j] == 3)
 		this.scene = scene;
 	}
 	
+	/**                         --------- man *** women ----------                * */	
 	public void pauseOrUnPauseGame() {
-			if(game.gameState==GameState.Paused) {
+			if(game.gameState==GameState.Paused || game_women.gameState==GameState.Paused)  {
 				game.gameState=GameState.Running;
+				game_women.gameState=GameState.Running;
 				movePackmanAtSpeed();
+				movePacwomenAtSpeed();
 				moveGhostAtSpeed();
 	
 			}
-			else if(game.gameState==GameState.Running) {
+			else if(game.gameState==GameState.Running || game_women.gameState==GameState.Running) {
 				game.gameState=GameState.Paused;
+				game_women.gameState=GameState.Paused;
 				if(pacman_timeline!=null) {
 					pacman_timeline.stop();
 					pacman_timeline.getKeyFrames().clear();
+				}
+				if(pacwomen_timeline!=null) {
+					pacwomen_timeline.stop();
+					pacwomen_timeline.getKeyFrames().clear();
 				}
 				if(pecPoints_timeline!=null) {
 		

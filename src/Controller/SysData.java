@@ -29,6 +29,7 @@ import Utils.Level;
 public class SysData {
 	
 	public static String CurrentPlayer;
+	public static String CurrentPlayer2;
 	private static SysData instance;
 	public static int questionID;
 	public ArrayList<Player> playersGames;
