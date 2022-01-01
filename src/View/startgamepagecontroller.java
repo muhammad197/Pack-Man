@@ -25,10 +25,19 @@ public class startgamepagecontroller implements Initializable{
 			    private Button gobtn;
 			    
 			    @FXML
+			    private Button gobtn1;
+			    
+			    @FXML
 			    private Button backbtn;
 
 			    @FXML
 			    private TextField userid;
+			    
+			    @FXML
+			    private TextField userid1;
+			    
+			    @FXML
+			    private TextField userid2;
 			    
 			    @FXML
 			    private Label error;
@@ -80,6 +89,25 @@ public class startgamepagecontroller implements Initializable{
 					
 					stage.showAndWait();
 					*/
+					
+				}
+				
+				@FXML
+				private void Go2Clicked(ActionEvent event) throws IOException {
+					if(userid1.getText()=="" && userid2.getText()=="") {
+						Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+						error.setText("Please enter users nicknames");	
+					} else if(userid1.getText()=="" && userid2.getText()!="") {
+						Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+						error.setText("Please enter nickname for player 1");	
+					} else if(userid1.getText()!="" && userid2.getText()=="") {
+						Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+						error.setText("Please enter nickname for player 2");	
+					}
+					else {
+					closeWindow();
+					SysData.CurrentPlayer= userid.getText().trim();
+					ViewLogic.gameWindow_2players();}
 					
 				}
 }

@@ -79,6 +79,18 @@ public class ViewLogic {
 					false);
 
 		}
+		
+  // =================================== Game 2 players========================================
+		protected static void gameWindow_2players() {
+			Stage stage = new Stage();
+
+			newWindow(ViewLogic.class.getResource("Board_2players.fxml"),
+					stage,
+					"Packman!",
+					false,
+					false);
+
+		}
 
 	// ================================== Main page ==================================
 	/**
