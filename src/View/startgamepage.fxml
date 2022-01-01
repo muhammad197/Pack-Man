@@ -30,8 +30,9 @@
          <textFill>
             <LinearGradient endX="1.0" endY="1.0" startX="0.25961538461538464">
                <stops>
-                  <Stop color="#831d1d" />
-                  <Stop color="#dbab14" offset="1.0" />
+                  <Stop color="#47bed0" />
+                  <Stop color="#47bed0" offset="0.007518796992481203" />
+                  <Stop color="#ab8923" offset="1.0" />
                </stops>
             </LinearGradient>
          </textFill>
@@ -39,23 +40,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="32.0" layoutY="309.0" prefHeight="28.0" prefWidth="174.0" text="username please :">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
+      <Label layoutX="32.0" layoutY="309.0" prefHeight="28.0" prefWidth="174.0" text="username please :" textFill="#72c7d4">
          <font>
             <Font size="22.0" />
          </font>
@@ -64,51 +49,13 @@
          <font>
             <Font size="24.0" />
          </font></TextField>
-      <Label layoutX="197.0" layoutY="388.0" text="GO!">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11372549086809158" green="0.11372549086809158" red="0.5137255191802979" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.0784313753247261" green="0.0784313753247261" red="0.8156862854957581" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
+      <Label layoutX="197.0" layoutY="388.0" text="GO!" textFill="#72c7d4">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="180.0" layoutY="379.0" strokeType="INSIDE" width="75.0">
-         <stroke>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11372549086809158" green="0.11372549086809158" red="0.5137255191802979" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.007532956685499058">
-                     <color>
-                        <Color blue="0.11372549086809158" green="0.11372549086809158" red="0.5137255191802979" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.0784313753247261" green="0.0784313753247261" red="0.8156862854957581" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </stroke>
-      </Rectangle>
-      <Button fx:id="gobtn" layoutX="180.0" layoutY="379.0" mnemonicParsing="false" onAction="#GoClicked" opacity="0.0" prefHeight="45.0" prefWidth="75.0" text="GO!" textFill="#b22c2c">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="180.0" layoutY="379.0" stroke="#72c7d4" strokeType="INSIDE" width="75.0" />
+      <Button fx:id="gobtn" layoutX="180.0" layoutY="379.0" mnemonicParsing="false" onAction="#GoClicked" opacity="0.0" prefHeight="45.0" prefWidth="75.0" text="GO!" textFill="#73c8d6">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -117,7 +64,8 @@
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
                   <Stop color="#ab8923" />
-                  <Stop color="#d00c0c" offset="1.0" />
+                  <Stop color="#ab8923" offset="0.007518796992481203" />
+                  <Stop color="#47bed0" offset="1.0" />
                </stops>
             </LinearGradient>
          </textFill>
@@ -125,42 +73,8 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="64.0" layoutY="534.0" text="NOT ready go back ">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
-      </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="47.0" layoutY="525.0" strokeType="INSIDE" width="142.0">
-         <stroke>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.1764705926179886" green="0.1764705926179886" red="0.8039215803146362" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.1764705926179886" green="0.1764705926179886" red="0.8039215803146362" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </stroke>
-      </Rectangle>
+      <Label layoutX="64.0" layoutY="534.0" text="NOT ready go back " textFill="#72c7d4" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="47.0" layoutY="525.0" stroke="#72c7d4" strokeType="INSIDE" width="142.0" />
       <Button fx:id="backbtn" layoutX="48.0" layoutY="525.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="34.0" prefWidth="142.0" text="NOT ready go back" />
       <Label fx:id="error" layoutX="438.0" layoutY="442.0" prefHeight="35.0" prefWidth="202.0" textFill="#f6f6f6">
          <font>
@@ -204,169 +118,51 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Label layoutX="762.0" layoutY="271.0" prefHeight="28.0" prefWidth="174.0" text=" the users-names:">
+      <Label layoutX="762.0" layoutY="271.0" prefHeight="28.0" prefWidth="174.0" text=" the users-names:" textFill="#72c7d4">
          <font>
             <Font size="22.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
       <TextField fx:id="userid1" layoutX="849.0" layoutY="315.0" prefHeight="45.0" prefWidth="121.0" promptText="username">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <Label layoutX="64.0" layoutY="278.0" prefHeight="28.0" prefWidth="109.0" text="Enter your">
+      <Label layoutX="64.0" layoutY="278.0" prefHeight="28.0" prefWidth="109.0" text="Enter your" textFill="#72c7d4">
          <font>
             <Font size="22.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
-      <Label layoutX="787.0" layoutY="243.0" prefHeight="28.0" prefWidth="142.0" text="Please, enter  ">
+      <Label layoutX="787.0" layoutY="243.0" prefHeight="28.0" prefWidth="142.0" text="Please, enter  " textFill="#73c8d6">
          <font>
             <Font size="22.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
       <TextField fx:id="userid2" layoutX="849.0" layoutY="380.0" prefHeight="45.0" prefWidth="121.0" promptText="username">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <Label layoutX="755.0" layoutY="324.0" prefHeight="28.0" prefWidth="88.0" text="Player 1:">
+      <Label layoutX="755.0" layoutY="324.0" prefHeight="28.0" prefWidth="88.0" text="Player 1:" textFill="#72c7d4">
          <font>
             <Font size="22.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
-      <Label layoutX="755.0" layoutY="389.0" prefHeight="28.0" prefWidth="88.0" text="Player 2:">
+      <Label layoutX="755.0" layoutY="389.0" prefHeight="28.0" prefWidth="88.0" text="Player 2:" textFill="#72c7d4">
          <font>
             <Font size="22.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11403508484363556" green="0.11403508484363556" red="0.5131579041481018" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.04532163590192795" green="0.04532163590192795" red="0.8157894611358643" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
       <Button fx:id="gobtn1" layoutX="866.0" layoutY="450.0" mnemonicParsing="false" onAction="#Go2Clicked" opacity="0.0" prefHeight="46.0" prefWidth="88.0" text="GO!" textFill="#b22c2c">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="872.0" layoutY="450.0" strokeType="INSIDE" width="75.0">
-         <stroke>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11372549086809158" green="0.11372549086809158" red="0.5137255191802979" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.007532956685499058">
-                     <color>
-                        <Color blue="0.11372549086809158" green="0.11372549086809158" red="0.5137255191802979" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.0784313753247261" green="0.0784313753247261" red="0.8156862854957581" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </stroke>
-      </Rectangle>
-      <Label layoutX="880.0" layoutY="459.0" text="GO!">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="872.0" layoutY="450.0" stroke="#73c8d6" strokeType="INSIDE" width="75.0" />
+      <Label layoutX="889.0" layoutY="459.0" text="GO!" textFill="#72c7d4">
          <font>
             <Font size="24.0" />
          </font>
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color blue="0.11372549086809158" green="0.11372549086809158" red="0.5137255191802979" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color blue="0.0784313753247261" green="0.0784313753247261" red="0.8156862854957581" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
       </Label>
    </children>
 </AnchorPane>
