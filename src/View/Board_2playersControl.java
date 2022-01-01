@@ -1791,9 +1791,9 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 		// update the  Pack-Man on the board
 		if(matrix[i][j] == 4)
 		{
-			ImageView imageView = new ImageView("Photos/mrPAC-removebg-preview.png");
-			imageView.setFitHeight(30);
-			imageView.setFitWidth(30);
+			ImageView imageView = new ImageView("Photos/Pac-Man__PMVS_-removebg-preview.png");
+			imageView.setFitHeight(40);
+			imageView.setFitWidth(40);
 			imageView.setX(thisRow);
 			imageView.setY(thisColoum);
 			pane.getChildren().add(imageView) ;
@@ -1803,8 +1803,9 @@ private boolean checkQuestionEaten(int toX, int toY, boolean isQuestion) {
 		if(matrix[i][j] == 10)
 		{
 			ImageView imageView = new ImageView("Photos/Photo87-removebg-preview.png");
-			imageView.setFitHeight(30);
-			imageView.setFitWidth(30);
+			//ImageView imageView = new ImageView("Photos/ms_pac_man-removebg-preview-2.png");
+			imageView.setFitHeight(40);
+			imageView.setFitWidth(40);
 			imageView.setX(thisRow);
 			imageView.setY(thisColoum);
 			pane.getChildren().add(imageView) ;
