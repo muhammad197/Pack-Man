@@ -2101,6 +2101,7 @@ public class Board_2playersControl implements Initializable {
 						pane.getChildren().remove(wallList.get(c)) ;
 						wallList.remove(c);
 					}
+					// 888888888888888888888888888888888888888888888888888888888888888
 					if((wallList.get(c).getX())== 90 && (wallList.get(c).getY())== 600)
 					{
 						pane.getChildren().remove(wallList.get(c)) ;
@@ -2270,14 +2271,16 @@ public class Board_2playersControl implements Initializable {
 			if(caughtPacman((int) redGhost.getCurrentLocation().getRow(),(int) redGhost.getCurrentLocation().getColumn(),pacman.getCurrentLocation().getRow(),pacman.getCurrentLocation().getColumn())==true)
 			{
 				System.out.println("Reeeed BYEEEEE");
-			game.setLive(game.getLive()-1);
+				game.setLive(game.getLive()-1);
 			
 			if(game.getLive()==0)
 			{
+				game.setGameState(GameState.Finished);
+				
 				pauseOrUnPauseGame();
 				GameOver();				
 					
-				}
+			}
 			else 
 			{
 				
@@ -2322,6 +2325,7 @@ public class Board_2playersControl implements Initializable {
 			game.setLive(game.getLive()-1);
 			if(game.getLive()==0)
 			{
+				game.setGameState(GameState.Finished);
 				pauseOrUnPauseGame();
 				GameOver();
 				}
@@ -2367,6 +2371,7 @@ public class Board_2playersControl implements Initializable {
 					game.setLive(game.getLive()-1);
 					if(game.getLive()==0)
 					{
+						game.setGameState(GameState.Finished);
 						pauseOrUnPauseGame();
 						GameOver();
 					
@@ -2430,6 +2435,7 @@ public class Board_2playersControl implements Initializable {
 			
 			if(game_women.getLive()==0)
 			{
+				game_women.setGameState(GameState.Finished);
 				pauseOrUnPauseGame();  /////// 777777777777777777777777777777777777777777777777777
 				GameOverwomen();			//// 7777777777777777777777777777777777777777777777777777777	
 					
@@ -2479,6 +2485,7 @@ public class Board_2playersControl implements Initializable {
 			game_women.setLive(game_women.getLive()-1);
 			if(game_women.getLive()==0)
 			{
+				game_women.setGameState(GameState.Finished);
 				pauseOrUnPauseGame();
 				GameOverwomen();
 				}
@@ -2525,6 +2532,7 @@ public class Board_2playersControl implements Initializable {
 			game_women.setLive(game_women.getLive()-1);
 					if(game_women.getLive()==0)
 					{
+						game_women.setGameState(GameState.Finished);
 						pauseOrUnPauseGame();
 						GameOverwomen();
 					
@@ -2574,8 +2582,7 @@ public class Board_2playersControl implements Initializable {
 			pacwomen_timeline.play() ;		
 	}
 	
-	
-	/**                         --------- man *** women ----------                * */		
+		
 	
 	 /**                         --------- man *** women ----------                * */
 	/*
@@ -2583,53 +2590,93 @@ public class Board_2playersControl implements Initializable {
 	 */
 	private void GameOver() {
 		Sound.playSound(Sound.class.getResource("../resources/Death.mp3"), 80);
-		ImageView imageView = new ImageView("Photos/gameOver.png");
+		ImageView imageView = new ImageView("Photos/over_1.jpeg");
 		imageView.setLayoutX(140);
 		imageView.setLayoutY(190);
 		imageView.setFitWidth(350);
 		imageView.setFitHeight(200);
 		pane.getChildren().add(imageView);
         SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
-
+        
+        for(int i=0; i<21; i++)
+    	   for(int j=0; j<21; j++)
+    		   if(matrix[i][j]==4)
+    			   matrix[i][j] = 0;
+        
+        pacman_timeline.getKeyFrames().clear();
+        //pacman= new PackMan(1,0, new ImageView(),null,Utils.Color.yellow);
+        
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask()
 		{
+			
 		        public void run()
 		        { Platform.runLater(() -> {
-
-					((Stage) pane.getScene().getWindow()).close();
-					ViewLogic.leaderBoardWindow();
+		        	if(game_women.getLive()==0 && game.getLive()==0 )
+		        	{	
+		        		((Stage) pane.getScene().getWindow()).close();
+						ViewLogic.leaderBoardWindow();
+		        	}
+					
 		            });
 		        }
+			
 
 		};
-		timer.schedule(task,1000);			
+		timer.schedule(task,2000);			
+		pauseOrUnPauseGame();
+		long count=0;
+		while(count!=300000000)
+			count++;
+		count=0;
+		while(count!=300000000)
+			count++;
+		count=0;
+		while(count!=300000000)
+			count++;
+		pane.getChildren().remove(imageView);
 	}
 
 	
 	private void GameOverwomen() {
 		Sound.playSound(Sound.class.getResource("../resources/Death.mp3"), 80);
-		ImageView imageView = new ImageView("Photos/gameOver.png");
+		ImageView imageView = new ImageView("Photos/over_2.jpeg");
 		imageView.setLayoutX(140);
 		imageView.setLayoutY(190);
 		imageView.setFitWidth(350);
 		imageView.setFitHeight(200);
 		pane.getChildren().add(imageView);
         SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
-
+        game_women.setGameState(GameState.Paused);
+        pacwomen.setImage(new ImageView());
+        
+        pacwomen_timeline.getKeyFrames().clear();
+        //pacwomen= new PackMan(1,0, new ImageView(),null,Utils.Color.pink);
+        for(int i=0; i<21; i++)
+     	   for(int j=0; j<21; j++)
+     		   if(matrix[i][j]==10)
+     			   matrix[i][j] = 0;
+        
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask()
 		{
 		        public void run()
 		        { Platform.runLater(() -> {
 
-					((Stage) pane.getScene().getWindow()).close();
-					ViewLogic.leaderBoardWindow();
+		        	if(game_women.getLive()==0 && game.getLive()==0)
+		        	{	((Stage) pane.getScene().getWindow()).close();
+						ViewLogic.leaderBoardWindow();
+		        	}
 		            });
 		        }
 
 		};
-		timer.schedule(task,1000);			
+		timer.schedule(task,2000);	
+		pauseOrUnPauseGame();
+		long count=0;
+		while(count!=300000000)
+			count++;
+		pane.getChildren().remove(imageView);
 	}
 	/*
 	 * replace question with the same level in a random place
@@ -3380,15 +3427,25 @@ if(matrix[i][j] == 3)
 	
 	/**                         --------- man *** women ----------                * */	
 	public void pauseOrUnPauseGame() {
-			if(game.gameState==GameState.Paused || game_women.gameState==GameState.Paused)  {
+			
+		if(game.gameState==GameState.Finished && game_women.gameState==GameState.Running)  {
+			game_women.gameState=GameState.Running;
+			movePacwomenAtSpeed();
+			moveGhostAtSpeed();
+		}
+		if(game.gameState==GameState.Running && game_women.gameState==GameState.Finished)  {
+			game.gameState=GameState.Running;
+			movePackmanAtSpeed();
+			moveGhostAtSpeed();
+		}
+			if(game.gameState==GameState.Paused )  {
 				game.gameState=GameState.Running;
 				game_women.gameState=GameState.Running;
 				movePackmanAtSpeed();
 				movePacwomenAtSpeed();
 				moveGhostAtSpeed();
-	
 			}
-			else if(game.gameState==GameState.Running || game_women.gameState==GameState.Running) {
+			else if(game.gameState==GameState.Running) {
 				game.gameState=GameState.Paused;
 				game_women.gameState=GameState.Paused;
 				if(pacman_timeline!=null) {
