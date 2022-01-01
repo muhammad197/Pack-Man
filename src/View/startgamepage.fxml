@@ -76,7 +76,7 @@
       <Label layoutX="64.0" layoutY="534.0" text="NOT ready go back " textFill="#72c7d4" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="47.0" layoutY="525.0" stroke="#72c7d4" strokeType="INSIDE" width="142.0" />
       <Button fx:id="backbtn" layoutX="48.0" layoutY="525.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="34.0" prefWidth="142.0" text="NOT ready go back" />
-      <Label fx:id="error" layoutX="438.0" layoutY="442.0" prefHeight="35.0" prefWidth="202.0" textFill="#f6f6f6">
+      <Label fx:id="error" layoutX="417.0" layoutY="442.0" prefHeight="35.0" prefWidth="291.0" textFill="#f6f6f6">
          <font>
             <Font size="16.0" />
          </font>
@@ -153,16 +153,16 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button fx:id="gobtn1" layoutX="866.0" layoutY="450.0" mnemonicParsing="false" onAction="#Go2Clicked" opacity="0.0" prefHeight="46.0" prefWidth="88.0" text="GO!" textFill="#b22c2c">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="872.0" layoutY="450.0" stroke="#73c8d6" strokeType="INSIDE" width="75.0" />
       <Label layoutX="889.0" layoutY="459.0" text="GO!" textFill="#72c7d4">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <Button fx:id="gobtn1" layoutX="872.0" layoutY="451.0" mnemonicParsing="false" onAction="#Go2Clicked" opacity="0.0" prefHeight="45.0" prefWidth="75.0" text="GO!" textFill="#73c8d6">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
