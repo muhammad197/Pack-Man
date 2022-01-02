@@ -128,6 +128,10 @@ public class startgamepagecontroller implements Initializable{
 						Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
 						error.setText("Please enter nickname for player 2");	
 					}
+					else if(userid1.getText().equals(userid2.getText())) {
+						Sound.playSound(Sound.class.getResource("../resources/erorr.mp3"), 80);
+						error.setText("Cant be the same username");	
+					}
 					else {
 					closeWindow();
 					SysData.CurrentPlayer= userid1.getText().trim();
