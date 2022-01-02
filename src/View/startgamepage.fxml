@@ -69,7 +69,7 @@
       <Label layoutX="64.0" layoutY="534.0" text="NOT ready go back " textFill="#72c7d4" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="47.0" layoutY="525.0" stroke="#72c7d4" strokeType="INSIDE" width="142.0" />
       <Button fx:id="backbtn" layoutX="48.0" layoutY="525.0" mnemonicParsing="false" onAction="#BackClicked" opacity="0.0" prefHeight="34.0" prefWidth="142.0" text="NOT ready go back" />
-      <Label fx:id="error" layoutX="375.0" layoutY="459.0" prefHeight="35.0" prefWidth="291.0" textFill="#f6f6f6">
+      <Label fx:id="error" layoutX="381.0" layoutY="372.0" prefHeight="35.0" prefWidth="291.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
