@@ -170,5 +170,7 @@
             </AnchorPane>
          </children>
       </HBox>
+      <ImageView fx:id="image_win" disable="true" fitHeight="359.0" fitWidth="597.0" layoutX="14.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
    </children>
 </Pane>
