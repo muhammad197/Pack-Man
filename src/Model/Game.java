@@ -3,6 +3,7 @@ package Model;
 import java.util.Objects;
 
 import Utils.GameState;
+import Utils.GameStateWomen;
 import Utils.Level;
 
 public class Game {
@@ -12,6 +13,7 @@ public class Game {
 	public int score;
 	public Level level;
 	public GameState gameState;
+	public GameStateWomen gameStatewomen;
 	
 	
 	/**
@@ -25,6 +27,15 @@ public class Game {
 		this.id = id;
 		this.live = live;
 		this.gameState = gameState;
+		this.score=score;
+		this.level=level;
+		this.playerName=Playername;
+	}
+	public Game(int id, int live, GameStateWomen gameStatewomen, int score, Level level, String Playername) {
+		super();
+		this.id = id;
+		this.live = live;
+		this.gameStatewomen = gameStatewomen;
 		this.score=score;
 		this.level=level;
 		this.playerName=Playername;
@@ -109,7 +120,9 @@ public class Game {
 		this.gameState = gameState;
 	}
 
-
+	public void setGameStateWomen(GameStateWomen gameStatewomen) {
+		this.gameStatewomen = gameStatewomen;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, live );

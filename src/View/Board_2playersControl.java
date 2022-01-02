@@ -29,6 +29,7 @@ import Model.PeckPoints;
 import Model.Player;
 import Model.Question;
 import Utils.GameState;
+import Utils.GameStateWomen;
 import Utils.Level;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -196,7 +197,7 @@ public class Board_2playersControl implements Initializable {
 		pinkGhost= new Ghost(3, 280, new ImageView(), new Location(330, 240), Utils.Color.pink);
 		
 		game=new Game(0, 3, GameState.Started, 0, Level.easy, SysData.CurrentPlayer); 
-		game_women=new Game(1, 3, GameState.Started, 0, Level.easy, SysData.CurrentPlayer2); 
+		game_women=new Game(1, 3, GameStateWomen.Started, 0, Level.easy, SysData.CurrentPlayer2); 
 		
 		pane.setStyle("-fx-background-color : black") ;//set background to black
 		fillBoard();
@@ -404,10 +405,10 @@ public class Board_2playersControl implements Initializable {
 	
 	@Override
 	public void handle(Event arg0) {
-		if(game.gameState==GameState.Started && game_women.gameState==GameState.Started ) {
+		if(game.gameState==GameState.Started && game_women.gameStatewomen==GameStateWomen.Started ) {
 			{
 				game.setGameState(GameState.Running);
-				game_women.setGameState(GameState.Running);
+				game_women.setGameStateWomen(GameStateWomen.Running);
 			}
 		setScene(pane.getScene());
 		//if user press on the stop game icon and there is a question is shown on board, he can't stop the game
@@ -431,7 +432,7 @@ public class Board_2playersControl implements Initializable {
 						}
 					}
 					else {
-						//save game history annd go to leaderboard window
+						//save game history and go to leaderboard window
 						Date localdate = (Date) Calendar.getInstance().getTime();
 			        	SysData.getInstance().addGameHistory(new Player(SysData.CurrentPlayer,game.getScore(),localdate));
 			        	SysData.getInstance().addGameHistory(new Player(SysData.CurrentPlayer2,game_women.getScore(),localdate));
@@ -464,7 +465,7 @@ public class Board_2playersControl implements Initializable {
 					}
 				}
 				
-				if(game_women.gameState==GameState.Running) {
+				if(game_women.gameStatewomen==GameStateWomen.Running) {
 					switch(event.getCode()) 
 					{
 						case W : newDir_women = Direction.UP ;
@@ -484,7 +485,7 @@ public class Board_2playersControl implements Initializable {
 			});
 			
 			 
-			if(game.gameState==GameState.Running && game_women.gameState==GameState.Running ) {
+			if(game.gameState==GameState.Running && game_women.gameStatewomen==GameStateWomen.Running ) {
 	 						movePackmanAtSpeed();// move pacman at pacman speed
 	 						movePacwomenAtSpeed();
 							moveGhostAtSpeed();//move all ghosts at ghosts speed 77777777777777777777777777777777777777777777777777777777777777
@@ -505,7 +506,7 @@ public class Board_2playersControl implements Initializable {
 	public void moveGhostAtSpeed() {
 		ghosts_keyFrame = new KeyFrame(Duration.millis(redGhost.getSpeed()), e->
 		{
-			if(game.gameState==GameState.Running) {
+			if(game.gameState==GameState.Running || game_women.gameStatewomen==GameStateWomen.Running) {
 
 		 movePink();
 		 moveRed();
@@ -589,12 +590,12 @@ public class Board_2playersControl implements Initializable {
 	
 	public void movePackwomen(Direction dir,int fromX, int fromY, int toX, int toY)
 	{
-		if(game_women.gameState==GameState.Running) {
+		if(game_women.gameStatewomen==GameStateWomen.Running) {
 		boolean isQuestion=false;
 		isQuestion= checkQuestionEaten(toX, toY, isQuestion);
 		checkPecPointEatenwomen(toX, toY);
 		checkBonusPointEatenwomen(toX, toY); 
-		returnBombPointwomen(toX, toY);
+		//returnBombPointwomen(toX, toY);
 		updatePacwomenMove(dir,fromX, fromY, toX, toY, isQuestion);
 		
 		}
@@ -748,7 +749,7 @@ public class Board_2playersControl implements Initializable {
 			
 			retrunBombPoints = new KeyFrame(Duration.millis(30000), e->
 			{
-				if(game_women.gameState==GameState.Running) {
+				if(game_women.gameStatewomen==GameStateWomen.Running) {
 
 				
 						BombPoints bomb=new BombPoints("");
@@ -1320,7 +1321,7 @@ public class Board_2playersControl implements Initializable {
 		
 		retrunPeckPoints = new KeyFrame(Duration.millis(30000), e->
 		{
-			if(game_women.gameState==GameState.Running) {
+			if(game_women.gameStatewomen==GameStateWomen.Running) {
 			
 		
 			for(int i=0; i<bonusList.size();i++)
@@ -2254,6 +2255,8 @@ public class Board_2playersControl implements Initializable {
 	}
 
 	
+
+	
 	/**                         --------- man *** women ----------                * */	
 	
 	 /**                         --------- man *** women ----------                * */
@@ -2277,7 +2280,7 @@ public class Board_2playersControl implements Initializable {
 			{
 				game.setGameState(GameState.Finished);
 				
-				pauseOrUnPauseGame();
+				//pauseOrUnPauseGame();
 				GameOver();				
 					
 			}
@@ -2326,7 +2329,7 @@ public class Board_2playersControl implements Initializable {
 			if(game.getLive()==0)
 			{
 				game.setGameState(GameState.Finished);
-				pauseOrUnPauseGame();
+				//pauseOrUnPauseGame();
 				GameOver();
 				}
 			else
@@ -2372,7 +2375,7 @@ public class Board_2playersControl implements Initializable {
 					if(game.getLive()==0)
 					{
 						game.setGameState(GameState.Finished);
-						pauseOrUnPauseGame();
+						//pauseOrUnPauseGame();
 						GameOver();
 					
 						}
@@ -2425,7 +2428,7 @@ public class Board_2playersControl implements Initializable {
 	private void movePacwomenAtSpeed() {
 		pacwomen_keyFrame = new KeyFrame(Duration.millis(pacwomen.getSpeed()), e->
 		{		
-			if(game_women.gameState==GameState.Running) {
+			if(game_women.gameStatewomen==GameStateWomen.Running) {
 		
 
 			if(caughtPacman((int) redGhost.getCurrentLocation().getRow(),(int) redGhost.getCurrentLocation().getColumn(),pacwomen.getCurrentLocation().getRow(),pacwomen.getCurrentLocation().getColumn())==true)
@@ -2435,7 +2438,7 @@ public class Board_2playersControl implements Initializable {
 			
 			if(game_women.getLive()==0)
 			{
-				game_women.setGameState(GameState.Finished);
+				game_women.setGameStateWomen(GameStateWomen.Finished);
 				pauseOrUnPauseGame();  /////// 777777777777777777777777777777777777777777777777777
 				GameOverwomen();			//// 7777777777777777777777777777777777777777777777777777777	
 					
@@ -2485,7 +2488,7 @@ public class Board_2playersControl implements Initializable {
 			game_women.setLive(game_women.getLive()-1);
 			if(game_women.getLive()==0)
 			{
-				game_women.setGameState(GameState.Finished);
+				game_women.setGameStateWomen(GameStateWomen.Finished);
 				pauseOrUnPauseGame();
 				GameOverwomen();
 				}
@@ -2532,7 +2535,7 @@ public class Board_2playersControl implements Initializable {
 			game_women.setLive(game_women.getLive()-1);
 					if(game_women.getLive()==0)
 					{
-						game_women.setGameState(GameState.Finished);
+						game_women.setGameStateWomen(GameStateWomen.Finished);
 						pauseOrUnPauseGame();
 						GameOverwomen();
 					
@@ -2617,6 +2620,9 @@ public class Board_2playersControl implements Initializable {
 		        		((Stage) pane.getScene().getWindow()).close();
 						ViewLogic.leaderBoardWindow();
 		        	}
+		        	else if(game_women.getLive()!=0 && game.getLive()==0 ) {
+		        		pane.getChildren().remove(imageView);
+		        	}
 					
 		            });
 		        }
@@ -2647,7 +2653,7 @@ public class Board_2playersControl implements Initializable {
 		imageView.setFitHeight(200);
 		pane.getChildren().add(imageView);
         SysData.getInstance().addGameHistory(new Player(namelab.getText(), game.score,Calendar.getInstance().getTime()));;
-        game_women.setGameState(GameState.Paused);
+        game_women.setGameStateWomen(GameStateWomen.Finished);
         pacwomen.setImage(new ImageView());
         
         pacwomen_timeline.getKeyFrames().clear();
@@ -2900,6 +2906,7 @@ public class Board_2playersControl implements Initializable {
 
 	    pane.getChildren().removeAll(bonusList);
 	    pane.getChildren().remove(pacman.getImage());
+	    pane.getChildren().remove(pacwomen.getImage());
 	    pane.getChildren().removeAll(peckpointlist);
 	    pane.getChildren().removeAll(wallList);
 	    pane.getChildren().removeAll(questionsPoints);
@@ -3428,26 +3435,26 @@ if(matrix[i][j] == 3)
 	/**                         --------- man *** women ----------                * */	
 	public void pauseOrUnPauseGame() {
 			
-		if(game.gameState==GameState.Finished && game_women.gameState==GameState.Running)  {
-			game_women.gameState=GameState.Running;
+		if(game.gameState==GameState.Finished && game_women.gameStatewomen==GameStateWomen.Running)  {
+			game_women.gameStatewomen=GameStateWomen.Running;
 			movePacwomenAtSpeed();
 			moveGhostAtSpeed();
 		}
-		if(game.gameState==GameState.Running && game_women.gameState==GameState.Finished)  {
-			game.gameState=GameState.Running;
+		if(game.gameState==GameState.Running && game_women.gameStatewomen==GameStateWomen.Finished)  {
+			game.gameStatewomen=GameStateWomen.Running;
 			movePackmanAtSpeed();
 			moveGhostAtSpeed();
 		}
 			if(game.gameState==GameState.Paused )  {
 				game.gameState=GameState.Running;
-				game_women.gameState=GameState.Running;
+				game_women.gameStatewomen=GameStateWomen.Running;
 				movePackmanAtSpeed();
 				movePacwomenAtSpeed();
 				moveGhostAtSpeed();
 			}
 			else if(game.gameState==GameState.Running) {
 				game.gameState=GameState.Paused;
-				game_women.gameState=GameState.Paused;
+				game_women.gameStatewomen=GameStateWomen.Paused;
 				if(pacman_timeline!=null) {
 					pacman_timeline.stop();
 					pacman_timeline.getKeyFrames().clear();
