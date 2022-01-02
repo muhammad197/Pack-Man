@@ -88,6 +88,15 @@ public class BoardControl implements Initializable {
 	    private Label scorelab;
 	    
 	    @FXML
+	    private Label firstname;
+	    
+	    @FXML
+	    private Label secName;
+	    
+	    @FXML
+	    private Label trName;
+	    
+	    @FXML
 	    private Label first;
 
 	    @FXML
@@ -185,6 +194,9 @@ public class BoardControl implements Initializable {
 			first.setText(String.valueOf(Players.get(0).GameHighScore));
 			second.setText(String.valueOf(Players.get(1).GameHighScore));
 			third.setText(String.valueOf(Players.get(2).GameHighScore));
+			firstname.setText(Players.get(0).getNickname());
+			secName.setText(Players.get(1).getNickname());
+			trName.setText(Players.get(2).getNickname());
 			statment.setText("play hard!");
 			pressedKeys(pane);
 			
@@ -574,15 +586,39 @@ public class BoardControl implements Initializable {
 					scorelab.setText(String.valueOf(game.getScore()));
 					if((Players.get(2).GameHighScore) <= (game.getScore()) ) {
 						third.setText(String.valueOf(game.getScore()));
-						statment.setText("You are on 3rd!");
+						trName.setText(game.getPlayerName());
+						first.setText(String.valueOf(Players.get(0).GameHighScore));
+						second.setText(String.valueOf(Players.get(1).GameHighScore));
+						firstname.setText(Players.get(0).getNickname());
+						secName.setText(Players.get(1).getNickname());
+						statment.setText("You are 3rd!");
 					}
-					else if((Players.get(1).GameHighScore) <= (game.getScore())) {
+					if((Players.get(1).GameHighScore) <= (game.getScore())) {
 						second.setText(String.valueOf(game.getScore()));
-						statment.setText("You are on 2nd!");
+						secName.setText(game.getPlayerName());
+						firstname.setText(Players.get(0).getNickname());
+						first.setText(String.valueOf(Players.get(0).GameHighScore));
+						 third.setText(String.valueOf(Players.get(1).GameHighScore));
+						  trName.setText(Players.get(1).getNickname());
+						statment.setText("You are 2nd!");
 					}
-					else if((Players.get(0).GameHighScore) <= (game.getScore())) 
+					if((Players.get(0).GameHighScore) <= (game.getScore())) 
 					{ first.setText(String.valueOf(game.getScore()));
+					  firstname.setText(game.getPlayerName());
+					  second.setText(String.valueOf(Players.get(0).GameHighScore));
+					  secName.setText(Players.get(0).getNickname());
+					  third.setText(String.valueOf(Players.get(1).GameHighScore));
+					  trName.setText(Players.get(1).getNickname());
 					statment.setText("You made it!");
+					}
+					if((game.getScore()) <= (Players.get(2).GameHighScore)  ) {
+						first.setText(String.valueOf(Players.get(0).GameHighScore));
+						second.setText(String.valueOf(Players.get(1).GameHighScore));
+						third.setText(String.valueOf(Players.get(2).GameHighScore));
+						firstname.setText(Players.get(0).getNickname());
+						secName.setText(Players.get(1).getNickname());
+						trName.setText(Players.get(2).getNickname());
+						statment.setText("play hard!");
 					}
 					levelUp();
 					bonusEaten=true;
@@ -607,6 +643,42 @@ public class BoardControl implements Initializable {
 					peckpointlist.remove(n) ;
 					game.setScore(game.getScore()+1);
 					scorelab.setText(String.valueOf(game.getScore()));
+					if((Players.get(2).GameHighScore) <= (game.getScore()) ) {
+						third.setText(String.valueOf(game.getScore()));
+						trName.setText(game.getPlayerName());
+						first.setText(String.valueOf(Players.get(0).GameHighScore));
+						second.setText(String.valueOf(Players.get(1).GameHighScore));
+						firstname.setText(Players.get(0).getNickname());
+						secName.setText(Players.get(1).getNickname());
+						statment.setText("You are 3rd!");
+					}
+					if((Players.get(1).GameHighScore) <= (game.getScore())) {
+						second.setText(String.valueOf(game.getScore()));
+						secName.setText(game.getPlayerName());
+						firstname.setText(Players.get(0).getNickname());
+						first.setText(String.valueOf(Players.get(0).GameHighScore));
+						 third.setText(String.valueOf(Players.get(1).GameHighScore));
+						  trName.setText(Players.get(1).getNickname());
+						statment.setText("You are 2nd!");
+					}
+					if((Players.get(0).GameHighScore) <= (game.getScore())) 
+					{ first.setText(String.valueOf(game.getScore()));
+					  firstname.setText(game.getPlayerName());
+					  second.setText(String.valueOf(Players.get(0).GameHighScore));
+					  secName.setText(Players.get(0).getNickname());
+					  third.setText(String.valueOf(Players.get(1).GameHighScore));
+					  trName.setText(Players.get(1).getNickname());
+					statment.setText("You made it!");
+					}
+					if((game.getScore()) <= (Players.get(2).GameHighScore)  ) {
+						first.setText(String.valueOf(Players.get(0).GameHighScore));
+						second.setText(String.valueOf(Players.get(1).GameHighScore));
+						third.setText(String.valueOf(Players.get(2).GameHighScore));
+						firstname.setText(Players.get(0).getNickname());
+						secName.setText(Players.get(1).getNickname());
+						trName.setText(Players.get(2).getNickname());
+						statment.setText("play hard!");
+					}
 					levelUp();
 		
 				}
@@ -904,6 +976,42 @@ public class BoardControl implements Initializable {
 										if(q.getLevel()==Level.hard)
 											game.setScore(game.getScore()+3);
 										scorelab.setText(String.valueOf(game.getScore()));
+										if((Players.get(2).GameHighScore) <= (game.getScore()) ) {
+											third.setText(String.valueOf(game.getScore()));
+											trName.setText(game.getPlayerName());
+											first.setText(String.valueOf(Players.get(0).GameHighScore));
+											second.setText(String.valueOf(Players.get(1).GameHighScore));
+											firstname.setText(Players.get(0).getNickname());
+											secName.setText(Players.get(1).getNickname());
+											statment.setText("You are 3rd!");
+										}
+										if((Players.get(1).GameHighScore) <= (game.getScore())) {
+											second.setText(String.valueOf(game.getScore()));
+											secName.setText(game.getPlayerName());
+											firstname.setText(Players.get(0).getNickname());
+											first.setText(String.valueOf(Players.get(0).GameHighScore));
+											 third.setText(String.valueOf(Players.get(1).GameHighScore));
+											  trName.setText(Players.get(1).getNickname());
+											statment.setText("You are 2nd!");
+										}
+										if((Players.get(0).GameHighScore) <= (game.getScore())) 
+										{ first.setText(String.valueOf(game.getScore()));
+										  firstname.setText(game.getPlayerName());
+										  second.setText(String.valueOf(Players.get(0).GameHighScore));
+										  secName.setText(Players.get(0).getNickname());
+										  third.setText(String.valueOf(Players.get(1).GameHighScore));
+										  trName.setText(Players.get(1).getNickname());
+										statment.setText("You made it!");
+										}
+										if((game.getScore()) <= (Players.get(2).GameHighScore)  ) {
+											first.setText(String.valueOf(Players.get(0).GameHighScore));
+											second.setText(String.valueOf(Players.get(1).GameHighScore));
+											third.setText(String.valueOf(Players.get(2).GameHighScore));
+											firstname.setText(Players.get(0).getNickname());
+											secName.setText(Players.get(1).getNickname());
+											trName.setText(Players.get(2).getNickname());
+											statment.setText("play hard!");
+										}
 										levelUp();
 										//show that answer is right
 										if(q.getTrueAnswer()==1)
@@ -953,6 +1061,42 @@ public class BoardControl implements Initializable {
 										if(game.getScore()<0)
 											game.setScore(0);
 										scorelab.setText(String.valueOf(game.getScore()));
+										if((Players.get(2).GameHighScore) <= (game.getScore()) ) {
+											third.setText(String.valueOf(game.getScore()));
+											trName.setText(game.getPlayerName());
+											first.setText(String.valueOf(Players.get(0).GameHighScore));
+											second.setText(String.valueOf(Players.get(1).GameHighScore));
+											firstname.setText(Players.get(0).getNickname());
+											secName.setText(Players.get(1).getNickname());
+											statment.setText("You are 3rd!");
+										}
+										if((Players.get(1).GameHighScore) <= (game.getScore())) {
+											second.setText(String.valueOf(game.getScore()));
+											secName.setText(game.getPlayerName());
+											firstname.setText(Players.get(0).getNickname());
+											first.setText(String.valueOf(Players.get(0).GameHighScore));
+											 third.setText(String.valueOf(Players.get(1).GameHighScore));
+											  trName.setText(Players.get(1).getNickname());
+											statment.setText("You are 2nd!");
+										}
+										if((Players.get(0).GameHighScore) <= (game.getScore())) 
+										{ first.setText(String.valueOf(game.getScore()));
+										  firstname.setText(game.getPlayerName());
+										  second.setText(String.valueOf(Players.get(0).GameHighScore));
+										  secName.setText(Players.get(0).getNickname());
+										  third.setText(String.valueOf(Players.get(1).GameHighScore));
+										  trName.setText(Players.get(1).getNickname());
+										statment.setText("You made it!");
+										}
+										if((game.getScore()) <= (Players.get(2).GameHighScore)  ) {
+											first.setText(String.valueOf(Players.get(0).GameHighScore));
+											second.setText(String.valueOf(Players.get(1).GameHighScore));
+											third.setText(String.valueOf(Players.get(2).GameHighScore));
+											firstname.setText(Players.get(0).getNickname());
+											secName.setText(Players.get(1).getNickname());
+											trName.setText(Players.get(2).getNickname());
+											statment.setText("play hard!");
+										}
 										leveldown();
 										Timer timer = new Timer();
 										//show selected answer in red and right answer in green

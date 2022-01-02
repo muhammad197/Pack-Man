@@ -71,39 +71,55 @@
                         <Image url="@../resources/high.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="14.0" layoutY="287.0">
+                  <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="3.0" layoutY="284.0">
                      <image>
                         <Image url="@../resources/2.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="14.0" layoutY="317.0">
+                  <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="3.0" layoutY="315.0">
                      <image>
                         <Image url="@../resources/3.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="14.0" layoutY="252.0">
+                  <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="3.0" layoutY="248.0">
                      <image>
                         <Image url="@../resources/1.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="first" layoutX="60.0" layoutY="248.0" prefHeight="17.0" prefWidth="45.0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="first" layoutX="90.0" layoutY="254.0" prefHeight="17.0" prefWidth="30.0" textAlignment="RIGHT" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="second" layoutX="60.0" layoutY="284.0" prefHeight="17.0" prefWidth="45.0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="second" layoutX="90.0" layoutY="284.0" prefHeight="17.0" prefWidth="30.0" textAlignment="RIGHT" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="third" layoutX="60.0" layoutY="315.0" prefHeight="17.0" prefWidth="45.0" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="third" layoutX="90.0" layoutY="321.0" prefHeight="17.0" prefWidth="30.0" textAlignment="RIGHT" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
                      </font>
                   </Label>
                   <Label fx:id="statment" alignment="TOP_CENTER" contentDisplay="TEXT_ONLY" layoutX="7.0" layoutY="362.0" prefHeight="48.0" prefWidth="109.0" textAlignment="CENTER" textFill="#fbfbfb" textOverrun="WORD_ELLIPSIS" wrapText="true">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="5.0" layoutY="345.0" prefHeight="3.0" prefWidth="109.0" />
+                  <Label fx:id="firstname" layoutX="30.0" layoutY="253.0" prefHeight="17.0" prefWidth="51.0" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="secName" layoutX="30.0" layoutY="284.0" prefHeight="17.0" prefWidth="51.0" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="trName" layoutX="30.0" layoutY="320.0" prefHeight="17.0" prefWidth="51.0" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
                      </font>
                   </Label>
                </children>
