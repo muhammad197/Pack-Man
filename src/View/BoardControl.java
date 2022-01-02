@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Stream;
 
 import Controller.ShapeFactory;
 import Controller.Sound;
@@ -42,6 +43,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -84,6 +86,19 @@ public class BoardControl implements Initializable {
 	
 	    @FXML
 	    private Label scorelab;
+	    
+	    @FXML
+	    private Label first;
+
+	    @FXML
+	    private Label second;
+	    
+	    @FXML
+	    private Label third;
+
+	    @FXML
+	    private Label statment;
+
 	
 	    @FXML
 	    private ImageView stopIcon;
@@ -123,6 +138,7 @@ public class BoardControl implements Initializable {
 		private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>() ;
 		private ArrayList<ImageView> bonusList = new ArrayList<ImageView>() ;
 		private ArrayList<ImageView> questionsPoints = new ArrayList<ImageView>() ;	
+		private ArrayList<Player> Players;
 		
 		private Ghost redGhost;
 		private Ghost blueGhost;
@@ -161,10 +177,15 @@ public class BoardControl implements Initializable {
 			blueGhost= new Ghost(1, 280, new ImageView(), new Location(270,240), Utils.Color.blue);
 			pinkGhost= new Ghost(3, 280, new ImageView(), new Location(330, 240), Utils.Color.pink);
 			game=new Game(0, 3, GameState.Started, 0, Level.easy, SysData.CurrentPlayer); 
+			Players = SysData.getInstance().getPlayersGames();
 			pane.setStyle("-fx-background-color : black") ;//set background to black
 			fillBoard();
 			namelab.setText(game.getPlayerName());
 			scorelab.setText(String.valueOf(game.getScore()));
+			first.setText(String.valueOf(Players.get(0).GameHighScore));
+			second.setText(String.valueOf(Players.get(1).GameHighScore));
+			third.setText(String.valueOf(Players.get(2).GameHighScore));
+			statment.setText("play hard!");
 			pressedKeys(pane);
 			
 		
@@ -302,6 +323,10 @@ public class BoardControl implements Initializable {
 						alert.setContentText("Do you want to quit the game?");
 						ButtonType buttonYes = new ButtonType("Yes", ButtonData.YES);
 						ButtonType buttonNo = new ButtonType("No", ButtonData.NO);
+						
+						DialogPane dialogPane = alert.getDialogPane();
+						
+						    dialogPane.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 						alert.getButtonTypes().setAll(buttonYes, buttonNo);
 						Optional<ButtonType> answer = alert.showAndWait();
 						if (answer.get().getButtonData() == ButtonData.NO) {
@@ -547,6 +572,18 @@ public class BoardControl implements Initializable {
 					bonusList.remove(b) ;
 					game.setScore(game.getScore()+1);
 					scorelab.setText(String.valueOf(game.getScore()));
+					if((Players.get(2).GameHighScore) <= (game.getScore()) ) {
+						third.setText(String.valueOf(game.getScore()));
+						statment.setText("You are on 3rd!");
+					}
+					else if((Players.get(1).GameHighScore) <= (game.getScore())) {
+						second.setText(String.valueOf(game.getScore()));
+						statment.setText("You are on 2nd!");
+					}
+					else if((Players.get(0).GameHighScore) <= (game.getScore())) 
+					{ first.setText(String.valueOf(game.getScore()));
+					statment.setText("You made it!");
+					}
 					levelUp();
 					bonusEaten=true;
 					isbonusUsed=false;
@@ -781,6 +818,19 @@ public class BoardControl implements Initializable {
 					Button submit= new Button("Submit Answer");
 					submit.setLayoutX(200);
 					submit.setLayoutY(290);
+					submit.setStyle(" -fx-background-color: \r\n"
+							+ "        #090a0c,\r\n"
+							+ "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\r\n"
+							+ "        linear-gradient(#20262b, #191d22),\r\n"
+							+ "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\r\n"
+							+ "    -fx-background-radius: 5,4,3,5;\r\n"
+							+ "    -fx-background-insets: 0,1,2,0;\r\n"
+							+ "    -fx-text-fill: white;\r\n"
+							+ "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\r\n"
+							+ "    -fx-font-family: \"Arial\";\r\n"
+							+ "    -fx-text-fill: linear-gradient(white, #d0d0d0);\r\n"
+							+ "    -fx-font-size: 12px;\r\n"
+							+ "    -fx-padding: 10 20 10 20;");
 					Label label= new Label();
 					label.setLayoutX(70);
 					label.setLayoutY(280);
