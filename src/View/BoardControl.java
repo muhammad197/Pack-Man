@@ -870,6 +870,7 @@ public class BoardControl implements Initializable {
 
 						@Override
 						public void handle(Event arg0) {
+							submit.setDisable(true);
 							int numofsel=0;
 								if(ans1.isSelected()) numofsel++;
 								if(ans2.isSelected()) numofsel++;
@@ -1479,7 +1480,7 @@ public class BoardControl implements Initializable {
 				        }
 
 				};
-				timer.schedule(task,1000);
+				timer.schedule(task,2000);
 				
 		}
 
